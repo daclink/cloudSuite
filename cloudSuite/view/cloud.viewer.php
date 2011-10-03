@@ -11,24 +11,28 @@
         <script language="JavaScript" src="includes/jquery.js"></script>
         <script type="text/javascript">
             document.write("hello?");
-            new Ajax.Request('http://www.daclink.com/hints/owe',
-            {
-                method:'get',
-                onSuccess: function(transport){
-                    var response = transport.responseText || "no response text";
-                    //alert("Success! \n\n" + response);
-                    $('responser').update('fishCAke!');
-                    $('responser').innerHTML;
-                },
-                onFailure: function(){ alert('Something went wrong...') }
-            });
+            function foo() {
+                
+                new Ajax.Request('http://www.daclink.com/hints/owe',
+                {
+                    method:'get',
+                    onSuccess: function(transport){
+                        var response = transport.responseText || "no response text";
+                        //alert("Success! \n\n" + response);
+                        $('responser').update('fishCAke!');
+                        $('responser').innerHTML;
+                    },
+                    onFailure: function(){ alert('Something went wrong...') }
+                });
+            }
         </script>
     </head>
     <body>
         <h1>Viewer is online</h1>
         
-        <div id ="responser" onclick="transport()">What?</div>
+        <div id ="responser"> <a href="" onclick="foo()">ME!</a></div>
         <?php
+        $path = $_SERVER[''];
         $cs = new cloudControler();
          $cs->test();
          echo "<pre>";

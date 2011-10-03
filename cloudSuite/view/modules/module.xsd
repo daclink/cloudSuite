@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://xml.netbeans.org/schema/module"
+    xmlns:tns="http://xml.netbeans.org/schema/module"
+    elementFormDefault="qualified">
+    <xsd:attribute name="name" type="xsd:string"/>
+    <xsd:attribute name="method" type="xsd:string"/>
+    <xsd:group name="newGroup">
+        <xsd:sequence/>
+    </xsd:group>
+</xsd:schema>

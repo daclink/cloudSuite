@@ -5,7 +5,7 @@
  *
  * @author daclink
  */
-class cloudserver {
+class cloudControler {
     
     public function __construct() {
         ;

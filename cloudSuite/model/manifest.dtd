@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/manifest.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE module SYSTEM "manifest.dtd">
+
+    <module>
+    ...
+    </module>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT module (node|name)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT name (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT node (output|input|executableName|executableLocation|systemTests|systemRequirements|canonical_name|name)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT canonical_name (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT systemRequirements (software2|software1)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT software1 (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT software2 (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT systemTests (test2|test1)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT test1 (expected|command)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT command (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT expected (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT test2 (expected|command)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT executableLocation (#PCDATA)>
+<!ATTLIST executableLocation
+    remote CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT executableName (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT input (option3|option2|option1|required)*>
+<!ATTLIST input
+    max CDATA #IMPLIED
+    min CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT required (name|moduleRelativePath|type)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT type (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT option1 (name|moduleRelativePath|type)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT option2 (name|moduleRelativePath|type)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT option3 (name|RelativePath|type)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT output (option3|option2|option1|required)*>
+<!ATTLIST output
+    max CDATA #IMPLIED
+    min CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT moduleRelativePath (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT RelativePath (#PCDATA)>

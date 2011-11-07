@@ -1,84 +1,36 @@
-<manifest>
-    <ParentModule>
-        Eveolutionary Algorithms
-    </ParentModule>
-    <name>
-        Genetic Algorithm        
-    </name>
-    <canonical_name>
-        UID
-    </canonical_name>
-    <systemRequirements>
-        <software1>python ver 2</software1>
-        <software2>CloudSuite ver 0.2</software2>
-    </systemRequirements>
-    <systemTests>
-        <test1>
+<?xml version="1.0"?>
+<module moduleName="Evo algo">
+    <node>
+        <nodeName>Genetic Algorithm</nodeName>
+        <canonical_name>UID</canonical_name>
+        <system_reqs>
+            <product>php</product>
+            <version>4</version>
+        </system_reqs>
+        <system_test>
             <command>which php</command>
             <expected> ! null</expected>
-        </test1>
-        <test2>
-            <!-- fix this to return JUST an int -->
-            <command>php ==version</command>
-            <expected> >2</expected>
-        </test2>            
-    <executableLocation remote="y|n">
-        /path/to/exe/
-    </executableLocation>
-    <executableName>
-        foo.exe
-    </executableName>
-    <input min="1" max="4">
-        <required>
-            <type>string | csv | int | xml | etc </type>
-        </required>
-        <option1>
-            <type>string | csv | int | xml | etc </type>
-        </option1>
-        <option2>
-            <type>string | csv | int | xml | etc </type>
-        </option2>
-        <option3>
-            <type>string | csv | int | xml | etc </type>
-        </option3>
-    </input>
-    <output min="1" max="4">
-        <required>
-            <type>string | csv | int | xml | etc </type>
-            <moduleRelativePath>
-                foo/bar
-            </moduleRelativePath>
-            <name>
-                yymmdd_modName.csv
-            </name>
-        </required>
-        <option1>
-            <type>string | csv | int | xml | etc </type>
-            <moduleRelativePath>
-                foo/bar
-            </moduleRelativePath>
-            <name>
-                yymmdd_modName.csv
-            </name>
-        </option1>
-        <option2>
-            <type>string | csv | int | xml | etc </type>
-            <moduleRelativePath>
-                foo/bar
-            </moduleRelativePath>
-            <name>
-                yymmdd_modName.csv
-            </name>
-        </option2>
-        <option3>
-            <type>string | csv | int | xml | etc </type>
-            <moduleRelativePath>
-                foo/bar
-            </moduleRelativePath>
-            <name>
-                yymmdd_modName.csv
-            </name>
-        </option3>
-    </output>
-        
-</manifest>
+        </system_test>
+        <binary>
+            <path>/here</path>
+            <file>foo.php</file>
+            <parameters min_expected="0" max_expected="2">
+                <value>3</value>
+            </parameters>
+        </binary>
+        <input min="1" max="4">
+            <name>inthing</name>
+            <UID>123444</UID>
+            <node_name>genetic_out</node_name>
+            <node_UID>123123</node_UID>
+            <kind>.csv</kind>
+        </input>
+        <output min="1" max="4">
+            <name>inthing</name>
+            <UID>123</UID>
+            <node_name>genetic_out</node_name>
+            <node_UID>123321</node_UID>
+            <kind>.csv</kind>
+        </output>
+    </node>
+</module>

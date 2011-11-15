@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<cs:element name ="module" xmlns:cs="http://www.cloudsuite.info/model/schema">
+	<cs:oneOrMore>
+		<cs:element name="node">
+			

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified" >
+            
+    <xsd:element name="dataSet" type="dataSet">
+        <xsd:annotation>
+            <xsd:documentation>
+                dataSet schema for cloudSuite.info
+                Copyright 2011 Drew A. Clinkenbeard
+                All right reserved. 
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    
+    

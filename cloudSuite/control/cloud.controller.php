@@ -1,4 +1,4 @@
-<?php namespace CloudSuite
+<?php namespace CSControl
 
 /**
  * This file represents the primary REST portion
@@ -109,6 +109,6 @@ class RestRequest
 		return $this->request_vars;
 	}
 
-	}
+	
 }
 ?>

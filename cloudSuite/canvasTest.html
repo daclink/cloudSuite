@@ -1,0 +1,100 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Playing Around</title>
+        <link rel="stylesheet" href="includes/css/ui-lightness/jqui.css" type="text/css" media="all" />
+        <script type="text/javascript" src="includes/js/jquery-1.6.2.min.js"></script>
+        <script type="text/javascript" src="includes/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+        <script type="text/javascript">
+            function drawShape(){
+                // get the canvas element using the DOM
+                var canvas = document.getElementById('mycanvas');
+
+                // Make sure we don't execute when canvas isn't supported
+                if (canvas.getContext){
+
+                    // use getContext to use the canvas for drawing
+                    var ctx = canvas.getContext('2d');
+
+                    // Filled triangle
+                    //ctx.beginPath();
+                    // ctx.moveTo(25,25);
+                    //ctx.lineTo(135,25);
+                    //ctx.lineTo(50,135); 
+                    //ctx.fill();
+    
+                    // Stroked triangle
+                    // ctx.beginPath();
+                    //    ctx.moveTo(125,125);
+                    //    ctx.lineTo(125,45);
+                    //    ctx.lineTo(45,125);
+                    //    ctx.lineTo(120,120);
+                    //    ctx.closePath();
+                    //    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(10,50);
+                    ctx.lineTo(10,200);
+                    //ctx.lineTo(10, 10);
+                    // ctx.arcTo(120, 50, 50, 250, 200);
+                    //ctx.arcTo(10, 50, 100, 50, 50);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.lineWidth = 4;
+                    ctx.moveTo(50, 50);
+                    ctx.lineTo(10, 50);
+                    ctx.stroke();
+
+                } else {
+                    alert('You need Safari or Firefox 1.5+ to see this demo.');
+                }
+            }
+        </script>
+        <style>
+            #accordion { width: 200px;}
+            #draggable { width: 75px; height: 75px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; color:lawngreen; background: teal;}
+            #droppable { width: 80%; height: 450px; padding: 0.5em; float: right; color:coral; background-color: #333333; }
+
+        </style>
+        <script>
+            $(function() {
+                $( "#draggable" ).draggable();
+                $( "#accordion" ).accordion();
+                $( "#droppable" ).droppable({
+                    drop: function( event, ui ) {
+                        $( this )
+                        .addClass( "ui-state-highlight" )
+                        .find( "p" )
+                        .html( "Dropped!" );
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body onload="drawShape();">
+        <!--canvas id="mycanvas"></canvas-->
+
+        <div class="demo">
+            <div id="accordion">
+                <h3><a href="#">First header</a></h3>
+                <div>First content</div>
+                <h3><a href="#">Second header</a></h3>
+                <div>Second content</div>
+                <h3><a href="#">divTest</a></h3>
+                <div id="draggable" class="ui-widget-content">
+                    <p>Drag me around</p>
+                </div>
+            </div>
+
+            <div id="droppable" class="ui-widget-header">
+                <p>Drop here</p>
+            </div>
+
+        </div>
+    </body>
+</html>

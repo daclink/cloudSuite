@@ -1,4 +1,4 @@
-<?php namespace CSControl
+<?php namespace CSControl;
 
 /**
  * This file represents the primary REST portion

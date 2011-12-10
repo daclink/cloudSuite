@@ -36,7 +36,9 @@
         $cs = new cloudControler();
          $cs->test();
          echo "<pre>";
+         $validator = new \cs\moduleValidator('modules/module.');
          print_r($_SERVER);
+         echo "</pre>";
         ?>
     </body>
 </html>

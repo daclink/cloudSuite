@@ -1,4 +1,4 @@
-<?php namespace cs;
+<?php
 
 /*
  * To change this template, choose Tools | Templates
@@ -31,6 +31,23 @@ class  Module{
         return $success;
     }
     
+    
 }
+class moduleValidator {
+
+    public static function validate($scheme, $file) {
+
+        $doc = new DOMDocument();
+        $doc->load($file);
+
+        if ($doc->schemaValidate($scheme)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
+
 
 ?>

@@ -41,8 +41,20 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
         </div>
         <div>
             <?php
+                $xmlFile = 'manifest'.DIRECTORY_SEPARATOR.'manifest.xml';
+                $xmlScheme = 'manifest'.DIRECTORY_SEPARATOR.'manifest.xsd';
                 cloudsuite::bar();
-            ?>
+               if( cloudsuite::validate($xmlScheme, $xmlFile)) {
+                echo "<div>IT'S GOOD!</div>";
+                 cloudsuite::getAlltheThings($xmlFile);
+                 
+               } else {
+                  echo "<div>IT'S not valid but good!!</div>";
+               }
+               
+               
+               
+               ?>
         </div>
     </body>
 </html>

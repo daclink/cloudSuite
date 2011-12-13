@@ -27,11 +27,10 @@ class Utils {
             return;
         }
 
-        if ($doc->loadXML($XML_file)) { {
-                $nodes = $doc->getElementById('node_name');
-                foreach ($nodes as $node) {
-                    
-                }
+        if ($doc->loadXML($XML_file)) {
+            $nodes = $doc->getElementById('node_name');
+            foreach ($nodes as $node) {
+                
             }
         }
     }

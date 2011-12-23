@@ -36,21 +36,36 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
         <h1>it begins.</h1>
         <div>
             <?php $blah = new cloudsuite();
-                $blah->foo();
+                
             ?>
         </div>
         <div>
             <?php
-                $xmlFile = 'manifest'.DIRECTORY_SEPARATOR.'manifest.xml';
-                $xmlScheme = 'manifest'.DIRECTORY_SEPARATOR.'manifest.xsd';
-                cloudsuite::bar();
+                $xmlFile = $_ENV['cs']['set_dir'].'biological.xml';
+                $xmlScheme = $_ENV['cs']['schema_dir'].'set.xsd';
+                
+                
+                
+                echo "<div> File is $xmlFile</div>";
+                echo "<div> scheme is $xmlScheme</div>";
+                
                if( cloudsuite::validate($xmlScheme, $xmlFile)) {
                 echo "<div>IT'S GOOD!</div>";
-                 cloudsuite::getAlltheThings($xmlFile);
+                
+                 $set = new set($xmlScheme, $xmlFile);
                  
+                 echo "<pre>";
+                 set::listModules($xmlScheme, $xmlFile);
+                    //$set->listModules();
+                 echo "</pre>";
+                
+                 //module::listAllModules($xmlFile);
+                
+                
                } else {
                   echo "<div>IT'S not valid but good!!</div>";
                }
+               
                
                
                

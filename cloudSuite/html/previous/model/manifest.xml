@@ -33,7 +33,7 @@
             <node_UID>123321</node_UID>
             <kind>.csv</kind>
         </output>
-    </node> 
+    </node>
     <node>
         <node_name>NeuroSolver</node_name>
         <cannonical_name>UID</cannonical_name>
@@ -46,8 +46,8 @@
             <expected> ! null</expected>
         </system_tests>
         <file>
-            <kind>binary</kind>
-            <path>/here</path>
+        	<kind>binary</kind>
+        	<path>/here</path>
             <file>foo.php</file>
             <parameters min_expected="0" max_expected="2">
                 <value>3</value>

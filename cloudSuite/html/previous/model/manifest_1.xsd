@@ -1,0 +1,81 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:cs="http://www.cloudsuite.info/model/manifest.xsd"
+    targetNamespace="http://www.cloudsuite.info/model/manifest.xsd"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    
+    <cs:annotation>
+        <cs:documentation cs:lang="en">
+            Manifest schema for cloudsuite.info
+            Copyright 2011 Drew A. Clinkenbeard.
+            All rights reserved.
+        </cs:documentation>
+    </cs:annotation>
+            
+    <cs:element name="module" type="module"/>
+         
+    <cs:complexType name="module">
+        <cs:sequence>
+            <cs:element name="node" type="node" />
+        </cs:sequence>   
+         
+        <cs:attribute name="moduleName" type="cs:string" />
+         
+    </cs:complexType>
+    
+    <cs:complexType name="node">
+        <cs:sequence>
+            <cs:element name="nodeName" type="cs:string" maxOccurs="1" />
+            <cs:element name="cannonical_name" type="cs:string" maxOccurs="1" />
+            <cs:element name="system_reqs" type="cs:system_reqs" />
+            <cs:element name="system_tests" type="cs:system_tests" />
+            <cs:element name="binary" type="cs:binary" />
+            <cs:element name="input" type="cs:product" />
+            <cs:element name="output" type="cs:product" />
+        </cs:sequence>
+    </cs:complexType>
+    
+    <cs:complexType name="system_reqs">
+        <cs:sequence>
+            <cs:element name="product" type="cs:string" />
+            <cs:element name="version" type="cs:string" />
+        </cs:sequence>
+    </cs:complexType>
+    
+    <cs:complexType name="system_tests">
+        <cs:sequence>
+            <cs:element name="command" type="cs:string" />
+            <cs:element name="expected" type="cs:string" />
+        </cs:sequence>
+    </cs:complexType>
+    
+    <cs:complexType name="binary" maxOccurs="1">
+        <cs:sequence>
+            <cs:element name="path" type="cs:string" maxOccurs="1" />
+            <cs:element name="file" type="cs:string" maxOccurs="1" />
+            <cs:element name="parameters" type="cs:parameters" />
+        </cs:sequence>
+    </cs:complexType>
+    
+    <cs:complexType name="parameter">
+        <cs:sequence>
+            <cs:element name="value" />
+        </cs:sequence>
+        <cs:attribute name="min_expected" type="cs:string" />
+        <cs:attribute name="max_expected" type="cs:string" />
+    </cs:complexType>
+    
+    <cs:complexType name="product">
+        <cs:sequence>
+            <cs:element name="name" type="cs:string" />
+            <cs:element name="UID" type="cs:string"  />
+            <cs:element name="node_name" type="cs:string" maxOccurs="1"/>
+            <cs:element name="node_UID" type="cs:string" maxOccurs="1"/>
+            <cs:element name="kind" type="cs:string" />
+        </cs:sequence>
+        <cs:attribute name="min" type="cs:string" />
+        <cs:attribute name="max" type="cs:string" />
+    </cs:complexType>
+     
+</schema>
+

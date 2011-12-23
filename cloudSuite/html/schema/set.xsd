@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+<!-- define simple elements -->
+<xsd:element name="product" type="xsd:string"/>
+<xsd:element name="version" type="xsd:string"/>
+<xsd:element name="kind" type="xsd:string"/>
+<xsd:element name="path" type="xsd:string"/>
+<xsd:element name="flag" type="xsd:string"/>
+<xsd:element name="type" type="xsd:string"/>
+<xsd:element name="desc" type="xsd:string"/>
+
+<!-- define attributes-->
+<xsd:attribute name="name" type="xsd:string" />
+<xsd:attribute name="id" type="xsd:string" />
+
+<!-- define complex elements -->
+
+<xsd:element name="systemRequirement">
+	<xsd:complexType>
+		<xsd:all>
+			<xsd:element ref="product"/>
+			<xsd:element ref="version"/>
+		</xsd:all>
+	</xsd:complexType>		
+</xsd:element>
+
+<xsd:element name="parameter">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element ref="flag"/>
+			<xsd:element ref="type"/>
+		</xsd:sequence>
+		<xsd:attribute ref="name" use="required"/>
+	</xsd:complexType>		
+</xsd:element>
+										
+<xsd:element name="output">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element ref="kind"/>
+			<xsd:element ref="desc"/>
+		</xsd:sequence>
+	</xsd:complexType>		
+</xsd:element>
+
+<xsd:element name="fileInfo">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element ref="kind"/>
+			<xsd:element ref="path"/>
+			<xsd:element ref="parameter" maxOccurs="unbounded"/>
+			<xsd:element ref="output" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>		
+</xsd:element>
+			
+<xsd:element name="module">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element ref="systemRequirement" maxOccurs="unbounded"/>
+			<xsd:element ref="fileInfo"/>
+		</xsd:sequence>
+		<xsd:attribute ref="name" use="required"/>
+		<xsd:attribute ref="id" use="required"/>
+	</xsd:complexType>		
+</xsd:element>
+
+<xsd:element name="set">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element ref="module" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute ref="name" use="required"/>
+		<xsd:attribute ref="id" use="required"/>
+	</xsd:complexType>		
+</xsd:element>
+</xsd:schema>

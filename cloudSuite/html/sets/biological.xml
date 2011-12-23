@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<set name="Biological" id="0">
+	<module name="genetic algorithm" id="1">
+		<systemRequirement>
+			<product></product>
+			<version></version>
+		</systemRequirement>		
+		<fileInfo>
+			<kind> </kind>
+			<path> </path>
+				<parameter name="asd">
+					<flag></flag>
+					<type></type>   
+				</parameter>
+				<output>
+					<kind></kind>
+					<desc></desc>
+				</output>				 
+		</fileInfo>
+	</module>
+	<module name="neuro" id="2">
+		<systemRequirement>
+			<product></product>
+			<version></version>
+		</systemRequirement>		
+		<fileInfo>
+			<kind> </kind>
+			<path> </path>
+				<parameter name="asd">
+					<flag></flag>
+					<type></type>
+				</parameter>
+				<output>
+					<kind></kind>
+					<desc></desc>
+				</output>				 
+		</fileInfo>
+	</module>
+</set>

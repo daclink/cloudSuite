@@ -10,43 +10,56 @@
  *
  * @author drew
  */
+
+
+if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php')) {
+    include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php';}
+
 class cloudsuite {
 
-    //put your code here
-
-    public function foo() {
-        echo 'testing the include';
-    }
-
-    public static function bar() {
-        echo 'static test';
-    }
-
-    public static function validate($scheme, $file) {
+ 
+     public static function validate($schema, $file) {
 
         $doc = new DOMDocument();
         $doc->load($file);
 
-        if ($doc->schemaValidate($scheme)) {
+        if ($doc->schemaValidate($schema)) {
             return true;
         } else {
             return false;
         }
     }
-
+    
     public static function getAlltheThings($filename) {
 
-        $xml = simplexml_load_file('<<<XMLBLOCK'.$filename);
-        $dom = new DOMDocument();
+        $xml = simplexml_load_file($filename);
+        
+        echo "<div> the code!</div><pre>";
+        //print_r($xml);
+        echo "</pre>";
+        
+        $result['node'] = $xml->xpath("//node");
+        //$result['system_reqs'] = $xml->xpath("module/node/system_reqs/product");
+       // $result['foo'] = "BLAH!";
+        
+        echo "<h1> hope </h1><pre>";
+        print_r($result);
+         echo "</pre>";
+        
+     /*
+      * $dom = new DOMDocument();
         $dom->loadXML($filename);
 
         $domlist=$dom->getElementsByTagName('node');
         $sxe=simplexml_import_dom($domlist->item(0));
 
          echo '\n eh? \n '.$sxe->cannonical_name;
+      
         
         echo $xml->module->node->node_name;
+       
         foreach ($xml as $key0 => $value) {
+      
             echo "..1..[$key0] => $value";
             foreach ($value->attributes() as $attributeskey0 => $attributesvalue1) {
                 echo "________[$attributeskey0] = $attributesvalue1";
@@ -94,10 +107,74 @@ class cloudsuite {
             }
             echo '<br />';
         }
+        */
 
         return;
     }
 
 }
+class module {
+    /* %******************************************************************************************% */
 
+// CORE DEPENDENCIES
+// Look for include file in the same directory (e.g. `./config.inc.php`).
+
+    function __construct(){
+        
+    }
+    
+    function getOutPut(){
+        
+    }
+    
+    function getInputs(){
+        
+    }
+  
+}
+
+class set {
+    
+    private $schema;
+    private $set;
+    
+    function __construct($schema, $xmlFile) {
+        $this->schema = $schema;
+        $this->set = $xmlFile;
+       
+        
+        }
+   
+    
+    public static function listModules($schema,$xmlFile){
+        
+        if (!cloudsuite::validate($schema, $xmlFile)){
+            echo "ERROR!";
+            return;
+        }
+        
+        $xml = simplexml_load_file($xmlFile);
+        
+        $result = $xml->xpath("//module");
+              echo "<h1>";
+              echo $result[0]["name"];
+              echo "</h1>";
+              
+              echo "<ol>";
+              foreach ($result as $key => $value){
+                  
+                  echo "<li>";
+                  echo "$key =>". $result[$key]["name"]." => ".$result[$key]["id"];
+                  echo "</li>";
+                  
+              }
+              echo "</ol>";
+              
+        print_r($result);
+                
+        
+    }
+    
+    
+}
 ?>

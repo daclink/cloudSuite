@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+<xsd:element name="set">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element name="module" MaxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="systemRequirement" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:all>
+									<xsd:element name="product" type="xsd:string"/>
+									<xsd:element name="version" type="xsd:string"/>
+								</xsd:all>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="fileInfo">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="kind" type="xsd:string"/>
+									<xsd:element name="path" type="xsd:string"/>
+									<xsd:element name="parameters" maxOccurs="unBounded">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="flag" type="xsd:string"/>
+												<xsd:element name="type" type="xsd:string"/>											
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="output" maxOccurs="unBounded">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="kind" type="xsd:string"/>
+												<xsd:element name="desc" type="xsd:string"/>											
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>		
+<xsd:element>
+
+</xsd:schema>

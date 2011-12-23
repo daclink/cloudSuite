@@ -35,7 +35,7 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
     <body>
         <h1>it begins.</h1>
         <div>
-            <?php $blah = new cloudsuite();
+            <?php $blah = new CloudSuite();
                 
             ?>
         </div>
@@ -49,14 +49,16 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                 echo "<div> File is $xmlFile</div>";
                 echo "<div> scheme is $xmlScheme</div>";
                 
-               if( cloudsuite::validate($xmlScheme, $xmlFile)) {
+               if( CloudSuite::validate($xmlScheme, $xmlFile)) {
                 echo "<div>IT'S GOOD!</div>";
                 
                  $set = new set($xmlScheme, $xmlFile);
                  
                  echo "<pre>";
-                 set::listModules($xmlScheme, $xmlFile);
-                    //$set->listModules();
+                 $foo = set::listModules($xmlScheme, $xmlFile);
+                    
+                 print_r($foo);
+//$set->listModules();
                  echo "</pre>";
                 
                  //module::listAllModules($xmlFile);

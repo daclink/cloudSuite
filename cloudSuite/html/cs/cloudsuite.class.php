@@ -121,8 +121,33 @@ class set {
         return $ret;
             
     }
-
     
+}
+
+class lab {
+    
+    private $__set =array();
+    private $__module = array();
+    private $__user;
+    
+    function __construct($user) {
+        $this->__user = $user;
+    }
+    
+    function writeLab(){
+        
+    }
+    
+    function readLab(){
+        
+    }
+    
+    function getSets(){
+        
+    }
+}
+
+class user {
     
 }
 

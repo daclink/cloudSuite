@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php
 
 /*
@@ -30,10 +32,53 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
 ?>
 <html>
     <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
         <title>CloudSuite</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+        
+         <script type="text/javascript" charset="utf-8">
+             $(function() {
+                $( "input:submit, button", ".getID").button();
+                $( ".button").click(function(){
+                    sendValue($(".txtValue").val())
+                })
+             });
+             $(document).load(function(){
+                 $('#getID')
+             });
+
+        $(document).ready(function(){
+            $('#txtValue').keyup(function(){
+                sendValue($(this).val());   
+                
+            }); 
+            
+        });
+        function sendValue(str){
+            $.post("./script/php/id.php",{ sendValue: str },
+            function(data){
+                $('#display').html(data.returnValue);
+            }, "json");
+            
+        }
+        
+    </script>
     </head>
     <body>
-        <h1>it begins.</h1>
+        <!--Ajax Testing section -->
+        <input type="submit" value="GetID" id="getID" />
+        <div id="dispID">
+            <button id="buttonID">get ID</button>
+            
+        </div>
+        
+            <label for="txtValue">Enter a value : </label>
+    <input type="text" name="txtValue" value="" id="txtValue">
+    
+    <div id="currID"></div>
+        <!-- end ajax test -->
+        
         <div>
             <?php $blah = new CloudSuite();
                 

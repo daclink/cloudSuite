@@ -10,8 +10,27 @@
  *
  * @author drew
  */
-if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php')) {
-    include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php';
+if (file_exists(dirname(__FILE__) . 
+                DIRECTORY_SEPARATOR . 'config.php')) {
+    include_once dirname(__FILE__) . 
+                 DIRECTORY_SEPARATOR . 'config.php';
+}
+
+class Exceptions {
+    
+    private $data = array(
+                'M_NO_ELEMENT' => 'No Such Element in data definition',
+                'C_NO_ELEMENT' => 0
+                        )
+        ;
+    public static function __get($name){
+        if (array_key_exists($name, $this->data)){
+                return $this->data[$name];
+            }else {
+                return '404';
+            }
+        
+    }
 }
 
 /**
@@ -126,10 +145,10 @@ class set {
 
 class lab {
     
-    private $__set =array();
-    private $__module = array();
+    private $__sets =array();
+    private $__modules = array();
     private $__user;
-    
+    /*
     function __construct($user) {
         $this->__user = $user;
     }
@@ -145,9 +164,50 @@ class lab {
     function getSets(){
         
     }
+    
+    function getSets() {
+        return $this->__sets;
+    }
+    
+    function getModules() {
+        return $this->__modules;
+    }
+    */
 }
 
 class user {
+    
+  /*
+    private $__id;
+    private $__name;
+    private $__fname;
+    private $__lname;
+    private $__clearance;
+  */
+    private $data = array('id'        => '',
+                          'name'      => '',
+                          'fname'     => '',
+                          'lname'     => '',
+                          'clearance' => '');
+    
+    function __set($name, $value){
+        if (array_key_exists($name, $this->data)){
+            $this->data[$name] = $value;
+            return true;
+        } else {
+            throw new Exception('No Such Element','0');
+            return FALSE;
+        }
+    }
+    
+    function __get($name){
+        if (array_key_exists($name, $this->data)){
+            return $this->data[$name];
+        } else {
+            throw new Exception('No Such Element','0');
+            return FALSE;
+        }
+    }
     
 }
 

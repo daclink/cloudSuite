@@ -67,7 +67,7 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
     </head>
     <body>
         <!--Ajax Testing section -->
-        <input type="submit" value="GetID" id="getID" />
+        <input type="submit" value="GetID" id="getID"></input>
         <div id="dispID">
             <button id="buttonID">get ID</button>
             
@@ -103,15 +103,29 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                  $foo = set::listModules($xmlScheme, $xmlFile);
                     
                  print_r($foo);
-//$set->listModules();
                  echo "</pre>";
                 
-                 //module::listAllModules($xmlFile);
+                 $user = new user();
+                 
+                 $user->name = "filbert";
+                 
+                 echo "<pre>";
+                 
+                 echo $user->name;
+                 try{
+                 $user->foo = "bar";
+                 } catch (Exception $e) {
+                     echo 'Caught exception: ',  $e->getMessage(), "\n";
+                 }
+                 
+                 echo "</pre>";
                 
-                
+                 
                } else {
                   echo "<div>IT'S not valid but good!!</div>";
                }
+               
+               
                
                
                

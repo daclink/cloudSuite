@@ -38,10 +38,10 @@ class Exceptions {
  */
 class CloudSuite {
 
-    public static function validate($schema, $file) {
+    public static function validate($schema, $xmlFile) {
 
         $doc = new DOMDocument();
-        $doc->load($file);
+        $doc->load($xmlFile);
 
         if ($doc->schemaValidate($schema)) {
             return true;
@@ -90,29 +90,94 @@ class module {
 
 // CORE DEPENDENCIES
 // Look for include file in the same directory (e.g. `./config.inc.php`).
-
-    function __construct() {
+    
+    private $schema;
+    private $xmlFile;
+    
+    private $data = array('id'          =>  '',
+                          'name'        =>  '',
+                          'parameters'  =>  array(''),
+                          'outputs'     =>  array(''),
+                          'inputs'      =>  array(''));
+    
+    
+    function __construct($schema, $xmlFile) {
         
+        $this->schema = $schema;
+        $this->xmlFile = $xmlFile;
+        
+        if(!CloudSuite::load_xml($schema, $xmlFile, $xml)){
+            return false;
+        }
+        
+        $this->data['id']           
+                   = $xml->xpath("//module");
+        $this->data['name']
+                   = $xml->xpath("name");
+        $this->data['parameters']
+                   = $xml->xpath("parameters");
+        $this->data['inputs'] 
+                   = $xml->xpath("inputs");
+                   
+        return true;
     }
 
-    function getOutPut() {
-        
+    function __destruct(){
+        foreach ($this as $key => $value) {
+            unset($this->$key);
+        }
+    }
+    
+    function __get($name) {
+        if (array_key_exists($name, $this->data)){
+            return $this->data[$name];
+        } else {
+            throw new Exception('No Such Element','0');
+            return FALSE;
+        }
     }
 
-    function getInputs() {
+    function __set($name, $value) {
         
     }
-
+    
+    
+    
 }
 
 class set {
 
     private $schema;
-    private $set;
+    private $xmlFile;
 
+    private $data = array('id'        => '',
+                          'name'      => '',
+                          'fname'     => '',
+                          'lname'     => '',
+                          'clearance' => '');
+    
+    function __set($name, $value){
+        if (array_key_exists($name, $this->data)){
+            $this->data[$name] = $value;
+            return true;
+        } else {
+            throw new Exception('No Such Element','0');
+            return FALSE;
+        }
+    }
+    
+    function __get($name){
+        if (array_key_exists($name, $this->data)){
+            return $this->data[$name];
+        } else {
+            throw new Exception('No Such Element','0');
+            return FALSE;
+        }
+    }
+    
     function __construct($schema, $xmlFile) {
-        $this->schema = $schema;
-        $this->set = $xmlFile;
+        $this->schema   = $schema;
+        $this->xmlFile  = $xmlFile;
     }
     
     function __destruct(){
@@ -145,9 +210,29 @@ class set {
 
 class lab {
     
-    private $__sets =array();
-    private $__modules = array();
-    private $__user;
+    private $data = array('sets'      => '',
+                          'modules'   => '',
+                          'user'      => '');
+    
+    function __set($name, $value){
+        if (array_key_exists($name, $this->data)){
+            $this->data[$name] = $value;
+            return true;
+        } else {
+            throw new Exception('No Such Element','0');
+            return FALSE;
+        }
+    }
+    
+    function __get($name){
+        if (array_key_exists($name, $this->data)){
+            return $this->data[$name];
+        } else {
+            throw new Exception('No Such Element','0');
+            return FALSE;
+        }
+    }
+    
     /*
     function __construct($user) {
         $this->__user = $user;

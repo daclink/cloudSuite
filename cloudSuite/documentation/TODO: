@@ -1,6 +1,10 @@
-Design module schema
-design set schema
 design lab schema
 design manifest schema
+
+re-design set schema
+
+determine required fields
+determine default values
+determine the number of each element needed.
 
 write xpaths for method calls.

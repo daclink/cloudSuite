@@ -23,7 +23,7 @@ class Exceptions {
                 'C_NO_ELEMENT' => 0
                         )
         ;
-    public static function __get($name){
+    public function __get($name){
         if (array_key_exists($name, $this->data)){
                 return $this->data[$name];
             }else {

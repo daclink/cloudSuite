@@ -18,11 +18,15 @@
 				</output>				 
 		</fileInfo>
 	</module>
-	<module name="neuro" id="2">
+	<module name="neuroSolv" id="2">
 		<systemRequirement>
 			<product></product>
 			<version></version>
 		</systemRequirement>		
+                <systemRequirement>
+			<product></product>
+			<version></version>
+		</systemRequirement>
 		<fileInfo>
 			<kind> </kind>
 			<path> </path>

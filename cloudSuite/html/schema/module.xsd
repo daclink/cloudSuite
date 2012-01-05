@@ -1,81 +1,79 @@
-<?xml version="1.0"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            elementFormDefault="qualified" >
-            
-    <xsd:element name="module" type="module">
-       
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
     <xsd:annotation>
-        <xsd:documentation >
-            Manifest schema for cloudsuite.info
-            Copyright 2011 Drew A. Clinkenbeard.
-            All rights reserved.
-        </xsd:documentation>
+      <xsd:appinfo>CloudSuite set schema</xsd:appinfo>
+      <xsd:documentation xml:lang="en">
+        This is the object defenition for the module type object
+        used in CloudSuite.info
+        Copyright 2012 Drew A. Clinkenbeard.
+        All rights reserved.
+      </xsd:documentation>
     </xsd:annotation>
+
+    <!-- define simple elements -->
+    <xsd:element name="product" type="xsd:string"/>
+    <xsd:element name="version" type="xsd:string" />
+    <xsd:element name="kind" type="xsd:string" />
+    <xsd:element name="path" type="xsd:string" />
+    <xsd:element name="required" type="xsd:boolean" />
+    <xsd:element name="data_type" type="xsd:string" />
+    <xsd:element name="default" type="xsd:string" />
+    <xsd:element name="example" type="xsd:string" />
+    <xsd:element name="description" type="xsd:string" />
+    <xsd:element name="flag" type="xsd:string" />
+
+    <!-- define attributes-->
+    <xsd:attribute name="name" type="xsd:string" />
+    <xsd:attribute name="id" type="xsd:string" />
+
+    <xsd:element name="systemRequirement">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="product"/>
+                <xsd:element ref="version"/>
+            </xsd:all>
+        </xsd:complexType>		
+    </xsd:element>
+
+    <xsd:element name="file">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="kind"/>
+                <xsd:element ref="path"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="parameter">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="required"/>
+                <xsd:element ref="data_type"/>
+                <xsd:element ref="default"/>
+                <xsd:element ref="example"/>
+                <xsd:element ref="description"/>
+                <xsd:element ref="flag"/>
+            </xsd:sequence>
+        </xsd:complexType>		
+    </xsd:element>
+
+    <xsd:element name="input">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="kind"/>
+            </xsd:all>
+        </xsd:complexType>
     </xsd:element>
     
-    <xsd:complexType name="module">
-        <xsd:sequence>
-            <xsd:element name="node" type="node" />
-        </xsd:sequence>   
-         
-        <xsd:attribute name="moduleName" type="xsd:string" />
-         
-    </xsd:complexType>
-    
-    <xsd:complexType name="node">
-        <xsd:sequence>
-            	<xsd:element name="node_name" type="xsd:string" maxOccurs="1" />
-            	<xsd:element name="cannonical_name" type="xsd:string" maxOccurs="1" />
-            	<xsd:element name="system_reqs" type="system_reqs" />
-            	<xsd:element name="system_tests" type="system_tests" />
-            	<xsd:element name="file" type="file" maxOccurs="1"/>
-            	<xsd:element name="input" type="product" />
-            	<xsd:element name="output" type="product" />
-            </xsd:sequence>
-    </xsd:complexType>
-    
-    <xsd:complexType name="system_reqs">
-        <xsd:sequence>
-            <xsd:element name="product" type="xsd:string" />
-            <xsd:element name="version" type="xsd:string" />
-        </xsd:sequence>
-    </xsd:complexType>
-    
-    <xsd:complexType name="system_tests">
-        <xsd:sequence>
-            <xsd:element name="command" type="xsd:string" />
-            <xsd:element name="expected" type="xsd:string" />
-        </xsd:sequence>
-    </xsd:complexType>
-    
-    <xsd:complexType name="file" >
-        <xsd:sequence>
-        	<xsd:element name="kind" type="xsd:string" maxOccurs="1" />
-            <xsd:element name="path" type="xsd:string" maxOccurs="1" />
-            <xsd:element name="file" type="xsd:string" maxOccurs="1" />
-            <xsd:element name="parameters" type="parameter" />
-        </xsd:sequence>
-    </xsd:complexType>
-    
-    <xsd:complexType name="parameter">
-        <xsd:sequence>
-            <xsd:element name="value" type="xsd:string" />
-        </xsd:sequence>
-        <xsd:attribute name="min_expected" type="xsd:string" />
-        <xsd:attribute name="max_expected" type="xsd:string" />
-    </xsd:complexType>
-    
-    <xsd:complexType name="product">
-        <xsd:sequence>
-            <xsd:element name="name" type="xsd:string" />
-            <xsd:element name="UID" type="xsd:string"  />
-            <xsd:element name="node_name" type="xsd:string" maxOccurs="1"/>
-            <xsd:element name="node_UID" type="xsd:string" maxOccurs="1"/>
-            <xsd:element name="kind" type="xsd:string" />
-        </xsd:sequence>
-        <xsd:attribute name="min" type="xsd:string" />
-        <xsd:attribute name="max" type="xsd:string" />
-    </xsd:complexType>
-     
+    <xsd:element name="output">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="flag"/>
+                <xsd:element ref="kind"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+ 
 </xsd:schema>
 

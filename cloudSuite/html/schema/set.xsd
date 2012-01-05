@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<xsd:annotation>
+  <xsd:appinfo>CloudSuite set schema</xsd:appinfo>
+  <xsd:documentation xml:lang="en">
+    
+    This is the object defenition for the set type object
+    used in CloudSuite.info
+    Copyright 2011 Drew A. Clinkenbeard.
+    All rights reserved.
+  </xsd:documentation>
+</xsd:annotation>
 <!-- define simple elements -->
 <xsd:element name="product" type="xsd:string"/>
 <xsd:element name="version" type="xsd:string"/>

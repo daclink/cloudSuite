@@ -2,7 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:annotation>
-      <xsd:appinfo>CloudSuite set schema</xsd:appinfo>
+      <xsd:appinfo>CloudSuite module schema</xsd:appinfo>
       <xsd:documentation xml:lang="en">
         This is the object defenition for the module type object
         used in CloudSuite.info
@@ -19,13 +19,17 @@
     <xsd:element name="required" type="xsd:boolean" />
     <xsd:element name="data_type" type="xsd:string" />
     <xsd:element name="default" type="xsd:string" />
-    <xsd:element name="example" type="xsd:string" />
     <xsd:element name="description" type="xsd:string" />
     <xsd:element name="flag" type="xsd:string" />
+    <xsd:element name="url" type="xsd:string" />
+    <xsd:element name="type" type="xsd:string" />
+    <xsd:element name="value" type="xsd:string" />
 
     <!-- define attributes-->
     <xsd:attribute name="name" type="xsd:string" />
     <xsd:attribute name="id" type="xsd:string" />
+
+    <!-- define complex types -->
 
     <xsd:element name="systemRequirement">
         <xsd:complexType>
@@ -36,12 +40,22 @@
         </xsd:complexType>		
     </xsd:element>
 
-    <xsd:element name="file">
+    <xsd:element name="fileInfo">
         <xsd:complexType>
             <xsd:all>
                 <xsd:element ref="kind"/>
                 <xsd:element ref="path"/>
             </xsd:all>
+            <xsd:attribute ref="name" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="allowed">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element ref="description"/>
+            </xsd:all>
+            <xsd:attribute ref="name" use="required"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -51,18 +65,29 @@
                 <xsd:element ref="required"/>
                 <xsd:element ref="data_type"/>
                 <xsd:element ref="default"/>
-                <xsd:element ref="example"/>
+                <xsd:element ref="allowed" maxOccurs="unbounded"/>
                 <xsd:element ref="description"/>
                 <xsd:element ref="flag"/>
             </xsd:sequence>
         </xsd:complexType>		
     </xsd:element>
-
+    
+    <xsd:element name="field">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="type"/> 
+                <xsd:element ref="value"/>
+            </xsd:sequence>
+            <xsd:attribute ref="name" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
     <xsd:element name="input">
         <xsd:complexType>
-            <xsd:all>
-                <xsd:element ref="kind"/>
-            </xsd:all>
+            <xsd:sequence>
+                <xsd:element ref="field" maxOccurs="unbounded"/>
+                <xsd:element ref="url"/>
+            </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
     
@@ -72,6 +97,20 @@
                 <xsd:element ref="flag"/>
                 <xsd:element ref="kind"/>
             </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="module">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="systemRequirement"/>
+                <xsd:element ref="fileInfo" maxOccurs="1"/>
+                <xsd:element ref="parameter"/>
+                <xsd:element ref="input" maxOccurs="1"/>
+                <xsd:element ref="output"/>
+            </xsd:sequence>
+            <xsd:attribute ref="id" use="required"/>
+            <xsd:attribute ref="name" use="required"/>
         </xsd:complexType>
     </xsd:element>
  

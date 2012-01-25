@@ -3,3 +3,4 @@ ve
 includes
 cloudSuite/previous/
 cloudSuite/html/previous
+/cloudSuite/html/script/.utils/

@@ -1,5 +1,12 @@
-design lab schema
-design manifest schema
+*design manifest schema
+**ensure that origin server is a value
+*design user schema
+*design group schema (fun!)
+
+
+**Add a reference to the parent set in each module
+
+
 
 re-design set schema
 

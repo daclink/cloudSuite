@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : genetic_algorithm_1.xml
+    Created on : January 8, 2012, 7:11 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module name="genetic_algorithm" id="1">
+    <systemRequirement>
+			<product>GCC</product>
+			<version>3</version>
+		</systemRequirement>		
+		<fileInfo>
+			<kind>binary</kind>
+			<path>/cs/sets/biolgical/genetic_algoritm_1/</path>
+                </fileInfo>
+                <parameter name="Selection">
+                    <required>Y</required>
+                    <data_type>string</data_type>
+                    <allowed>
+                        <description name="Roulette">Roulette Wheel selection</description>
+                        <description name="Random">Select a pair at random</description>
+                        <description name="Fittest">Select the fittest number of breeders</description>
+                    </allowed>
+                    <description>Which type of breeding pair selection will be used</description>
+                    <flag>-s</flag>
+                </parameter>
+                <input>
+                    
+                </input>
+                <output>
+                        <kind></kind>
+                        <desc></desc>
+                </output>				 
+		
+</module>

@@ -1,8 +1,6 @@
 <?php
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 
 /**
@@ -16,31 +14,6 @@ if (file_exists(dirname(__FILE__) .
             DIRECTORY_SEPARATOR . 'config.php';
 }
 
-class Exceptions {
-
-    private $data = array(
-        'M_NO_ELEMENT' => 'No Such Element in data definition',
-        'C_NO_ELEMENT' => 0
-            )
-
-    ;
-
-    public function __get($name) {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
-        } else {
-            return '404';
-        }
-    }
-
-    public static function code($name) {
-
-        if ($name == "error1") {
-            return "NO Such element found";
-        }
-    }
-
-}
 
 /**
  * CloudSuite: General functions and utilities.
@@ -93,63 +66,7 @@ class CloudSuite {
 
 }
 
-class module {
-    /* %******************************************************************************************% */
-
-// CORE DEPENDENCIES
-// Look for include file in the same directory (e.g. `./config.inc.php`).
-
-    private $schema;
-    private $xmlFile;
-    private $data = array('id' => '',
-        'name' => '',
-        'parameters' => array(''),
-        'outputs' => array(''),
-        'inputs' => array(''));
-
-    function __construct($schema, $xmlFile) {
-
-        $this->schema = $schema;
-        $this->xmlFile = $xmlFile;
-
-        if (!CloudSuite::load_xml($schema, $xmlFile, $xml)) {
-            return false;
-        }
-
-        $this->data['id']
-                = $xml->xpath("/set/@id");
-        $this->data['name']
-                = $xml->xpath("/set/@name");
-        $this->data['parameters']
-                = $xml->xpath("parameters");
-        $this->data['inputs']
-                = $xml->xpath("inputs");
-
-        return true;
-    }
-
-    function __destruct() {
-        foreach ($this as $key => $value) {
-            unset($this->$key);
-        }
-    }
-
-    function __get($name) {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
-        } else {
-            throw new Exception('No Such Element', '0');
-            return FALSE;
-        }
-    }
-
-    function __set($name, $value) {
-        
-    }
-
-}
-
-class set {
+class collection {
 
     private $schema;
     private $xmlFile;
@@ -213,90 +130,38 @@ class set {
         if (!CloudSuite::load_xml($xmlSchema, $xmlFile, $xml)) {
             throw new Exceptions("Couldn't access data");
         }
-        
+
         $module = $xml->set[0]->addChild($module);
-        
-        $module->addAttribute('name',$moduleObject->getName);
+
+        $module->addAttribute('name', $moduleObject->getName);
         $module->addAttribute('id', Utill::genID());
-        
-       
-        
+
+
+
         $sysReqList = $moduleObject->getSystemRequiremts;
-        
-        
+
+
         reset($sysReqList);
-        while(list($key, $val) = each($sysReqList)){
-        $sysReq = $module->addChild('systemRequirement');     
+        while (list($key, $val) = each($sysReqList)) {
+            $sysReq = $module->addChild('systemRequirement');
             $sysReq->addChild('product', $moduleObject->getProduct);
-          //  $sysReq->addChild('version', $moduleObject->get)
+            //  $sysReq->addChild('version', $moduleObject->get)
         }
         $fileInfo = $module->addChild('fileInfo');
-        
+
         $fileInfo->addChild('kind', $moduleObject->getKind);
         $fileInfo->addChild('path', $moduleObject->getPath);
-        
+
         $param = $fileInfo->addChild('parameter');
         $param->addChild('flag');
         $param->addChild('type');
-        
+
         $output = $fileInfo->addChild('output');
-        
-        
     }
 
 }
 
-class lab {
 
-    private $data = array('sets' => '',
-        'modules' => '',
-        'user' => '');
-
-    function __set($name, $value) {
-        if (array_key_exists($name, $this->data)) {
-            $this->data[$name] = $value;
-            return true;
-        } else {
-            throw new Exception('No Such Element', '0');
-            return FALSE;
-        }
-    }
-
-    function __get($name) {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
-        } else {
-            throw new Exception('No Such Element', '0');
-            return FALSE;
-        }
-    }
-
-    /*
-      function __construct($user) {
-      $this->__user = $user;
-      }
-
-      function writeLab(){
-
-      }
-
-      function readLab(){
-
-      }
-
-      function getSets(){
-
-      }
-
-      function getSets() {
-      return $this->__sets;
-      }
-
-      function getModules() {
-      return $this->__modules;
-      }
-     */
-}
 
 class user {
     /*
@@ -335,18 +200,19 @@ class user {
 }
 
 class Utill {
-    public static function  genID(){
+
+    public static function genID() {
         $idFile = "idGen.txt";
         $fh = fopen($idFile, 'w+') or die("COuldn't get ID file!");
-        
-        $id = intval(fread($fh),10);
-        $retID = $id+1;
-        
+
+        $id = intval(fread($fh), 10);
+        $retID = $id + 1;
+
         fwrite($fh, $retID);
-        
+
         return $retID;
-        
     }
+
 }
 
 ?>

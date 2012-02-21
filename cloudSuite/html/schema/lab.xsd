@@ -44,7 +44,7 @@
        </xsd:complexType>
    </xsd:element>
         
-    <xsd:element name="set" >
+    <xsd:element name="collection" >
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="module" maxOccurs="unbounded"/>
@@ -57,7 +57,7 @@
             <xsd:sequence>
                 <xsd:element ref="owner" maxOccurs="1"/>
                 <xsd:element ref="permissions" maxOccurs="1"/>
-                <xsd:element ref="set" maxOccurs="unbounded"/>
+                <xsd:element ref="collection" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
         </xsd:complexType>

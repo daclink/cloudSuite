@@ -97,10 +97,10 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                if( CloudSuite::validate($xmlScheme, $xmlFile)) {
                 echo "<div>IT'S GOOD!</div>";
                 
-                 $set = new set($xmlScheme, $xmlFile);
+                 $set = new collection($xmlScheme, $xmlFile);
                  
                  echo "<pre>";
-                 $foo = set::listModules($xmlScheme, $xmlFile);
+                 $foo = collection::listModules($xmlScheme, $xmlFile);
                     
                  print_r($foo);
                  echo "</pre>";

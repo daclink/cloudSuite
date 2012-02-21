@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module.xml
+    Created on : February 16, 2012, 8:02 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<ns0:module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns:ns0='null'
+   xsi:schemaLocation='null module.xsd' ns0:id="" ns0:name="">
+    <systemRequirement>
+        <product></product>
+        <version></version>
+    </systemRequirement>
+    <fileInfo ns0:name="">
+        <kind></kind>
+        <path></path>
+    </fileInfo>
+    <parameter>
+        <required></required>
+        <data_type></data_type>
+        <default></default>
+        <allowed ns0:name="">
+            <description></description>
+        </allowed>
+        <allowed ns0:name="">
+            <description></description>
+        </allowed>
+        <allowed ns0:name="">
+            <description></description>
+        </allowed>
+        <description></description>
+        <flag></flag>
+    </parameter>
+    <input>
+        <field ns0:name="">
+            <type></type>
+            <value></value>
+        </field>
+        <field ns0:name="">
+            <type></type>
+            <value></value>
+        </field>
+        <field ns0:name="">
+            <type></type>
+            <value></value>
+        </field>
+        <url></url>
+    </input>
+    <output>
+        <flag></flag>
+        <kind></kind>
+    </output>
+    <permissions ns0:clearance="">
+        <everyone></everyone>
+        <group ns0:id="" ns0:name=""></group>
+        <group ns0:id="" ns0:name=""></group>
+        <group ns0:id="" ns0:name=""></group>
+    </permissions>
+
+</ns0:module>

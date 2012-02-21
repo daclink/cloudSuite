@@ -24,10 +24,13 @@
     <xsd:element name="url" type="xsd:string" />
     <xsd:element name="type" type="xsd:string" />
     <xsd:element name="value" type="xsd:string" />
+    <xsd:element name="groupName" type="xsd:string" />
+    <xsd:element name="everyone" type="xsd:boolean"/>
 
     <!-- define attributes-->
     <xsd:attribute name="name" type="xsd:string" />
     <xsd:attribute name="id" type="xsd:string" />
+    <xsd:attribute name="clearance" type="xsd:string" />
 
     <!-- define complex types -->
 
@@ -54,6 +57,7 @@
         <xsd:complexType>
             <xsd:all>
                 <xsd:element ref="description"/>
+                <xsd:element ref="flag"/>
             </xsd:all>
             <xsd:attribute ref="name" use="required"/>
         </xsd:complexType>
@@ -66,8 +70,6 @@
                 <xsd:element ref="data_type"/>
                 <xsd:element ref="default"/>
                 <xsd:element ref="allowed" maxOccurs="unbounded"/>
-                <xsd:element ref="description"/>
-                <xsd:element ref="flag"/>
             </xsd:sequence>
         </xsd:complexType>		
     </xsd:element>
@@ -100,6 +102,26 @@
         </xsd:complexType>
     </xsd:element>
     
+    <xsd:element name="group">
+        <xsd:complexType>
+            <xsd:sequence>
+                
+            </xsd:sequence>
+            <xsd:attribute ref="id" use="required"/>
+            <xsd:attribute ref="name" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="permissions">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref ="everyone"/>
+                <xsd:element ref ="group" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute ref="clearance" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
     <xsd:element name="module">
         <xsd:complexType>
             <xsd:sequence>
@@ -108,6 +130,7 @@
                 <xsd:element ref="parameter"/>
                 <xsd:element ref="input" maxOccurs="1"/>
                 <xsd:element ref="output"/>
+                <xsd:element ref="permissions"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
             <xsd:attribute ref="name" use="required"/>

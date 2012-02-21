@@ -75,7 +75,7 @@
 	</xsd:complexType>		
 </xsd:element>
 
-<xsd:element name="set">
+<xsd:element name="collection">
 	<xsd:complexType>
 		<xsd:sequence>
 			<xsd:element ref="module" maxOccurs="unbounded"/>

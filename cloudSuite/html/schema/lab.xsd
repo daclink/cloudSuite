@@ -16,21 +16,30 @@
     <xsd:element name="owner" type="xsd:string"/>
     <xsd:element name="group" type="xsd:string"/>
     <xsd:element name="everyone" type="xsd:string"/>
-    <xsd:elememt name="sequenceNumber" type="xsd:string"/>
-    <xsd:element name="settings" type="xsd:string"/>
+    <xsd:element name="flag" type="xsd:string"/>
+    <xsd:element name="value" type="xsd:string"/>
     
      <!-- define attributes-->
     <xsd:attribute name="id" type="xsd:string" />
-    
+    <xsd:attribute name="seqNumber" type="xsd:string"/>
     
     <!-- define complex elements -->
+    <xsd:element name="settings">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="flag" maxOccurs="1"/>
+                <xsd:element ref="value" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
     <xsd:element name="module">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="settings" macOccurs="1"/>
-                <xsd:element ref="sequenceNumber" macOccurs="1" use="required" />
+                <xsd:element ref="settings" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
+            <xsd:attribute ref="seqNumber" use="required"/>
         </xsd:complexType>
     </xsd:element>
     
@@ -44,20 +53,12 @@
        </xsd:complexType>
    </xsd:element>
         
-    <xsd:element name="collection" >
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element ref="module" maxOccurs="unbounded"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-    
     <xsd:element name="lab">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="owner" maxOccurs="1"/>
                 <xsd:element ref="permissions" maxOccurs="1"/>
-                <xsd:element ref="collection" maxOccurs="unbounded"/>
+                <xsd:element ref="module" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
         </xsd:complexType>

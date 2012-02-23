@@ -1,25 +1,20 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of lab
+ * Description of collection
  *
- * @author drew
+ * @author Drew A. Clinkenbeard
  */
-class Lab {
 
-    private $__labSchema;
-    private $__xmlFile;
-    private $__labXML;
-	private $__user;
-    
-    private $data = array('sets' => '',
-        'modules' => '',
-        'user' => '');
+class Collection {
+
+    private $schema;
+    private $xmlFile;
+    private $data = array('id' => '',
+        'name' => '',
+        'fname' => '',
+        'lname' => '',
+        'clearance' => '',);
 
     function __set($name, $value) {
         if (array_key_exists($name, $this->data)) {
@@ -40,15 +35,51 @@ class Lab {
         }
     }
 
+    function __construct($schema, $xmlFile) {
+        $this->schema = $schema;
+        $this->xmlFile = $xmlFile;
+    }
+
+    function __destruct() {
+        foreach ($this as $key => $value) {
+            unset($this->$key);
+        }
+    }
+
+    public static function listModules($schema, $xmlFile) {
+
+        $ret = array();
+
+        if (!CloudSuite::load_xml($schema, $xmlFile, $xml)) {
+            return false;
+        }
+        $result = $xml->xpath("//module");
+
+        foreach ($result as $key => $value) {
+
+            $id = intval((string) $result[$key]["id"]);
+            $name = (string) $result[$key]["name"];
+            $ret[$id] = $name;
+        }
+
+        return $ret;
+    }
+
     public function addModule($moduleObject) {
 
-        
-        $module = $_labXML->set[0]->addChild($module);
+        if (!CloudSuite::load_xml($xmlSchema, $xmlFile, $xml)) {
+            throw new Exceptions("Couldn't access data");
+        }
+
+        $module = $xml->set[0]->addChild($module);
 
         $module->addAttribute('name', $moduleObject->getName);
         $module->addAttribute('id', Utill::genID());
 
+
+
         $sysReqList = $moduleObject->getSystemRequiremts;
+
 
         reset($sysReqList);
         while (list($key, $val) = each($sysReqList)) {
@@ -65,28 +96,8 @@ class Lab {
         $param->addChild('flag');
         $param->addChild('type');
 
-   		$output = $fileInfo->addChild('output');
-	}
-	
-	function __construct($user,$labSchema, $labXML) {
-    	$this->__user = $user;
-		$this->__labSchema = ($labSchema == null) ? $ENV_['cs']['labSchema'] : $labSchema;
-
- $_ENV['cs']['schema_dir'] = 'schema'.DIRECTORY_SEPARATOR; 
+        $output = $fileInfo->addChild('output');
     }
 
-   	function writeLab(){
-	
-	}
-
-	function readLab(){
-	
-	}
-
-	public static function loadLab($labID){
-   
-   }
-     
 }
-
 ?>

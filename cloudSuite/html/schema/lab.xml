@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : lab.xml
+    Created on : February 21, 2012, 7:47 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<ns0:lab  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns:ns0='null'
+   xsi:schemaLocation='null lab.xsd' ns0:id="">
+    <owner></owner>
+    <permissions>
+        <owner></owner>
+        <group></group>
+        <everyone></everyone>
+    </permissions>
+    <module ns0:id="" ns0:seqNumber="">
+        <settings></settings>
+        <settings></settings>
+        <settings></settings>
+    </module>
+    <module ns0:id="" ns0:seqNumber="">
+        <settings></settings>
+        <settings></settings>
+        <settings></settings>
+    </module>
+    <module ns0:id="" ns0:seqNumber="">
+        <settings></settings>
+        <settings></settings>
+        <settings></settings>
+    </module>
+
+</ns0:lab>

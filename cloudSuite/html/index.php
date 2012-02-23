@@ -87,17 +87,17 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
         <div>
             <?php
                 $xmlFile = $_ENV['cs']['set_dir'].'biological.xml';
-                $xmlScheme = $_ENV['cs']['schema_dir'].'set.xsd';
+                $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
                 
                 
                 
                 echo "<div> File is $xmlFile</div>";
                 echo "<div> scheme is $xmlScheme</div>";
                 
-               if( CloudSuite::validate($xmlScheme, $xmlFile)) {
+               if( Utils::validate($xmlScheme, $xmlFile)) {
                 echo "<div>IT'S GOOD!</div>";
                 
-                 $set = new collection($xmlScheme, $xmlFile);
+                 $collection = new collection($xmlScheme, $xmlFile);
                  
                  echo "<pre>";
                  $foo = collection::listModules($xmlScheme, $xmlFile);

@@ -21,7 +21,9 @@ class module {
 
         $this->schema = $schema;
         $this->xmlFile = $xmlFile;
+		$this->__id = Utils.genID();
 
+		
         if (!CloudSuite::load_xml($schema, $xmlFile, $xml)) {
             return false;
         }

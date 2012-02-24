@@ -9,110 +9,64 @@ class module {
 // CORE DEPENDENCIES
 // Look for include file in the same directory (e.g. `./config.inc.php`).
 
-    private $schema;
-    private $xmlFile;
-    private $data = array('id' => '',
+    private $__moduleSchema;
+    private $__moduleXmlFile;
+    private $__data = array('id' => '',
         'name' => '',
         'parameters' => array(''),
         'outputs' => array(''),
-        'inputs' => array(''));
+        'inputs' => array(''),
+        'sequenceNumber' => '-1');
 
     function __construct($schema, $xmlFile) {
 
-        $this->schema = $schema;
-        $this->xmlFile = $xmlFile;
-		$this->__id = Utils.genID();
+    }
+        
+     
+
+    function __destruct() {
+        foreach ($this as $key => $value) {
+            unset($this->$key);
+        }
+    }
+
+    function __get($name) {
+        if (array_key_exists($name, $this->__data)) {
+            return $this->__data[$name];
+        } else {
+            throw new Exception('No Such Element', '0');
+            return FALSE;
+        }
+    }
+
+    function __set($name, $value) {
+        
+    }
+    
+     /* load and save to XML ...
+     *    $this->__moduleSchema = ($schema !=NULL) ? $schema :
+            $_ENV['cs']['schema_dir'].DIRECTORY_SEPARATOR.'module.xsd' ;
+        $this->__moduleXmlFile = ($xmlFILE !=NULL) ? $schema :
+            $_ENV['cs']['schema_dir'].DIRECTORY_SEPARATOR.'module.xsd' ;
+	$this->__id = Utils.genID();
 
 		
-        if (!CloudSuite::load_xml($schema, $xmlFile, $xml)) {
+        if (!\CSModel\Utils::load_xml($schema, $xmlFile, $xml)) {
             return false;
         }
 
-        $this->data['id']
+        $this->__data['id']
                 = $xml->xpath("/set/@id");
-        $this->data['name']
+        $this->__data['name']
                 = $xml->xpath("/set/@name");
-        $this->data['parameters']
+        $this->__data['parameters']
                 = $xml->xpath("parameters");
-        $this->data['inputs']
+        $this->__data['inputs']
                 = $xml->xpath("inputs");
 
         return true;
     }
-
-    function __destruct() {
-        foreach ($this as $key => $value) {
-            unset($this->$key);
-        }
-    }
-
-    function __get($name) {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
-        } else {
-            throw new Exception('No Such Element', '0');
-            return FALSE;
-        }
-    }
-
-    function __set($name, $value) {
-        
-    }
-
-}
-class module {
-    /* %******************************************************************************************% */
-
-// CORE DEPENDENCIES
-// Look for include file in the same directory (e.g. `./config.inc.php`).
-
-    private $schema;
-    private $xmlFile;
-    private $data = array('id' => '',
-        'name' => '',
-        'parameters' => array(''),
-        'outputs' => array(''),
-        'inputs' => array(''));
-
-    function __construct($schema, $xmlFile) {
-
-        $this->schema = $schema;
-        $this->xmlFile = $xmlFile;
-
-        if (!CloudSuite::load_xml($schema, $xmlFile, $xml)) {
-            return false;
-        }
-
-        $this->data['id']
-                = $xml->xpath("/set/@id");
-        $this->data['name']
-                = $xml->xpath("/set/@name");
-        $this->data['parameters']
-                = $xml->xpath("parameters");
-        $this->data['inputs']
-                = $xml->xpath("inputs");
-
-        return true;
-    }
-
-    function __destruct() {
-        foreach ($this as $key => $value) {
-            unset($this->$key);
-        }
-    }
-
-    function __get($name) {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
-        } else {
-            throw new Exception('No Such Element', '0');
-            return FALSE;
-        }
-    }
-
-    function __set($name, $value) {
-        
-    }
+     */
 
 }
 ?>

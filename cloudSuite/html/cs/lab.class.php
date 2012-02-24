@@ -12,18 +12,23 @@
  */
 class Lab {
 
-    private $__labSchema;
-    private $__xmlFile;
-    private $__labXML;
-	private $__user;
-    
-    private $data = array('sets' => '',
-        'modules' => '',
-        'user' => '');
+    private $labSchema;
+    private $xmlFile;
+    private $labXML;
+    private $user;
+    /**The data element contains all the data needed for a lab.
+     * Owner, permisions, and an array of module objects stored with
+     * the sequence number as the array key.
+     */
+    private $data = array('owner' => '',
+                          'permissions' => array('owner'=>'7',
+                                                 'group'=>'5',
+                                                 'everyone'=>'4'),
+                           'module' => array(0=>'moduleObject') );
 
-    function __set($name, $value) {
-        if (array_key_exists($name, $this->data)) {
-            $this->data[$name] = $value;
+    function __set($key, $value) {
+        if (array_key_exists($key, $this->data)) {
+            $this->data[$key] = $value;
             return true;
         } else {
             throw new Exception('No Such Element', '0');
@@ -31,9 +36,9 @@ class Lab {
         }
     }
 
-    function __get($name) {
-        if (array_key_exists($name, $this->data)) {
-            return $this->data[$name];
+    function __get($key) {
+        if (array_key_exists($key, $this->data)) {
+            return $this->data[$key];
         } else {
             throw new Exception('No Such Element', '0');
             return FALSE;
@@ -42,7 +47,17 @@ class Lab {
 
     public function addModule($moduleObject) {
 
+        $seq = $moduleObject->__get('sequenceNumber');
         
+        if ($seq > 0) {
+            if(array_key_exists($seq, $this->data["module"])){
+                throw new Exception('Sequence number already exists');
+                return false;
+                }
+            $this->data["module"][$seq] = $moduleObject;
+            return true;
+        }
+        /*
         $module = $_labXML->set[0]->addChild($module);
 
         $module->addAttribute('name', $moduleObject->getName);
@@ -64,28 +79,35 @@ class Lab {
         $param = $fileInfo->addChild('parameter');
         $param->addChild('flag');
         $param->addChild('type');
-
-   		$output = $fileInfo->addChild('output');
-	}
+        $output = $fileInfo->addChild('output');
+	
+        */
+        }
 	
 	function __construct($user,$labSchema, $labXML) {
-    	$this->__user = $user;
-		$this->__labSchema = ($labSchema == null) ? $ENV_['cs']['labSchema'] : $labSchema;
-
- $_ENV['cs']['schema_dir'] = 'schema'.DIRECTORY_SEPARATOR; 
+    	$this->user = $user;
+	
+        $this->data["owner"] = $user->__get("id");
+        
+        $this->labSchema = ($labSchema == null) ? $ENV_['cs']['labSchema'] : $labSchema;
+        //$_ENV['cs']['schema_dir'] = 'schema'.DIRECTORY_SEPARATOR; 
     }
 
    	function writeLab(){
-	
+            //convert to XML and store to the system.
 	}
 
 	function readLab(){
-	
+            //convert from XML and store to the system.
 	}
 
 	public static function loadLab($labID){
    
-   }
+        }
+        
+        function runLab(){
+            
+        }
      
 }
 

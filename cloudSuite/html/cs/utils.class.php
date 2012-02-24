@@ -6,7 +6,7 @@
  * @author Drew A. Clinkenbeard
  */
 
-class Utill {
+class Utils {
 
     public static function genID() {
         $idFile = "idGen.txt";
@@ -21,9 +21,14 @@ class Utill {
     }
 
     public static function validate($schema, $xmlFile) {
-
+//PROPER ERROR AND RETURN
         $doc = new DOMDocument();
-        $doc->load($xmlFile);
+        try {
+            $doc->load($xmlFile);
+        }  catch (Exception $e) {
+            echo "Could not load file";
+            return false;
+        }
 
         if ($doc->schemaValidate($schema)) {
             return true;

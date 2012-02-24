@@ -2,7 +2,7 @@
 
 <!--
     Document   : lab.xml
-    Created on : February 21, 2012, 7:47 PM
+    Created on : February 23, 2012, 6:54 PM
     Author     : drew
     Description:
         Purpose of the document follows.
@@ -18,19 +18,46 @@
         <everyone></everyone>
     </permissions>
     <module ns0:id="" ns0:seqNumber="">
-        <settings></settings>
-        <settings></settings>
-        <settings></settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
     </module>
     <module ns0:id="" ns0:seqNumber="">
-        <settings></settings>
-        <settings></settings>
-        <settings></settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
     </module>
     <module ns0:id="" ns0:seqNumber="">
-        <settings></settings>
-        <settings></settings>
-        <settings></settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
+        <settings>
+            <flag></flag>
+            <value></value>
+        </settings>
     </module>
 
 </ns0:lab>

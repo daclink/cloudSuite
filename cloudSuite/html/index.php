@@ -80,16 +80,12 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
         <!-- end ajax test -->
         
         <div>
-            <?php $blah = new CloudSuite();
-                
-            ?>
-        </div>
-        <div>
             <?php
-                $xmlFile = $_ENV['cs']['set_dir'].'biological.xml';
+                echo"<pre>";
+                print_r($_ENV['cs']);
+                echo"</pre>";
+                $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
                 $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
-                
-                
                 
                 echo "<div> File is $xmlFile</div>";
                 echo "<div> scheme is $xmlScheme</div>";
@@ -97,14 +93,15 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                if( Utils::validate($xmlScheme, $xmlFile)) {
                 echo "<div>IT'S GOOD!</div>";
                 
-                 $collection = new collection($xmlScheme, $xmlFile);
+                 $collection = new Collection($xmlScheme, $xmlFile);
                  
                  echo "<pre>";
-                 $foo = collection::listModules($xmlScheme, $xmlFile);
+                 $foo = Collection::listModules($xmlScheme, $xmlFile);
                     
                  print_r($foo);
                  echo "</pre>";
-                
+                echo"<b>ahhh yeah</b>";
+                 /*
                  $user = new user();
                  
                  $user->name = "filbert";
@@ -119,7 +116,7 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                  }
                  
                  echo "</pre>";
-                
+                */
                  
                } else {
                   echo "<div>IT'S not valid but good!!</div>";

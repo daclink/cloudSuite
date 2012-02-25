@@ -22,23 +22,26 @@ class Utils {
 
     public static function validate($schema, $xmlFile) {
 //PROPER ERROR AND RETURN
+        
         $doc = new DOMDocument();
         try {
             $doc->load($xmlFile);
-        }  catch (Exception $e) {
-            echo "Could not load file";
-            return false;
-        }
+        
 
         if ($doc->schemaValidate($schema)) {
             return true;
         } else {
             return false;
         }
+        
+        }  catch (Exception $e) {
+            throw new Exception("Could not load $xmlFile", $e->getCode(), $e->getPrevious());
+            return false;
+        }
     }
 
     public static function load_xml($xmlSchema, $xmlFile, &$xml) {
-        if (!CloudSuite::validate($xmlSchema, $xmlFile)) {
+        if (!Utils::validate($xmlSchema, $xmlFile)) {
 
             return false;
         }

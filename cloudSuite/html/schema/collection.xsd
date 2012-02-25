@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema 
+version="0.2"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified">
+
 <xsd:annotation>
   <xsd:appinfo>CloudSuite set schema</xsd:appinfo>
   <xsd:documentation xml:lang="en">

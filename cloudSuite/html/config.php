@@ -6,6 +6,7 @@
  */
  $_ENV['cs']['manifest_dir'] = 'manifest'.DIRECTORY_SEPARATOR;
  $_ENV['cs']['schema_dir'] = 'schema'.DIRECTORY_SEPARATOR; 
- $_ENV['cs']['collection_dir'] = 'collection'.DIRECTORY_SEPARATOR; 
+ $_ENV['cs']['collection_dir'] = 'collections'.DIRECTORY_SEPARATOR;
+ $_ENV['cs']['css'] = 'script' .DIRECTORY_SEPARATOR;
 
 ?>

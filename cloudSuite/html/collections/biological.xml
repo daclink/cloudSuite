@@ -1,43 +1,66 @@
-<?xml version="1.0"?>
-<set name="Biological" id="0">
-	<module name="genetic algorithm" id="1">
-		<systemRequirement>
-			<product></product>
-			<version></version>
-		</systemRequirement>		
-		<fileInfo>
-			<kind> </kind>
-			<path> </path>
-				<parameter name="asd">
-					<flag></flag>
-					<type></type>   
-				</parameter>
-				<output>
-					<kind></kind>
-					<desc></desc>
-				</output>				 
-		</fileInfo>
-	</module>
-	<module name="neuroSolv" id="2">
-		<systemRequirement>
-			<product></product>
-			<version></version>
-		</systemRequirement>		
-                <systemRequirement>
-			<product></product>
-			<version></version>
-		</systemRequirement>
-		<fileInfo>
-			<kind> </kind>
-			<path> </path>
-				<parameter name="asd">
-					<flag></flag>
-					<type></type>
-				</parameter>
-				<output>
-					<kind></kind>
-					<desc></desc>
-				</output>				 
-		</fileInfo>
-	</module>
-</set>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : collection.xml
+    Created on : February 24, 2012, 7:21 AM
+    Author     : drew
+    Description:
+-->
+
+<collection name="biological" id="1"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://www.cloudsuite.info/schema/collection.xsd"
+            >
+    <module name="ga" id="7">
+        <systemRequirement>
+            <product></product>
+            <version></version>
+        </systemRequirement>
+        <systemRequirement>
+            <product></product>
+            <version></version>
+        </systemRequirement>
+        <systemRequirement>
+            <product></product>
+            <version></version>
+        </systemRequirement>
+        <fileInfo>
+            <kind></kind>
+            <path></path>
+            <parameter name="fish">
+                <flag></flag>
+                <type></type>
+            </parameter>
+            <output>
+                <kind></kind>
+                <desc></desc>
+            </output>
+        </fileInfo>
+    </module>
+    <module name="neuro" id="8">
+        <systemRequirement>
+            <product></product>
+            <version></version>
+        </systemRequirement>
+        <fileInfo>
+            <kind></kind>
+            <path></path>
+            <parameter name="cat">
+                <flag></flag>
+                <type></type>
+            </parameter>
+            <parameter name="dog">
+                <flag></flag>
+                <type></type>
+            </parameter>
+            <output>
+                <kind></kind>
+                <desc></desc>
+            </output>
+            <output>
+                <kind></kind>
+                <desc></desc>
+            </output>
+        </fileInfo>
+    </module>
+</collection>

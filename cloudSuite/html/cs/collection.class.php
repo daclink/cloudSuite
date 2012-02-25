@@ -50,7 +50,7 @@ class Collection {
 
         $ret = array();
 
-        if (!CloudSuite::load_xml($schema, $xmlFile, $xml)) {
+        if (!Utils::load_xml($schema, $xmlFile, $xml)) {
             return false;
         }
         $result = $xml->xpath("//module");

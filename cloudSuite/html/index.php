@@ -100,7 +100,6 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                     
                  print_r($foo);
                  echo "</pre>";
-                echo"<b>ahhh yeah</b>";
                  /*
                  $user = new user();
                  
@@ -115,17 +114,12 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                      echo 'Caught exception: ',  $e->getMessage(), "\n";
                  }
                  
-                 echo "</pre>";
                 */
+                 echo "</pre>";
                  
                } else {
                   echo "<div>IT'S not valid but good!!</div>";
                }
-               
-               
-               
-               
-               
                
                ?>
         </div>

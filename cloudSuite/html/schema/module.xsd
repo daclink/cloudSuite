@@ -17,7 +17,7 @@
     <xsd:element name="kind" type="xsd:string" />
     <xsd:element name="path" type="xsd:string" />
     <xsd:element name="required" type="xsd:boolean" />
-    <xsd:element name="data_type" type="xsd:string" />
+    <xsd:element name="dataType" type="xsd:string" />
     <xsd:element name="default" type="xsd:string" />
     <xsd:element name="description" type="xsd:string" />
     <xsd:element name="flag" type="xsd:string" />
@@ -25,8 +25,14 @@
     <xsd:element name="type" type="xsd:string" />
     <xsd:element name="value" type="xsd:string" />
     <xsd:element name="groupName" type="xsd:string" />
-    <xsd:element name="everyone" type="xsd:boolean"/>
-
+    <xsd:element name="everyone" type="xsd:integer"/>
+    <xsd:element name="group" type="xsd:integer"/>
+    <xsd:element name="owner" type="xsd:integer"/>
+    <xsd:element name="exclusive" type="xsd:string"/>
+    <xsd:element name="input" type="xsd:string"/>
+    <xsd:element name="output" type="xsd:string"/>
+    
+    
     <!-- define attributes-->
     <xsd:attribute name="name" type="xsd:string" />
     <xsd:attribute name="id" type="xsd:string" />
@@ -53,23 +59,17 @@
         </xsd:complexType>
     </xsd:element>
     
-    <xsd:element name="allowed">
-        <xsd:complexType>
-            <xsd:all>
-                <xsd:element ref="description"/>
-                <xsd:element ref="flag"/>
-            </xsd:all>
-            <xsd:attribute ref="name" use="required"/>
-        </xsd:complexType>
-    </xsd:element>
-
     <xsd:element name="parameter">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="flag"/>
+                <xsd:element ref="value"/>
+                <xsd:element ref="description"/>
                 <xsd:element ref="required"/>
-                <xsd:element ref="data_type"/>
+                <xsd:element ref="dataType"/>
                 <xsd:element ref="default"/>
-                <xsd:element ref="allowed" maxOccurs="unbounded"/>
+                <xsd:element ref="exclusive" maxOccurs="unbounded"/>
+                <xsd:element ref="output"/>
             </xsd:sequence>
         </xsd:complexType>		
     </xsd:element>
@@ -83,40 +83,13 @@
             <xsd:attribute ref="name" use="required"/>
         </xsd:complexType>
     </xsd:element>
-    
-    <xsd:element name="input">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element ref="field" maxOccurs="unbounded"/>
-                <xsd:element ref="url"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-    
-    <xsd:element name="output">
-        <xsd:complexType>
-            <xsd:all>
-                <xsd:element ref="flag"/>
-                <xsd:element ref="kind"/>
-            </xsd:all>
-        </xsd:complexType>
-    </xsd:element>
-    
-    <xsd:element name="group">
-        <xsd:complexType>
-            <xsd:sequence>
-                
-            </xsd:sequence>
-            <xsd:attribute ref="id" use="required"/>
-            <xsd:attribute ref="name" use="required"/>
-        </xsd:complexType>
-    </xsd:element>
-    
+   
     <xsd:element name="permissions">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref ="owner"/> 
                 <xsd:element ref ="everyone"/>
-                <xsd:element ref ="group" maxOccurs="unbounded"/>
+                <xsd:element ref ="group"/>
             </xsd:sequence>
             <xsd:attribute ref="clearance" use="required"/>
         </xsd:complexType>
@@ -128,8 +101,8 @@
                 <xsd:element ref="systemRequirement"/>
                 <xsd:element ref="fileInfo" maxOccurs="1"/>
                 <xsd:element ref="parameter"/>
-                <xsd:element ref="input" maxOccurs="1"/>
-                <xsd:element ref="output"/>
+                <xsd:element ref="input" maxOccurs="unbounded"/>
+                <xsd:element ref="output" maxOccurs="unbounded"/>
                 <xsd:element ref="permissions"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>

@@ -3,7 +3,7 @@
 *@author Drew A. Clinkenbeard
 *CloudSuite module class.
 */
-class module {
+class Module {
     /* %******************************************************************************************% */
 
 // CORE DEPENDENCIES
@@ -12,17 +12,27 @@ class module {
     private $__moduleSchema;
     private $__moduleXmlFile;
     private $__data = array('id' => '',
-        'name' => '',
-        'parameters' => array(''),
-        'outputs' => array(''),
-        'inputs' => array(''),
-        'sequenceNumber' => '-1');
-
+                            'name' => '',
+                            'systemRequirments' => array('product' => 'version'),
+                            'fileInfo' => array('kind' => 'path'),
+                            'parameter' => array('flag' => 
+                                                array('value' =>'',
+                                                      'description' =>'',
+                                                      'required' =>'',
+                                                      'dataType' =>'',
+                                                      'default' => '',
+                                                      'exclusive' => array('flag'),
+                                                      'output' =>'')),
+                            'input' => '',
+                            'output' => '',
+                            'clearance' => '',
+                            'owner' => '',
+                            'group' => '',
+                            'everyone' => '');
+                            
     function __construct($schema, $xmlFile) {
 
     }
-        
-     
 
     function __destruct() {
         foreach ($this as $key => $value) {

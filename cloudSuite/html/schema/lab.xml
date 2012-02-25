@@ -8,16 +8,16 @@
         Purpose of the document follows.
 -->
 
-<ns0:lab  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+<lab  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
    xmlns:ns0='null'
-   xsi:schemaLocation='null lab.xsd' ns0:id="">
+   xsi:noNamespaceSchemaLocation='../schema/lab.xsd' id="">
     <owner></owner>
     <permissions>
         <owner></owner>
         <group></group>
         <everyone></everyone>
     </permissions>
-    <module ns0:id="" ns0:seqNumber="">
+    <module id="" seqNumber="">
         <settings>
             <flag></flag>
             <value></value>
@@ -31,7 +31,7 @@
             <value></value>
         </settings>
     </module>
-    <module ns0:id="" ns0:seqNumber="">
+    <module id="" seqNumber="">
         <settings>
             <flag></flag>
             <value></value>
@@ -45,7 +45,7 @@
             <value></value>
         </settings>
     </module>
-    <module ns0:id="" ns0:seqNumber="">
+    <module id="" seqNumber="">
         <settings>
             <flag></flag>
             <value></value>
@@ -60,4 +60,4 @@
         </settings>
     </module>
 
-</ns0:lab>
+</lab>

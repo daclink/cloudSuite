@@ -37,8 +37,18 @@ class User {
             throw new Exception('No Such Element', '0');
             return FALSE;
         }
+        
+    }
+    
+    function __construct() {
+        $this->data['id'] = Utils::genID();
     }
 
+    function __destruct() {
+        foreach ($this as $key => $value) {
+            unset($this->$key);
+        }
+    }
 }
 
 

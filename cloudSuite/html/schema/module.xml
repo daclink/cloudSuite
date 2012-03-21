@@ -2,20 +2,20 @@
 
 <!--
     Document   : module.xml
-    Created on : February 24, 2012, 8:02 PM
+    Created on : March 20, 2012, 9:03 PM
     Author     : drew
     Description:
         Purpose of the document follows.
 -->
 
-<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+<ns0:module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
    xmlns:ns0='null'
-   xsi:noNamespaceSchemaLocation='../schema/module.xsd' id="" name="">
+   xsi:schemaLocation='null module.xsd' ns0:id="" ns0:name="">
     <systemRequirement>
         <product></product>
         <version></version>
     </systemRequirement>
-    <fileInfo name="">
+    <fileInfo ns0:name="">
         <kind></kind>
         <path></path>
     </fileInfo>
@@ -23,18 +23,24 @@
         <flag></flag>
         <value></value>
         <description></description>
-        <required>1</required>
+        <required></required>
         <dataType></dataType>
         <default></default>
+        <exclusive></exclusive>
+        <exclusive></exclusive>
         <exclusive></exclusive>
         <output></output>
     </parameter>
     <input></input>
+    <input></input>
+    <input></input>
     <output></output>
-    <permissions clearance="">
-        <owner>7</owner>
-        <everyone>4</everyone>
-        <group>5</group>
+    <output></output>
+    <output></output>
+    <permissions ns0:clearance="">
+        <owner></owner>
+        <everyone></everyone>
+        <group></group>
     </permissions>
 
-</module>
+</ns0:module>

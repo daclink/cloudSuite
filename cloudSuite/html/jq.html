@@ -1,0 +1,43 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jquery!</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+         <script type="text/javascript">
+             var x;
+             $.get("arrayTest.php",
+                function(data) {
+                        
+                        for (x in data){
+                           // document.write(data[x] + " _\n");
+                        }
+               }, "json");
+                
+                
+        </script>
+        <? echo "hi!";?>  
+        <div id="name"></div>
+        <div id="time"></div>
+        <div id="all"></div>
+        
+        <script type="text/javascript">
+            
+            var person={fname:"john",lname:"doe",age:25};
+            for (x in person){
+                function(){
+                    $("#name").append.(person[x] + " _\n");
+            };
+            
+        </script>
+        
+    </body>
+</html>

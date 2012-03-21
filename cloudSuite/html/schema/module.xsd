@@ -70,6 +70,7 @@
                 <xsd:element ref="default"/>
                 <xsd:element ref="exclusive" maxOccurs="unbounded"/>
                 <xsd:element ref="output"/>
+                <xsd:element ref="input" />
             </xsd:sequence>
         </xsd:complexType>		
     </xsd:element>
@@ -101,8 +102,6 @@
                 <xsd:element ref="systemRequirement"/>
                 <xsd:element ref="fileInfo" maxOccurs="1"/>
                 <xsd:element ref="parameter"/>
-                <xsd:element ref="input" maxOccurs="unbounded"/>
-                <xsd:element ref="output" maxOccurs="unbounded"/>
                 <xsd:element ref="permissions"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>

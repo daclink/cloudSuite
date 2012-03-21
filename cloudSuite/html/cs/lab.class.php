@@ -24,7 +24,7 @@ class Lab {
                           'permissions' => array('owner'=>'7',
                                                  'group'=>'5',
                                                  'everyone'=>'4'),
-                           'module' => array(0=>'moduleObject') );
+                           'modules' => array(0=>'moduleObject') );
 
     function __set($key, $value) {
         if (array_key_exists($key, $this->data)) {
@@ -46,17 +46,15 @@ class Lab {
     }
 
     public function addModule($moduleObject) {
-
-        $seq = $moduleObject->__get('sequenceNumber');
-        
-        if ($seq > 0) {
-            if(array_key_exists($seq, $this->data["module"])){
-                throw new Exception('Sequence number already exists');
-                return false;
-                }
-            $this->data["module"][$seq] = $moduleObject;
+            
+        try{
+            $this->data['modules'][$moduleObject->__get('id')] = $moduleObject;
             return true;
-        }
+    }catch (Exception $e){
+        echo "there was a problem $e->__toString()";
+        return false;
+    }
+        
         /*
         $module = $_labXML->set[0]->addChild($module);
 
@@ -87,14 +85,39 @@ class Lab {
 	function __construct($user,$labSchema, $labXML) {
     	$this->user = $user;
 	
-        $this->data["owner"] = $user->__get("id");
+      //  $uid = $user->__get('id');
         
-        $this->labSchema = ($labSchema == null) ? $ENV_['cs']['labSchema'] : $labSchema;
+        $this->__set('owner', $user);
+        
+        $this->labSchema = ($labSchema == null) ? $_ENV['cs']['schema_dir'] . 'lab.xsd' : $labSchema;
         //$_ENV['cs']['schema_dir'] = 'schema'.DIRECTORY_SEPARATOR; 
     }
 
    	function writeLab(){
             //convert to XML and store to the system.
+            $domDoc = new DOMDocument;
+            $lab = $domDoc->createElement('lab');
+              $labID = $domDoc->createAttribute('id');
+              $labID->appendChild($domDoc->createTextNode($this->data['id']));
+              $lab->appendChild($labID);
+              
+                $owner = $domDoc->createElement('owner');
+                $owner->appendChild($domDoc->createTextNode($this->data['owner']));
+              $lab->appendChild($owner);
+              
+              $permissions = $domDoc->createElement('permissons');
+                  $owner = $domDoc->createElement('owner');
+                    $owner->appendChild($domDoc->createTextNode($this->data['permissions']['owner']));
+                  $group = $domDoc->createElement('group');
+                    $group->appendChild($domDoc->createTextNode($this->data['permissions']['group']));
+                  $everyone = $domDoc->createElement('everyone');
+                    $everyone->appendChild($domDoc->createTextNode($this->data['permissions']['everyone']));
+                $permissions->appendChild($owner);
+                $permissions->appendChild($group);
+                $permissions->appendChild($everyone);
+              $lab->appendChild($permissions);
+             
+            
 	}
 
 	function readLab(){

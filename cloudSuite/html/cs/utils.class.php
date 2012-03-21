@@ -9,14 +9,25 @@
 class Utils {
 
     public static function genID() {
-        $idFile = "idGen.txt";
-        $fh = fopen($idFile, 'w+') or die("COuldn't get ID file!");
-
-        $id = intval(fread($fh), 10);
-        $retID = $id + 1;
-
-        fwrite($fh, $retID);
-
+        $idFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . '.idGen';
+        $fh = fopen($idFile, 'r') or die("Couldn't get ID file!");
+        if (! flock($fh, LOCK_EX)){
+            throw new Exception ('Could not get file lock. Try again','6');
+            return -1;
+        }
+        
+        $id =  file_get_contents($idFile);
+        $retID = $id+ rand(2,5);
+        #$retID = str_pad($retID, 12, "0", STR_PAD_LEFT);
+        
+        if( ! file_put_contents($idFile, $retID)){
+            flock($fh, LOCK_UN);
+            throw new Exception ('Could not write file');
+            return -1;
+        }
+        
+        flock($fh, LOCK_UN);
+        fclose($fh);
         return $retID;
     }
 
@@ -72,6 +83,14 @@ class Utils {
         array_walk($array, 'array_print', $array_name);
     }
 
+    public static function showStuff($string) {
+        
+        echo "\n<pre>";
+        print_r($string);
+        echo "</pre>\n";
+        
+    }
+    
 }
 
 ?>

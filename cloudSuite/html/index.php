@@ -99,6 +99,63 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                  $foo = Collection::listModules($xmlScheme, $xmlFile);
                     
                  print_r($foo);
+                 echo"<div>";
+                try{
+                    $user = new User();
+                    $uid = $user->__get("id");
+                    echo "user created id == $uid\n";
+                    $user->__set('name', 'drew');
+                    $uname = $user->__get('name');
+                    echo "user name == $uname\n";
+                    $lab = new Lab($uid,null,null);
+                    
+                    $lab->addModule(new Module(null, null));
+                    $lab->addModule(new Module(null, null));
+                    $lab->addModule(new Module(null, null));
+                    $lab->addModule(new Module(null, null));
+                    
+                    $modules = $lab->__get('modules');
+                    /*foreach ($modules as $key =>$value) {
+                        echo "\nkey\t=\tvalue\n";
+                        echo "\n$key\t=\t$value\n";
+                                              
+                        //$module->__get('id');
+                        //print_r($module);
+                    }*/
+                   //print_r($modules);
+                    
+                    echo "<div id=\"lab\">";
+                   // print_r($lab);
+                    echo "</div>";
+                    
+                    $mod = new Module(Null,Null);
+                    
+                    $parms = array('flag' => '=t', 
+                                   'value' =>'text',
+                                   'description' =>'returns a text file',
+                                   'required' =>'false',
+                                   'dataType' =>'text',
+                                   'default' => 'false',
+                                   'exclusive' => array('-T','-F','-r'),
+                                   'output' =>'text file');
+                    
+                    Utils::showStuff("print_r params");
+                    print_r($parms);
+                    
+                    $mod->addParam($parms);
+                    
+                    Utils::showStuff("listing params");
+                    
+                    $mod->listParamters();
+                    
+                    
+               } catch (Exception $e){
+                   echo "There was a problem!";
+                   echo $e->getTraceAsString();
+               }
+                 
+      
+                 echo"</div>";
                  echo "</pre>";
                  /*
                  $user = new user();

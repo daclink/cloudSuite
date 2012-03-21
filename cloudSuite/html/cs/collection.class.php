@@ -67,7 +67,7 @@ class Collection {
 
     public function addModule($moduleObject) {
 
-        if (!CloudSuite::load_xml($xmlSchema, $xmlFile, $xml)) {
+        if (!Utils::load_xml($xmlSchema, $xmlFile, $xml)) {
             throw new Exceptions("Couldn't access data");
         }
 

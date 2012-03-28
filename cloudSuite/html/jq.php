@@ -35,12 +35,29 @@ and open the template in the editor.
     <body>
         
         <?php $foo = "hoi!"?>  
-        <div id="name"></div>
+        <div id="module"></div>
         <div id="time"></div>
         <div id="all"></div>
+        <button>Get module!</button>
         <script type="text/javascript">
-             var x = "<?php echo $foo ?>";
-             document.write(x);
+         <?php
+             $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
+             $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
+         ?>
+            
+            
+            
+            $(document).ready(function(){
+                $("button").click(function(){
+                $("#module").load('./rest.php?listModule=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
+                
+                
+                });
+            });
+            
+             $("div.modList").live('click', function() {
+                var id = this.id;
+                alert("woo " + id) });
              
         </script>
         <?php
@@ -53,7 +70,8 @@ and open the template in the editor.
                'dataType' =>'text',
                'default' => 'false',
                'exclusive' => array('-T','-F','-r'),
-               'output' =>'text file');
+               'output' =>'text file',
+               'input' => '');
         
         $mod->addParam($parms);
         
@@ -64,7 +82,8 @@ and open the template in the editor.
                'dataType' =>'n/a',
                'default' => 'false',
                'exclusive' => array(),
-               'output' =>'N/A');
+               'output' =>'N/A',
+               'input' => '');
         $mod->addParam($parms);
         
         Utils::showStuff($mod->listParamters());

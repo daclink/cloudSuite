@@ -22,6 +22,9 @@ elementFormDefault="qualified">
 <xsd:element name="flag" type="xsd:string"/>
 <xsd:element name="type" type="xsd:string"/>
 <xsd:element name="desc" type="xsd:string"/>
+<xsd:element name="ownerID" type="xsd:string"/>
+<xsd:element name="clearance" type="xsd:string"/>
+<xsd:element name="created" type="xsd:string"/>
 
 <!-- define attributes-->
 <xsd:attribute name="name" type="xsd:string" />
@@ -79,10 +82,23 @@ elementFormDefault="qualified">
 	</xsd:complexType>		
 </xsd:element>
 
+<xsd:element name="owner">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element ref="fname" use="required"/>
+            <xsd:element ref="lname" use="required"/>
+            <xsd:element ref="uname" use="required"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
 <xsd:element name="collection">
 	<xsd:complexType>
 		<xsd:sequence>
-			<xsd:element ref="module" maxOccurs="unbounded"/>
+                    <xsd:element ref="ownerID" use="required"/>
+                    <xsd:element ref="clearance" use="required"/>
+                    <xsd:element ref="created" use="required"/>
+                    <xsd:element ref="module" maxOccurs="unbounded"/>
 		</xsd:sequence>
 		<xsd:attribute ref="name" use="required"/>
 		<xsd:attribute ref="id" use="required"/>

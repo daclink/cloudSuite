@@ -30,13 +30,8 @@
         <exclusive></exclusive>
         <exclusive></exclusive>
         <output></output>
+        <input></input>
     </parameter>
-    <input></input>
-    <input></input>
-    <input></input>
-    <output></output>
-    <output></output>
-    <output></output>
     <permissions ns0:clearance="">
         <owner></owner>
         <everyone></everyone>

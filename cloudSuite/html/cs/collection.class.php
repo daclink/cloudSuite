@@ -12,9 +12,9 @@ class Collection {
     private $xmlFile;
     private $data = array('id' => '',
         'name' => '',
-        'fname' => '',
-        'lname' => '',
+        'ownerID' => '',
         'clearance' => '',);
+    
 
     function __set($name, $value) {
         if (array_key_exists($name, $this->data)) {
@@ -65,6 +65,26 @@ class Collection {
         return $ret;
     }
 
+
+        public function listTheseModules() {
+
+        $ret = array();
+
+        if (!Utils::load_xml($schema, $xmlFile, $xml)) {
+            return false;
+        }
+        $result = $xml->xpath("//module");
+
+        foreach ($result as $key => $value) {
+
+            $id = intval((string) $result[$key]["id"]);
+            $name = (string) $result[$key]["name"];
+            $ret[$id] = $name;
+        }
+
+        return $ret;
+    }
+    
     public function addModule($moduleObject) {
 
         if (!Utils::load_xml($xmlSchema, $xmlFile, $xml)) {

@@ -40,5 +40,16 @@ if (isset($_GET['listModule'])){
         }
      
 }
+if (isset($_GET['colGetModID'])){
+    
+     $module = Collection::getModuleByID($_GET['xmlScheme'], $_GET['xmlFile'], $_GET['modid']);
+     
+     echo "<pre>";
+     print_r($module);
+     echo "</pre>";
+     
+     $_GET['FOO']= $module;
+     
+}
 
 ?>

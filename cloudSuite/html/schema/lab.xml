@@ -2,62 +2,25 @@
 
 <!--
     Document   : lab.xml
-    Created on : February 23, 2012, 6:54 PM
+    Created on : April 3, 2012, 9:10 PM
     Author     : drew
     Description:
         Purpose of the document follows.
 -->
 
-<lab  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+<ns0:lab  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
    xmlns:ns0='null'
-   xsi:noNamespaceSchemaLocation='../schema/lab.xsd' id="">
+   xsi:schemaLocation='null lab.xsd' ns0:id="">
     <owner></owner>
     <permissions>
         <owner></owner>
         <group></group>
         <everyone></everyone>
     </permissions>
-    <module id="" seqNumber="">
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-    </module>
-    <module id="" seqNumber="">
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-    </module>
-    <module id="" seqNumber="">
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
-        <settings>
-            <flag></flag>
-            <value></value>
-        </settings>
+    <module ns0:id="" ns0:seqNumber="">
+        <settings></settings>
+        <method></method>
+        <attributeString></attributeString>
     </module>
 
-</lab>
+</ns0:lab>

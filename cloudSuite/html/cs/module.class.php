@@ -117,7 +117,7 @@ class Module {
                                             'dataType'      => $parameterArray['dataType'],
                                             'default'       => $parameterArray['default'],
                                             'exclusive'     => $parameterArray['exclusive'],
-                                            'input'     	=> $parameterArray['input'],
+                                            'input'         => $parameterArray['input'],
                                             'output'        => $parameterArray['output']); 
        /*    
        if (! $this->__data['parameter'][$parameterArray['flag']] = $parameterArray['flag']){
@@ -176,6 +176,10 @@ class Module {
        $params = $this->__data['parameter'];
        //print_r($params);
        return $params;
+   }
+   
+   function listParametersByID($id){
+       
    }
 
 

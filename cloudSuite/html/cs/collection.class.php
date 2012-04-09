@@ -66,7 +66,18 @@ class Collection {
     }
 
 
-        public function listTheseModules() {
+    public static function getModuleByID($schema, $xmlFile, $id){
+        
+        if (!Utils::load_xml($schema, $xmlFile, $xml)) {
+            return false;
+        }
+        
+        return $xml->xpath("//module[@id=$id]");
+        
+    }
+    
+    
+    public function listTheseModules() {
 
         $ret = array();
 

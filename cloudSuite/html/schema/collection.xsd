@@ -82,22 +82,13 @@ elementFormDefault="qualified">
 	</xsd:complexType>		
 </xsd:element>
 
-<xsd:element name="owner">
-    <xsd:complexType>
-        <xsd:sequence>
-            <xsd:element ref="fname" use="required"/>
-            <xsd:element ref="lname" use="required"/>
-            <xsd:element ref="uname" use="required"/>
-        </xsd:sequence>
-    </xsd:complexType>
-</xsd:element>
 
 <xsd:element name="collection">
 	<xsd:complexType>
 		<xsd:sequence>
-                    <xsd:element ref="ownerID" use="required"/>
-                    <xsd:element ref="clearance" use="required"/>
-                    <xsd:element ref="created" use="required"/>
+                    <xsd:element ref="ownerID" />
+                    <xsd:element ref="clearance" />
+                    <xsd:element ref="created" />
                     <xsd:element ref="module" maxOccurs="unbounded"/>
 		</xsd:sequence>
 		<xsd:attribute ref="name" use="required"/>

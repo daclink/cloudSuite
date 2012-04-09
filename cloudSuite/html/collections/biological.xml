@@ -11,6 +11,9 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="http://www.cloudsuite.info/schema/collection.xsd"
             >
+    <ownerID>22</ownerID>
+    <clearance>10</clearance>
+    <created>2012.02.11</created>
     <module name="ga" id="7">
         <systemRequirement>
             <product></product>

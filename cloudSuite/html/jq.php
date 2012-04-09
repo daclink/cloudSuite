@@ -33,33 +33,32 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        
-        <?php $foo = "hoi!"?>  
         <div id="module"></div>
         <div id="time"></div>
         <div id="all"></div>
         <button>Get module!</button>
+        
+        <div id="data"></div>
         <script type="text/javascript">
          <?php
              $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
              $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
          ?>
             
-            
-            
             $(document).ready(function(){
                 $("button").click(function(){
                 $("#module").load('./rest.php?listModule=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
-                
-                
                 });
             });
             
              $("div.modList").live('click', function() {
                 var id = this.id;
-                alert("woo " + id) });
+                $("#data").load('./rest.php?colGetModID=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>&modid='+id);
+             });
+             
              
         </script>
+       
         <?php
         $mod = new Module(Null,Null);
 
@@ -86,8 +85,31 @@ and open the template in the editor.
                'input' => '');
         $mod->addParam($parms);
         
-        Utils::showStuff($mod->listParamters());
+       	//Utils::showStuff($mod->listParamters());
+        
+        echo "<div id=\"domThing\">";
+        
+        $foo = new Lab('gabbo');
+        
+        $xmlFile = $_ENV['cs']['labs_dir'].$foo->__get('labName');
+        $xmlSchema = $_ENV['cs']['schema_dir']."lab.xsd";
+        
+        $foo->addModule($xmlFile, $xmlSchema, array('seqNumber'=>'5',
+                                                       'id'=>'1234',
+                                                       'method'=>'ga.exe',
+                                                       'settings'=>'-fbar.xml',
+                                                       'attrString'=>'attribute'
+                                                      ));
+        
+        echo $foo->writeLab();
+        
+       // print_r($bar);
+        
+        echo "</div>";
+        
         ?>
+        
+        
         
     </body>
 </html>

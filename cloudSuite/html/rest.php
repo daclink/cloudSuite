@@ -51,5 +51,19 @@ if (isset($_GET['colGetModID'])){
      $_GET['FOO']= $module;
      
 }
+if (isset($_GET['colGetDesc'])){
+    
+     //$xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
+    // $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
+    
+     $desc = Collection::getDesc($_GET['xmlScheme'], $_GET['xmlFile']);
+     
+     //$desc = Collection::getDesc($xmlScheme, $xmlFile);
+     echo "<pre>";
+     echo $desc[0][0];
+    // print_r($desc);
+     echo "</pre>";
+     
+}
 
 ?>

@@ -45,7 +45,7 @@ and open the template in the editor.
                     while (false !== ($entry = readdir($handle))) {
                         if ($entry != '.' && $entry != '..' ) {
                             $parts = explode(".", $entry);
-                            echo "<div>$parts[0] </div>";
+                            echo "<div class=\"colList\">$parts[0] </div>";
                         }
                     }
                     
@@ -53,8 +53,9 @@ and open the template in the editor.
                     
                 }
             ?>
-            
+            <div id="colDesc"></div>
         </div>
+        
         
         <div id="module"></div>
         <div id="time"></div>
@@ -77,6 +78,10 @@ and open the template in the editor.
              $("div.modList").live('click', function() {
                 var id = this.id;
                 $("#data").load('./rest.php?colGetModID=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>&modid='+id);
+             });
+             
+             $("div.colList").live('click', function() {
+                 $("#colDesc").load('./rest.php?colGetDesc=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
              });
              
         </script>

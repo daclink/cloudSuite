@@ -70,7 +70,7 @@ class Collection {
             return false;
         }
         
-        return $xml->xpath("/desc");
+        return $xml->xpath("/collection/desc");
     }
 
     public static function getModuleByID($schema, $xmlFile, $id){

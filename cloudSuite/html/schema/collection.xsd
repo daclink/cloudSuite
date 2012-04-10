@@ -90,6 +90,7 @@ elementFormDefault="qualified">
                     <xsd:element ref="clearance" />
                     <xsd:element ref="created" />
                     <xsd:element ref="module" maxOccurs="unbounded"/>
+                    <xsd:element ref="desc" /> 
 		</xsd:sequence>
 		<xsd:attribute ref="name" use="required"/>
 		<xsd:attribute ref="id" use="required"/>

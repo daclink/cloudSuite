@@ -65,6 +65,13 @@ class Collection {
         return $ret;
     }
 
+    public static function getDesc($schema, $xmlFile) {
+        if (!Utils::load_xml($schema, $xmlFile, $xml)) {
+            return false;
+        }
+        
+        return $xml->xpath("/desc");
+    }
 
     public static function getModuleByID($schema, $xmlFile, $id){
         
@@ -102,7 +109,7 @@ class Collection {
             throw new Exceptions("Couldn't access data");
         }
 
-        $module = $xml->set[0]->addChild($module);
+        $module = $xml->collection[0]->addChild($module);
 
         $module->addAttribute('name', $moduleObject->getName);
         $module->addAttribute('id', Utill::genID());

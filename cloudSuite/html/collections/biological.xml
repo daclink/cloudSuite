@@ -66,4 +66,7 @@
             </output>
         </fileInfo>
     </module>
+    <desc>
+        A Collection of modules used in genetically inspired computing.
+    </desc>
 </collection>

@@ -33,6 +33,29 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+        
+        <div>
+            <h3>Collections</h3>
+            
+            <?php
+                if ($handle = opendir($_ENV['cs']['collection_dir'])) {
+                   // echo "\nDir handle : $handle";
+                    echo "\nEntries:\t";
+                    
+                    while (false !== ($entry = readdir($handle))) {
+                        if ($entry != '.' && $entry != '..' ) {
+                            $parts = explode(".", $entry);
+                            echo "<div>$parts[0] </div>";
+                        }
+                    }
+                    
+                    closedir($handle);
+                    
+                }
+            ?>
+            
+        </div>
+        
         <div id="module"></div>
         <div id="time"></div>
         <div id="all"></div>
@@ -55,7 +78,6 @@ and open the template in the editor.
                 var id = this.id;
                 $("#data").load('./rest.php?colGetModID=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>&modid='+id);
              });
-             
              
         </script>
        
@@ -85,8 +107,10 @@ and open the template in the editor.
                'input' => '');
         $mod->addParam($parms);
         
+        
        	//Utils::showStuff($mod->listParamters());
         
+        /*
         echo "<div id=\"domThing\">";
         
         $foo = new Lab('gabbo');
@@ -102,10 +126,14 @@ and open the template in the editor.
                                                       ));
         
         echo $foo->writeLab();
-        
-       // print_r($bar);
+       
+       $bar = $foo->listModules();
+       Utils::showStuff($bar); 
+       
         
         echo "</div>";
+         
+         */
         
         ?>
         

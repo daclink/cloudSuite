@@ -93,15 +93,7 @@ class Lab {
     $this->data['permisions']['group'] = 4;
     $this->data['permisions']['everyone'] = 4;
     $this->data['labName'] = $this->user . "_" . date('YmdHis'). ".xml";
-    
-    
-   // $this->writeLab();
-    
-
-  //  $uid = $user->__get('id');
-
-    //$this->labSchema = ($labSchema == null) ? $_ENV['cs']['schema_dir'] . 'lab.xsd' : $labSchema;
-    //$_ENV['cs']['schema_dir'] = 'schema'.DIRECTORY_SEPARATOR; 
+ 
 }
 
 function writeLab(){
@@ -160,34 +152,6 @@ function writeLab(){
             
             $domDoc->save($filename);
               
-//       $lab = simplexml_import_dom($domDoc);
-       
-     /*   $lab->addAttribute('id',$this->id);
-        $lab->addChild('owner', $this->data['owner']);
-        
-        $permissions = $lab->addChild($permissions);
-        
-        $permissions->addChild('owner', $this->data['permissions']['owner']);
-        $permissions->addChild('group', $this->data['permissions']['group']);
-        $permissions->addChild('everyone', $this->data['permissions']['owner']);
-        
-        $lab->addChild('permissions', $permissions);
-       
-        foreach ($this->data['modules'] as $key => $value ) {
-            $module = $lab->addChild('module',$module);
-            
-            $module->addAttribute('seqNumber', $key);
-            $module->addAttribute('id', $vlaue['id']);
-            
-            $module->addChild('settings', $value['settings']);
-            $module->addChild('method',$value['method']);
-            $module->addChild('attributeString', $value['attrStromg']);
-            
-        }
-        
-        $lab->asXML($filename);
-      * 
-      */
     }
 
     static function readLab(String $filename, Module $module){
@@ -198,24 +162,9 @@ function writeLab(){
        
        return $domDoc;
        
-       
     }
     
     function addModule($xmlFile, $xmlSchema, $moduleArray){
-      
-     /* if (!Utils::load_xml($xmlSchema, $xmlFile, $xml)) {
-         throw new Exception("Could not load file");
-      } 
-       
-      */
-      
-      //echo "file perms == " . substr(sprintf('%o',fileperms($xmlFile)), -4)."\n";
-      
-      //echo $xml->module;
-      
-      //print_r($xml);
-      //print_r($modules);
-      //$module = $xml->addChild('module');
       
       if (array_key_exists($moduleArray['seqNumber'], $this->data['modules'])) {
           $temp = array(""=>"");
@@ -233,43 +182,13 @@ function writeLab(){
                             'method' => $moduleArray['method'],
                             'attributeString' => $moduleArray['attrString']
                             );
-   /*   
-      $module->addAttribute('seqNumber', $moduleArray['seqNumber']);
-      $module->addAttribute('id', $moduleArray['id']);
-      $module->addChild('settings', $moduleArray['settings']);
-      $module->addChild('method', $moduleArray['method']);
-      $module->addChild('attributeString', $moduleArray['attrString']);
-      
-      
-      echo "\n\nSaving to $xmlFile\n\n";
-      $fh = fopen($xmlFile, 'w');
-      
-      if (! flock($fh, LOCK_EX)){
-          throw new Exception ('Could not get file lock. Try again','6');
-            return -1;
-       }
-      
-       echo "<pre>";
-       echo $xml->asXML();
-       echo "</pre>";
-       
-       //if (file_put_contents($xmlFile,$xml->asXML())) {
-       if (file_put_contents($xmlFile, $xml->asXML())) {
-           flock($fh, LOCK_UN);
-           fclose($fh);
-           return true;
-       } else {
-           throw new Exception ('Could Not Save File','7');
-           return false;
-       }
-      
-      
-      $dom = dom_import_simplexml($xml);
-      $dom->preserveWhiteSpace = false;
-      $dom->formatOutput = true;
-      $dom->save($xmlFile);
-      */
+
       }
+      
+    function listModules() {
+        return $this->data['modules'];
+        
+    }
 
     public static function loadLab($labID){
 

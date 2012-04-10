@@ -28,32 +28,66 @@ and open the template in the editor.
 <html>
     <head>
         <title>Jquery!</title>
+        <link type="text/css" href="theme/css/blitzer/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+        
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="./theme/js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="./theme/js/jquery-ui-1.8.18.custom.min.js"></script>
+        
+        <script type="text/javascript">
+          $(function(){
+        	// Tabs
+		$('#tabs').tabs();
+                $("#collections").accordion({ header: "h3" });
+            });
+        </script>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            #collections {width: 25%;}
+        </style>
     </head>
     <body>
         
-        <div>
-            <h3>Collections</h3>
+        
+        
             
+        
+        <h3>Collections</h3>
+        <div id="collections">
             <?php
+            
+            $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
+            $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
+            
+            
                 if ($handle = opendir($_ENV['cs']['collection_dir'])) {
                    // echo "\nDir handle : $handle";
-                    echo "\nEntries:\t";
-                    
+                    $id = 1;
+                   // $divList = "";
+                   // echo "<ul>";
                     while (false !== ($entry = readdir($handle))) {
                         if ($entry != '.' && $entry != '..' ) {
+                           
                             $parts = explode(".", $entry);
-                            echo "<div class=\"colList\">$parts[0] </div>";
+                            
+                            $xmlFile = $_ENV['cs']['collection_dir'].$entry;
+                            $desc = Collection::getDesc($xmlScheme, $xmlFile);
+                            
+                            echo "<div>";
+                                echo "<h3><a href=\"#\">$parts[0]</a></h3>";
+                                echo "<div>$desc[0]</div>";
+                            echo "</div>";
                         }
-                    }
+                     }
                     
                     closedir($handle);
-                    
+                    //echo "</ul>";
+                    //echo $divList;
                 }
             ?>
-            <div id="colDesc"></div>
+       
+       
         </div>
         
         
@@ -66,7 +100,8 @@ and open the template in the editor.
         <script type="text/javascript">
          <?php
              $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
-             $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
+             
+             
          ?>
             
             $(document).ready(function(){

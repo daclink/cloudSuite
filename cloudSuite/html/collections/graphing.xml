@@ -40,7 +40,7 @@
             </output>
         </fileInfo>
     </module>
-    <module name="grpahs" id="12">
+    <module name="graphs" id="12">
         <systemRequirement>
             <product></product>
             <version></version>

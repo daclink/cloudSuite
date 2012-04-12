@@ -62,7 +62,7 @@
             </output>
             <output>
                 <kind></kind>
-                <desc></desc>
+                <desc>Run neural Net</desc>
             </output>
         </fileInfo>
     </module>

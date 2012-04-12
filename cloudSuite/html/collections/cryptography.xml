@@ -40,7 +40,7 @@
             </output>
         </fileInfo>
     </module>
-    <module name="hash_crack" id="8">
+    <module name="hash_crack" id="22">
         <systemRequirement>
             <product></product>
             <version></version>

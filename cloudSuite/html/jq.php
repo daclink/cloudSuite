@@ -150,7 +150,7 @@ and open the template in the editor.
         
        	//Utils::showStuff($mod->listParamters());
         
-        /*
+        
         echo "<div id=\"domThing\">";
         
         $foo = new Lab('gabbo');
@@ -173,7 +173,7 @@ and open the template in the editor.
         
         echo "</div>";
          
-         */
+         
         
         ?>
         

@@ -17,6 +17,7 @@ class Lab {
     private $labXML;
     private $user;
     private $id;
+    private $labname;
     /**The data element contains all the data needed for a lab.
      * Owner, permisions, and an array of module objects stored with
      * the sequence number as the array key.
@@ -88,17 +89,18 @@ class Lab {
     function __construct($user) {
     $this->user = $user;
     $this->id = Utils::genID();
+    $this->labname = 'temp';
     $this->data['owner'] = $user;
     $this->data['permisions']['owner'] = 7;
     $this->data['permisions']['group'] = 4;
     $this->data['permisions']['everyone'] = 4;
-    $this->data['labName'] = $this->user . "_" . date('YmdHis'). ".xml";
+    $this->data['fileName'] = $this->user . "." . $this->id . $this.labname . ".xml";
  
 }
 
 function writeLab(){
         //convert to XML and store to the system.
-    $filename = "labs/".$this->data['labName'];
+    $filename = "labs/".$this->data['fileName'];
             $domDoc = new DOMDocument;
             $domDoc->formatOutput = true;
             
@@ -154,7 +156,7 @@ function writeLab(){
               
     }
 
-    static function readLab(String $filename, Module $module){
+    static function readLab(String $filename){
        $domDoc = new DOMDocument();
        $domDoc->load($_ENV['labs_dir'].$filename);
        

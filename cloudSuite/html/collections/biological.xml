@@ -39,6 +39,9 @@
                 <desc></desc>
             </output>
         </fileInfo>
+        <filename>
+        ga.7.xml    
+        </filename>
     </module>
     <module name="neuro" id="8">
         <systemRequirement>
@@ -65,6 +68,9 @@
                 <desc>Run neural Net</desc>
             </output>
         </fileInfo>
+        <filename>
+        neuro.8.xml    
+        </filename>
     </module>
     <desc>
         A Collection of modules used in genetically inspired computing.

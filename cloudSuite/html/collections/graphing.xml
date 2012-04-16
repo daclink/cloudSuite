@@ -39,6 +39,9 @@
                 <desc></desc>
             </output>
         </fileInfo>
+        <filename>
+        charts.11.xml    
+        </filename>
     </module>
     <module name="graphs" id="12">
         <systemRequirement>
@@ -65,6 +68,9 @@
                 <desc></desc>
             </output>
         </fileInfo>
+        <filename>
+        graphs.12.xml    
+        </filename>
     </module>
     <desc>
         A Collection of modules used to display quantative data.

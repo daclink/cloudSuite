@@ -39,8 +39,11 @@
                 <desc></desc>
             </output>
         </fileInfo>
+        <filename>
+        rsa.21.xml    
+        </filename>
     </module>
-    <module name="hash_crack" id="22">
+    <module name="hash crack" id="22">
         <systemRequirement>
             <product></product>
             <version></version>
@@ -65,6 +68,9 @@
                 <desc></desc>
             </output>
         </fileInfo>
+        <filename>
+        hash_crack.22.xml    
+        </filename>
     </module>
     <desc>
         A Collection of modules used for crtpographic purposes.

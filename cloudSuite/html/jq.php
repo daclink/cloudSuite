@@ -48,136 +48,17 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        
-        
-        
-            
-        
-        <h3>Collections</h3>
-        <div id="collections">
-            <?php
-            
-            $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
-            $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
-            
-            
-                if ($handle = opendir($_ENV['cs']['collection_dir'])) {
-                   // echo "\nDir handle : $handle";
-                    $id = 1;
-                   // $divList = "";
-                   // echo "<ul>";
-                    while (false !== ($entry = readdir($handle))) {
-                        if ($entry != '.' && $entry != '..' ) {
-                           
-                            $parts = explode(".", $entry);
-                            
-                            $xmlFile = $_ENV['cs']['collection_dir'].$entry;
-                            $desc = Collection::getDesc($xmlScheme, $xmlFile);
-                            
-                            echo "<div>";
-                                echo "<h3><a href=\"#\">$parts[0]</a></h3>";
-                                echo "<div>$desc[0]</div>";
-                            echo "</div>";
-                        }
-                     }
-                    
-                    closedir($handle);
-                    //echo "</ul>";
-                    //echo $divList;
-                }
-            ?>
-       
-       
-        </div>
-        
-        
-        <div id="module"></div>
-        <div id="time"></div>
-        <div id="all"></div>
-        <button>Get module!</button>
-        
-        <div id="data"></div>
-        <script type="text/javascript">
-         <?php
-             $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
-             
-             
-         ?>
-            
-            $(document).ready(function(){
-                $("button").click(function(){
-                $("#module").load('./rest.php?listModule=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
-                });
-            });
-            
-             $("div.modList").live('click', function() {
-                var id = this.id;
-                $("#data").load('./rest.php?colGetModID=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>&modid='+id);
-             });
-             
-             $("div.colList").live('click', function() {
-                 $("#colDesc").load('./rest.php?colGetDesc=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
-             });
-             
-        </script>
-       
+        <form  method="post" action="rest.php">
+            <input type="text" name="labName"/>
+            <input type="submit"  value="Make Form"/>
+        </form>
         <?php
-        $mod = new Module(Null,Null);
-
-        $parms = array('flag' => '-t', 
-               'value' =>'text',
-               'description' =>'returns a text file',
-               'required' =>'false',
-               'dataType' =>'text',
-               'default' => 'false',
-               'exclusive' => array('-T','-F','-r'),
-               'output' =>'text file',
-               'input' => '');
+        $lab = new Lab("gabbo");
         
-        $mod->addParam($parms);
+        print_r($lab->listModules());
         
-        $parms = array('flag' => '-V', 
-               'value' =>'',
-               'description' =>'Verbose output',
-               'required' =>'false',
-               'dataType' =>'n/a',
-               'default' => 'false',
-               'exclusive' => array(),
-               'output' =>'N/A',
-               'input' => '');
-        $mod->addParam($parms);
-        
-        
-       	//Utils::showStuff($mod->listParamters());
-        
-        
-        echo "<div id=\"domThing\">";
-        
-        $foo = new Lab('gabbo');
-        
-        $xmlFile = $_ENV['cs']['labs_dir'].$foo->__get('labName');
-        $xmlSchema = $_ENV['cs']['schema_dir']."lab.xsd";
-        
-        $foo->addModule($xmlFile, $xmlSchema, array('seqNumber'=>'5',
-                                                       'id'=>'1234',
-                                                       'method'=>'ga.exe',
-                                                       'settings'=>'-fbar.xml',
-                                                       'attrString'=>'attribute'
-                                                      ));
-        
-        echo $foo->writeLab();
-       
-       $bar = $foo->listModules();
-       Utils::showStuff($bar); 
-       
-        
-        echo "</div>";
-         
-         
+        $lab->writeLab();
         
         ?>
-        
-        
-        
     </body>
 </html>

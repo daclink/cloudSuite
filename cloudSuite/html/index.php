@@ -156,11 +156,22 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                 -moz-border-radius:15px; /* Firefox 3.6 and earlier */
             }
             div.task-bar-item {
-                width: 15%;
+                width: 10%;
                 float: left;
                 background-color:white;
                 color: #c00;
                 margin: 5px;
+                border-radius: 15px;
+                text-align: center;
+            }
+            
+            #username {
+                float: right;
+                background-color:white;
+                color: #c00;
+                margin: 5px;
+                padding-right: 1%;
+                padding-left: 1%;
                 border-radius: 15px;
                 text-align: center;
             }
@@ -177,7 +188,14 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                 -webkit-box-shadow: 4px 4px 10px #888;  
                 box-shadow:4px 4px 6px #888;
             }
-                
+            div.module {
+                background-color: #D2E0E6;
+                border-radius: 15px;
+                margin: 5px;
+                border-radius: 15px;
+                text-align: center;
+            }
+            
         </style>
     </head>
     <body>
@@ -186,6 +204,7 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
             <div class="task-bar-item chiClick csshadow">Lab</div> 
             <div class="task-bar-item chiClick csshadow">Admin</div>
             <div class="task-bar-item chiClick csshadow">Settings</div>
+            <div id="username" class="chiClick csshadow">User Name</div>
         </div>
         
         
@@ -220,28 +239,28 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                                             
                                             echo "<div id=\"$key\"><h4>$value Description</h4></div>";
                                             
-                                            echo "<div><a href=\"#\" id=\"".$key."_link\" class=\"ui_state-default ui-corner-all\">
-                                                  $value </a></div>";
+                                            echo "<div id=\"".$key."_link\" class=\"chiClick csshadow module\">$value </div>";
+                                            //<a href=\"#\" id=\"".$key."_link\" class=\"ui_state-default ui-corner-all\"></a>
                                             ?>
                                         <script> $('#<?php echo $key;?>').dialog({
-					autoOpen: false,
-					width: 600,
-					buttons: {
+                                            autoOpen: false,
+                                            width: 600,
+                                            buttons: {
 						"Add to Lab": function() { 
 							$(this).dialog("close"); 
 						}, 
 						"Cancel": function() { 
 							$(this).dialog("close"); 
 						} 
-					}
-				});
+                                            }   
+                                        });
 				
 				// Dialog Link
-				$('#<?php echo $key;?>_link').click(function(){
-					$('#<?php echo $key;?>').dialog('open');
-					return false;
-				});
-                                </script>
+                                        $('#<?php echo $key;?>_link').click(function(){
+                                                $('#<?php echo $key;?>').dialog('open');
+                                                return false;
+                                        });
+                                        </script>
                                             <?php
                                            
                                             
@@ -267,7 +286,7 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
             
             <?php
             
-            $lab = new Lab("gabbo"); 
+            $lab = new Lab("gabbo");
             
             ?>
             
@@ -305,7 +324,6 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
         <div id="status-bar">
                <div class="status-bar-item chiClick csshadow">Save Lab</div>
                <div class="status-bar-item chiClick csshadow">load Lab</div>
-               <span style="float:right;"><div class="status-bar-item">User Name</div></span>
         </div>
         
      

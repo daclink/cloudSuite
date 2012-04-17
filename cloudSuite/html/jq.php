@@ -48,16 +48,16 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <form  method="post" action="rest.php">
-            <input type="text" name="labName"/>
-            <input type="submit"  value="Make Form"/>
-        </form>
         <?php
-        $lab = new Lab("gabbo");
+        $xmlSchema = $_ENV['cs']['schema_dir']."module.xsd";
+        $xmlFile =  $_ENV['cs']['module_dir']."genetic_algorithm.232.xml";
+        /*$lab = new Lab("gabbo");
         
         print_r($lab->listModules());
         
         $lab->writeLab();
+        */
+        Module::loadModule($xmlSchema, $xmlFile);
         
         ?>
     </body>

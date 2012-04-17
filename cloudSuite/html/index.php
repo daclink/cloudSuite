@@ -23,9 +23,10 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CloudSuite v0.2</title>
+        <title>CloudSuite v0.2.1 </title>
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
         <link type="text/css" href="theme/css/blitzer/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+        <link type="text/css" href="./styles/main.css" rel="stylesheet" />
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript" src="./theme/js/jquery-1.7.1.min.js"></script>
@@ -60,143 +61,10 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
 
             });
         </script>
-        
+       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <style type="text/css">
-            html {
-                /*display:inline;*/
-                height: 100%;
-                width: 100%;
-                margin:0; 
-                padding:0;
-                font-family: Arial,sans-serif;
-            }
-            body {
-                /*display:inline;*/
-                height: 100%;
-                width: 100%;
-                margin:0; 
-                padding:0; 
-            }
-            div {
-               
-            }
-            #collections {
-                   display: block;
-                   width: 35%;
-                   height: 85%;
-                   float: left;                   
-                   background-color:#D2E0E6;
-                   color: #c00;
-                   margin: 3px;
-                   border:2% solid white;
-                   border-radius:15px;
-                   -moz-border-radius:15px;
-            }
-            #lab {
-                display: block;
-                width: 64%;
-                height: 85%;
-                float: left;
-                background-color:#D2E0E6;
-                color: #c00;
-                border-color: white;
-                margin: 2px;
-                margin-left: 0px;
-                border-radius:15px;
-                -moz-border-radius:15px; /* Firefox 3.6 and earlier */
-                
-            }
-            div.lab-content {
-                width: 85%;
-                /*height: 15%;*/
-                float: left;
-                background-color:white;
-                color: #c00;
-                padding: 5px;
-                margin: 5px;
-                border-radius: 15px;
-
-            }
-            
-            #status-bar {
-                display: block;
-                width: 100%;
-                height: 10%;
-                float: right;
-                background-color: #D2E0E6;
-                margin: 0px auto;
-                margin-top: 0px;
-                border:2% solid white;
-                border-radius:15px;
-                -moz-border-radius:15px; /* Firefox 3.6 and earlier */
-            }
-            div.status-bar-item{
-                min-width: 10%;
-                float: left;
-                background-color:white;
-                color: #c00;
-                padding:3px;
-                margin: 5px;
-                border-radius: 15px;
-                text-align: center;
-            }
-            
-            #task-bar {
-                display: block;
-                width: 98%;
-                height: 5%;
-                /*float: right;*/
-                background-color: #D2E0E6;
-                padding: 5px;
-                margin: 2px auto;
-                margin-top: 0px;
-                border:2% solid white;
-                border-radius:15px;
-                -moz-border-radius:15px; /* Firefox 3.6 and earlier */
-            }
-            div.task-bar-item {
-                width: 10%;
-                float: left;
-                background-color:white;
-                color: #c00;
-                margin: 5px;
-                border-radius: 15px;
-                text-align: center;
-            }
-            
-            #username {
-                float: right;
-                background-color:white;
-                color: #c00;
-                margin: 5px;
-                padding-right: 1%;
-                padding-left: 1%;
-                border-radius: 15px;
-                text-align: center;
-            }
-            
-            button {
-                padding: 10px;
-            }
-            
-            div.clicked {
-                background-color: gray;
-            }
-            div.csshadow {
-                -moz-box-shadow: 4px 4px 10px #888;  
-                -webkit-box-shadow: 4px 4px 10px #888;  
-                box-shadow:4px 4px 6px #888;
-            }
-            div.module {
-                background-color: #D2E0E6;
-                border-radius: 15px;
-                margin: 5px;
-                border-radius: 15px;
-                text-align: center;
-            }
-            
-        </style>
+        
+           
     </head>
     <body>
             
@@ -237,7 +105,7 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                                     echo "<div id=\"showMods\">";//<h2><a href=\"#\">Show Modules</a></h2>";
                                         foreach ($modules as $key => $value) {
                                             
-                                            echo "<div id=\"$key\"><h4>$value Description</h4></div>";
+                                            echo "<div id=\"$key\" ><h4>$value Description</h4></div>";
                                             
                                             echo "<div id=\"".$key."_link\" class=\"chiClick csshadow module\">$value </div>";
                                             //<a href=\"#\" id=\"".$key."_link\" class=\"ui_state-default ui-corner-all\"></a>

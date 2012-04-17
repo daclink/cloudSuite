@@ -40,12 +40,9 @@ class Module {
         
         if ($xmlFile != null) {
             $this->__moduleXmlFile = $xmlFile;
-            $this->loadModule($this->__moduleSchema,  $this->__moduleXmlFile);
             return;
         }
-        
         $this->__set('id', Utils::genID());
-        
     }
 
     function __destruct() {
@@ -73,17 +70,33 @@ class Module {
         }
     }
     
-    function loadModule($schema, $xmlFile){
-        if ($schema != null) {
-            $this->__moduleSchema = $schema;
+    static function loadModule($xmlSchema, $xmlFile){
+        
+        echo "<pre> \n"; 
+        
+        if (! Utils::load_xml($xmlSchema, $xmlFile, $xml)) {
+            throw new Exception("Could not load file $xmlFile", '1', $previous);
+            return false;
+        }
+        $systemRequirement = $xml->xpath("//systemRequirement");
+        $fileInfo = $xml->xpath("//fileInfo");
+        $parameter = $xml->xpath("//parameter");
+        $permissions = $xml->xpath("permissions");
+        $description = $xml->xpath("/module/description");
+        
+        foreach ($systemRequirement[0] as $key => $value){
+            echo "$key \n $value \n ";
         }
        
-        if ($xmlFile != null) {
-            $this->__moduleXmlFile = $xmlFile;
-        } else {
-            throw new Exception('no File to load','2',NULL);
-            return False;
+        echo "\n desc = $description[0] \n";
+        
+        
+        foreach ($fileInfo[0] as $key => $value) {
+            echo "$key \n $value \n ";
         }
+        
+        echo "\n </pre>";
+        
     }
 
     function removeParam($flag){
@@ -178,10 +191,10 @@ class Module {
        return $params;
    }
    
+   
    function listParametersByID($id){
        
    }
-
 
  /* load and save to XML ...
  *    $this->__moduleSchema = ($schema !=NULL) ? $schema :

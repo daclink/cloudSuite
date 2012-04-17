@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module.xml
+    Created on : April 16, 2012, 8:41 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' id="232" name="genetic_algorithm">
+    <systemRequirement>
+        <product>gcc</product>
+        <version>4.2</version>
+    </systemRequirement>
+    <fileInfo name="">
+        <kind>csv</kind>
+        <path>path/to/file</path>
+    </fileInfo>
+    <parameter>
+        <flag>-v</flag>
+        <value></value>
+        <description>verbose out put</description>
+        <required>0</required>
+        <dataType></dataType>
+        <default></default>
+        <exclusive></exclusive>
+        <exclusive></exclusive>
+        <output></output>
+        <input></input>
+    </parameter>
+    <permissions clearance="">
+        <owner>7</owner>
+        <everyone>4</everyone>
+        <group>4</group>
+    </permissions>
+    <description>Genetic Algorithm</description>
+
+</module>

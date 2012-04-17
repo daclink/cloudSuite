@@ -110,9 +110,12 @@ class Collection {
         }
 
         $module = $xml->collection[0]->addChild($module);
-
-        $module->addAttribute('name', $moduleObject->getName);
-        $module->addAttribute('id', Utill::genID());
+        $modName = $moduleObject->getName;
+        $id = Utill::genID();
+       
+        $module->addAttribute('name', $modName);
+        $module->addAttribute('id', $id );
+        $module->addAttribute('filename', $modName.".".$id.".xml" );
 
 
 

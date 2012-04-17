@@ -1,0 +1,151 @@
+/* 
+    Document   : main
+    Created on : Apr 16, 2012, 9:50:12 AM
+    Author     : dclinkenbeard
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+ html {
+    /*display:inline;*/
+    height: 100%;
+    width: 100%;
+    margin:0; 
+    padding:0;
+    font-family: Arial,sans-serif;
+}
+body {
+    /*display:inline;*/
+    height: 100%;
+    width: 100%;
+    margin:0; 
+    padding:0; 
+}
+div {
+    overflow:scroll;
+}
+#collections {
+   display: block;
+   width: 35%;
+   height: 85%;
+   float: left;                   
+   background-color:#D2E0E6;
+   color: #c00;
+   margin: 3px;
+   border:2% solid white;
+   border-radius:15px;
+   -moz-border-radius:15px;
+}
+#lab {
+    display: block;
+    width: 64%;
+    height: 85%;
+    float: left;
+    background-color:#D2E0E6;
+    color: #c00;
+    border-color: white;
+    margin: 2px;
+    margin-left: 0px;
+    border-radius:15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+
+}
+.lab-content {
+    width: 85%;
+    /*height: 15%;*/
+    float: left;
+    background-color:white;
+    color: #c00;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+
+}
+
+#status-bar {
+    display: block;
+    width: 100%;
+    height: 10%;
+    float: right;
+    background-color: #D2E0E6;
+    margin: 0px auto;
+    margin-top: 0px;
+    border:2% solid white;
+    border-radius:15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+}
+.status-bar-item{
+    min-width: 10%;
+    float: left;
+    background-color:white;
+    color: #c00;
+    padding:3px;
+    margin: 5px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+#task-bar {
+    display: block;
+    width: 98%;
+    height: 5%;
+    /*float: right;*/
+    background-color: #D2E0E6;
+    padding: 5px;
+    margin: 2px auto;
+    margin-top: 0px;
+    border:2% solid white;
+    border-radius:15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+}
+.task-bar-item {
+    width: 10%;
+    float: left;
+    background-color:white;
+    color: #c00;
+    margin: 5px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.overlay {
+    margin: 5px;
+    border-radius: 15px;
+}
+
+#username {
+    float: right;
+    background-color:white;
+    color: #c00;
+    margin: 5px;
+    padding-right: 1%;
+    padding-left: 1%;
+    border-radius: 15px;
+    text-align: center;
+}
+
+button {
+    padding: 10px;
+}
+
+div.clicked {
+    background-color: gray;
+}
+div.csshadow {
+    -moz-box-shadow: 4px 4px 10px #888;  
+    -webkit-box-shadow: 4px 4px 10px #888;  
+    box-shadow:4px 4px 6px #888;
+}
+div.module {
+    background-color: #D2E0E6;
+    border-radius: 15px;
+    margin: 5px;
+    border-radius: 15px;
+    text-align: center;
+}
+

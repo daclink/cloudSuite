@@ -99,10 +99,11 @@
     <xsd:element name="module">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="systemRequirement"/>
-                <xsd:element ref="fileInfo" maxOccurs="1"/>
-                <xsd:element ref="parameter"/>
-                <xsd:element ref="permissions"/>
+                <xsd:element ref="systemRequirement" />
+                <xsd:element ref="fileInfo" maxOccurs="1" />
+                <xsd:element ref="parameter" />
+                <xsd:element ref="permissions" />
+                <xsd:element ref="description" />
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
             <xsd:attribute ref="name" use="required"/>

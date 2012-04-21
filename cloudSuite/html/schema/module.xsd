@@ -14,31 +14,42 @@
     <!-- define simple elements -->
     <xsd:element name="product" type="xsd:string"/>
     <xsd:element name="version" type="xsd:string" />
-    <xsd:element name="kind" type="xsd:string" />
-    <xsd:element name="path" type="xsd:string" />
+    <xsd:element name="type" />
+    <xsd:element name="name" type="xsd:string" />
+    <xsd:element name="value" type="xsd:string" />
     <xsd:element name="required" type="xsd:boolean" />
     <xsd:element name="dataType" type="xsd:string" />
     <xsd:element name="default" type="xsd:string" />
     <xsd:element name="description" type="xsd:string" />
-    <xsd:element name="flag" type="xsd:string" />
-    <xsd:element name="url" type="xsd:string" />
-    <xsd:element name="type" type="xsd:string" />
-    <xsd:element name="value" type="xsd:string" />
-    <xsd:element name="groupName" type="xsd:string" />
-    <xsd:element name="everyone" type="xsd:integer"/>
-    <xsd:element name="group" type="xsd:integer"/>
-    <xsd:element name="owner" type="xsd:integer"/>
-    <xsd:element name="exclusive" type="xsd:string"/>
+    <xsd:element name="groupname" type="xsd:string" />
+    <xsd:element name="everyone" type="xsd:byte" default="4"/>
+    <xsd:element name="group" type="xsd:byte" default="4"/>
+    <xsd:element name="owner" type="xsd:byte" default="7"/>
     <xsd:element name="input" type="xsd:string"/>
     <xsd:element name="output" type="xsd:string"/>
-    
+    <xsd:element name="methodName" type="xsd:string"/>
+    <xsd:element name="createdBy" type="xsd:string"/>
+    <xsd:element name="dateCreated" type="xsd:string"/>
+    <xsd:element name="legend" type="xsd:string" />
     
     <!-- define attributes-->
     <xsd:attribute name="name" type="xsd:string" />
     <xsd:attribute name="id" type="xsd:string" />
     <xsd:attribute name="clearance" type="xsd:string" />
+   
 
-    <!-- define complex types -->
+   
+    <xsd:element name="moduleType" >
+        <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="method" />
+                <xsd:enumeration value="data" />
+                <xsd:enumeration value="image" />
+            </xsd:restriction>
+        </xsd:simpleType>
+    </xsd:element>
+   
+   <!-- define complex types -->
 
     <xsd:element name="systemRequirement">
         <xsd:complexType>
@@ -48,40 +59,29 @@
             </xsd:all>
         </xsd:complexType>		
     </xsd:element>
-
-    <xsd:element name="fileInfo">
-        <xsd:complexType>
-            <xsd:all>
-                <xsd:element ref="kind"/>
-                <xsd:element ref="path"/>
-            </xsd:all>
-            <xsd:attribute ref="name" use="required"/>
-        </xsd:complexType>
-    </xsd:element>
     
-    <xsd:element name="parameter">
+    <xsd:element name="element">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="flag"/>
-                <xsd:element ref="value"/>
-                <xsd:element ref="description"/>
-                <xsd:element ref="required"/>
-                <xsd:element ref="dataType"/>
-                <xsd:element ref="default"/>
-                <xsd:element ref="exclusive" maxOccurs="unbounded"/>
-                <xsd:element ref="output"/>
+                <xsd:element ref="type" />
+                <xsd:element ref="name" />
+                <xsd:element ref="value" />
+                <xsd:element ref="description" />
                 <xsd:element ref="input" />
+                <xsd:element ref="output" />
+                <xsd:element ref="required" />
+                <xsd:element ref="default" />
             </xsd:sequence>
+        <xsd:attribute ref="id" />
         </xsd:complexType>		
     </xsd:element>
     
-    <xsd:element name="field">
+    <xsd:element name="fieldset">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="type"/> 
-                <xsd:element ref="value"/>
+                <xsd:element ref="legend" />
+                <xsd:element ref="element" maxOccurs="unbounded" /> 
             </xsd:sequence>
-            <xsd:attribute ref="name" use="required"/>
         </xsd:complexType>
     </xsd:element>
    
@@ -91,6 +91,7 @@
                 <xsd:element ref ="owner"/> 
                 <xsd:element ref ="everyone"/>
                 <xsd:element ref ="group"/>
+                <xsd:element ref ="groupname" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute ref="clearance" use="required"/>
         </xsd:complexType>
@@ -99,11 +100,14 @@
     <xsd:element name="module">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="systemRequirement" />
-                <xsd:element ref="fileInfo" maxOccurs="1" />
-                <xsd:element ref="parameter" />
-                <xsd:element ref="permissions" />
+                <xsd:element ref="moduleType" />
                 <xsd:element ref="description" />
+                <xsd:element ref="systemRequirement" />
+                <xsd:element ref="fieldset" maxOccurs="unbounded" minOccurs="0"/>
+                <xsd:element ref="permissions" />
+                <xsd:element ref="methodName" />
+                <xsd:element ref="createdBy" />
+                <xsd:element ref="dateCreated" />
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
             <xsd:attribute ref="name" use="required"/>

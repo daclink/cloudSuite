@@ -16,31 +16,33 @@
     <xsd:element name="owner" type="xsd:string"/>
     <xsd:element name="group" type="xsd:string"/>
     <xsd:element name="everyone" type="xsd:string"/>
-    <xsd:element name="flag" type="xsd:string"/>
-    <xsd:element name="value" type="xsd:string"/>
-    <xsd:element name="settings" type="xsd:string"/>
+    <xsd:element name="seqNumber" type="xsd:string"/>
     <xsd:element name="method" type="xsd:string"/>
-    <xsd:element name="attributeString" type="xsd:string"/>
-    <xsd:element name="lastrunDate" type="xsd:string"/>
+    <xsd:element name="xmlrpcString" type="xsd:string"/>
+    <xsd:element name="lastRunDate" type="xsd:string"/>
     <xsd:element name="lastRunUser" type="xsd:string"/>
     <xsd:element name="filename" type="xsd:string"/>
+    <xsd:element name="input" type="xsd:string"/>
+    <xsd:element name="output" type="xsd:string"/>
     
      <!-- define attributes-->
     <xsd:attribute name="id" type="xsd:string" />
-    <xsd:attribute name="seqNumber" type="xsd:string"/>
+    <xsd:attribute name="moduleName" type="xsd:string"/>
     
     <!-- define complex elements -->
    
     <xsd:element name="module">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="settings" maxOccurs="unbounded"/>
+                <xsd:element ref="seqNumber" />
                 <xsd:element ref="method" />
-                <xsd:element ref="attributeString" /> 
+                <xsd:element ref="xmlrpcString" /> 
                 <xsd:element ref="filename" />
+                <xsd:element ref="input" />
+                <xsd:element ref="output" />
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
-            <xsd:attribute ref="seqNumber" use="required"/>
+            <xsd:attribute ref="moduleName" use="required"/>
        </xsd:complexType>
        <!--xsd:unique name="UniqueSeqNumber">
            <xsd:selector xpath="//module"/>
@@ -64,6 +66,8 @@
                 <xsd:element ref="owner" maxOccurs="1"/>
                 <xsd:element ref="permissions" maxOccurs="1"/>
                 <xsd:element ref="module" minOccurs="0" maxOccurs="1"/>
+                <xsd:element ref="lastRunDate" />
+                <xsd:element ref="lastRunUser" />
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
         </xsd:complexType>

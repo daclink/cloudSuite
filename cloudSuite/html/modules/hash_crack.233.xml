@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module.xml
+    Created on : April 17, 2012, 7:57 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   id="233" name="hash_crack">
+    <moduleType>method</moduleType>
+    <description>A method for cracking hashes</description>
+    <systemRequirement>
+        <product>gcc</product>
+        <version>2.3</version>
+    </systemRequirement>
+    <fieldset>
+        <legend>Hash File</legend>
+        <element id="234">
+            <type>text</type>
+            <name>infile</name>
+            <value>-i</value>
+            <description>The file to crack</description>
+            <input>text file</input>
+            <output>text file</output>
+            <required>1</required>
+            <default></default>
+        </element>
+    </fieldset>
+    <fieldset>
+        <legend>dictionaries</legend>
+        <element id="235">
+            <type>checkbox</type>
+            <name>dictionaries[]</name>
+            <value>--english</value>
+            <description>english language</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default></default>
+        </element>
+        <element id="236">
+            <type>checkbox</type>
+            <name>dictionaries[]</name>
+            <value>--russian</value>
+            <description>Russian Language</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default></default>
+        </element>
+        <element id="237">
+            <type>checkbox</type>
+            <name>dictionaries[]</name>
+            <value>--french</value>
+            <description>French Language</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default></default>
+        </element>
+    </fieldset>
+    <permissions clearance="5">
+        <owner>7</owner>
+        <everyone>4</everyone>
+        <group>4</group>
+        <groupname>awesome</groupname>
+    </permissions>
+    <methodName>hashCrack</methodName>
+    <createdBy>drew</createdBy>
+    <dateCreated>20120416</dateCreated>
+
+</module>

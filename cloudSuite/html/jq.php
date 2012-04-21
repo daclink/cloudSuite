@@ -50,7 +50,7 @@ and open the template in the editor.
     <body>
         <?php
         $xmlSchema = $_ENV['cs']['schema_dir']."module.xsd";
-        $xmlFile =  $_ENV['cs']['module_dir']."genetic_algorithm.232.xml";
+        $xmlFile =  $_ENV['cs']['module_dir']."hash_crack.233.xml";
         /*$lab = new Lab("gabbo");
         
         print_r($lab->listModules());

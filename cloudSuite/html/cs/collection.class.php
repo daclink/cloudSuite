@@ -54,7 +54,8 @@ class Collection {
             return false;
         }
         $result = $xml->xpath("//module");
-
+        return $result;
+/*
         foreach ($result as $key => $value) {
 
             $id = intval((string) $result[$key]["id"]);
@@ -62,7 +63,7 @@ class Collection {
             $ret[$id] = $name;
         }
 
-        return $ret;
+        return $ret;*/
     }
 
     public static function getDesc($schema, $xmlFile) {

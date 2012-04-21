@@ -103,11 +103,12 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                                 echo "<div>";
                                     echo $desc[0];
                                     echo "<div id=\"showMods\">";//<h2><a href=\"#\">Show Modules</a></h2>";
-                                        foreach ($modules as $key => $value) {
+                                        foreach ($modules as $module ) {
+                                            $key = $module['id'];
+                                            $value = $module->desc;
+                                            echo "<div id=\"".$module['id']."\" ><h4>$module->desc</h4></div>";
                                             
-                                            echo "<div id=\"$key\" ><h4>$value Description</h4></div>";
-                                            
-                                            echo "<div id=\"".$key."_link\" class=\"chiClick csshadow module\">$value </div>";
+                                            echo "<div id=\"".$key."_link\" class=\"chiClick csshadow module\">".$module['name']." </div>";
                                             //<a href=\"#\" id=\"".$key."_link\" class=\"ui_state-default ui-corner-all\"></a>
                                             ?>
                                         <script> $('#<?php echo $key;?>').dialog({

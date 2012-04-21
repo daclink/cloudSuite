@@ -75,15 +75,46 @@ class Module {
         echo "<pre> \n"; 
         
         if (! Utils::load_xml($xmlSchema, $xmlFile, $xml)) {
-            throw new Exception("Could not load file $xmlFile", '1', $previous);
+            throw new Exception("Could not load file $xmlFile", '1', NULL);
             return false;
         }
-        $systemRequirement = $xml->xpath("//systemRequirement");
-        $fileInfo = $xml->xpath("//fileInfo");
-        $parameter = $xml->xpath("//parameter");
-        $permissions = $xml->xpath("permissions");
-        $description = $xml->xpath("/module/description");
         
+        $module['moduleType'] = $xml->xpath("//moduleType");
+        $module['description'] = $xml->xpath("/module/description");
+        $module['systemRequirement'] = $xml->xpath("//systemRequirement");
+        $module['fieldset'] = $xml->xpath("//fieldset");
+        $module['permissions']  = $xml->xpath("//permissions");
+        $module['methodName'] = $xml->xpath("//methodName");
+        $module['createdBy'] = $xml->xpath("//createdBy");
+        $module['dateCreated'] = $xml->xpath("//dateCreated");
+        
+        $fs = $xml->xpath("//fieldset");
+      
+        
+        foreach ($fs as $key) {
+            echo "<fieldset>";
+             echo "<legend>" .$key->legend . "</legend>";
+             foreach ($key->element as $element) {
+                
+                 //print_r($element);
+                 
+                  
+                 echo "<input type=\"". $element->type ."\" name=\"".$element->name."\"> $element->description"; 
+                 if ($element->input) {
+                     echo "<div>$element->input</div";
+                 }
+                 echo "</input>";
+                 echo "<br />";
+             }
+            echo "</fieldset>";
+        }
+        
+    // $foo = $fs[0]->xpath('/@legend');
+       //  print_r($foo);
+        echo "size of array is... ". count($fs);
+        print_r($module);
+       
+       /* 
         foreach ($systemRequirement[0] as $key => $value){
             echo "$key \n $value \n ";
         }
@@ -94,7 +125,7 @@ class Module {
         foreach ($fileInfo[0] as $key => $value) {
             echo "$key \n $value \n ";
         }
-        
+        */
         echo "\n </pre>";
         
     }

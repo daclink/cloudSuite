@@ -15,62 +15,20 @@
     <clearance>10</clearance>
     <created>2012.02.11</created>
     <module name="charts" id="11">
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <fileInfo>
-            <kind></kind>
-            <path></path>
-            <parameter name="fish">
-                <flag></flag>
-                <type></type>
-            </parameter>
-            <output>
-                <kind></kind>
-                <desc></desc>
-            </output>
-        </fileInfo>
-        <filename>
-        charts.11.xml    
-        </filename>
+        <methodName></methodName>
+        <parameterString></parameterString>
+        <sequenceNumber></sequenceNumber>
+        <desc>Chart some data yo</desc>
+        <input></input>
+        <output></output>
     </module>
     <module name="graphs" id="12">
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <fileInfo>
-            <kind></kind>
-            <path></path>
-            <parameter name="cat">
-                <flag></flag>
-                <type></type>
-            </parameter>
-            <parameter name="dog">
-                <flag></flag>
-                <type></type>
-            </parameter>
-            <output>
-                <kind></kind>
-                <desc></desc>
-            </output>
-            <output>
-                <kind></kind>
-                <desc></desc>
-            </output>
-        </fileInfo>
-        <filename>
-        graphs.12.xml    
-        </filename>
+        <methodName></methodName>
+        <parameterString></parameterString>
+        <sequenceNumber></sequenceNumber>
+        <desc>Generate Pretty Graphs</desc>
+        <input></input>
+        <output></output> 
     </module>
     <desc>
         A Collection of modules used to display quantative data.

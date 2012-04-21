@@ -15,64 +15,20 @@
     <clearance>10</clearance>
     <created>2012.02.11</created>
     <module name="rsa" id="21">
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <fileInfo>
-            <kind></kind>
-            <path></path>
-            <parameter name="fish">
-                <flag></flag>
-                <type></type>
-            </parameter>
-            <output>
-                <kind></kind>
-                <desc></desc>
-            </output>
-        </fileInfo>
-        <filename>
-        rsa.21.xml    
-        </filename>
+        <methodName></methodName>
+        <parameterString></parameterString>
+        <sequenceNumber></sequenceNumber>
+        <desc>Encrypt using RSA</desc>
+        <input></input>
+        <output></output>
     </module>
-    <module name="hash crack" id="22">
-        <systemRequirement>
-            <product></product>
-            <version></version>
-        </systemRequirement>
-        <fileInfo>
-            <kind></kind>
-            <path></path>
-            <parameter name="cat">
-                <flag></flag>
-                <type></type>
-            </parameter>
-            <parameter name="dog">
-                <flag></flag>
-                <type></type>
-            </parameter>
-            <output>
-                <kind></kind>
-                <desc></desc>
-            </output>
-            <output>
-                <kind></kind>
-                <desc></desc>
-            </output>
-        </fileInfo>
-        <filename>
-        hash_crack.22.xml    
-        </filename>
+    <module name="hash-crack" id="232">
+        <methodName></methodName>
+        <parameterString></parameterString>
+        <sequenceNumber></sequenceNumber>
+         <desc>Crack a hash file.</desc>
+        <input></input>
+        <output></output>
     </module>
-    <desc>
-        A Collection of modules used for crtpographic purposes.
-    </desc>
+    <desc>A Collection of modules used for cryptographic purposes.</desc>
 </collection>

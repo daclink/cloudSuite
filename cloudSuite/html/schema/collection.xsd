@@ -25,7 +25,11 @@ elementFormDefault="qualified">
 <xsd:element name="ownerID" type="xsd:string"/>
 <xsd:element name="clearance" type="xsd:string"/>
 <xsd:element name="created" type="xsd:string"/>
-<xsd:element name="filename" type="xsd:string"/>
+<xsd:element name="methodName" />
+<xsd:element name="parameterString" type="xsd:string"/>
+<xsd:element name="sequenceNumber" type="xsd:string"/>
+<xsd:element name="input" type="xsd:string"/>
+<xsd:element name="output" type="xsd:string"/>
 
 
 <!-- define attributes-->
@@ -33,52 +37,16 @@ elementFormDefault="qualified">
 <xsd:attribute name="id" type="xsd:string" />
 
 <!-- define complex elements -->
-
-<xsd:element name="systemRequirement">
-	<xsd:complexType>
-		<xsd:all>
-			<xsd:element ref="product"/>
-			<xsd:element ref="version"/>
-		</xsd:all>
-	</xsd:complexType>		
-</xsd:element>
-
-<xsd:element name="parameter">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:element ref="flag"/>
-			<xsd:element ref="type"/>
-		</xsd:sequence>
-		<xsd:attribute ref="name" use="required"/>
-	</xsd:complexType>		
-</xsd:element>
-										
-<xsd:element name="output">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:element ref="kind"/>
-			<xsd:element ref="desc"/>
-		</xsd:sequence>
-	</xsd:complexType>		
-</xsd:element>
-
-<xsd:element name="fileInfo">
-	<xsd:complexType>
-		<xsd:sequence>
-			<xsd:element ref="kind"/>
-			<xsd:element ref="path"/>
-			<xsd:element ref="parameter" maxOccurs="unbounded"/>
-			<xsd:element ref="output" maxOccurs="unbounded"/>
-		</xsd:sequence>
-	</xsd:complexType>		
-</xsd:element>
 			
 <xsd:element name="module">
 	<xsd:complexType>
 		<xsd:sequence>
-			<xsd:element ref="systemRequirement" maxOccurs="unbounded"/>
-			<xsd:element ref="fileInfo"/>
-                        <xsd:element ref="filename" />
+			<xsd:element ref="methodName" />
+			<xsd:element ref="parameterString"/>
+                        <xsd:element ref="sequenceNumber" />
+                        <xsd:element ref="desc" />
+                        <xsd:element ref="input" />
+                        <xsd:element ref="output" />
 		</xsd:sequence>
 		<xsd:attribute ref="name" use="required"/>
 		<xsd:attribute ref="id" use="required"/>

@@ -22,14 +22,39 @@
     <xsd:element name="lastRunDate" type="xsd:string"/>
     <xsd:element name="lastRunUser" type="xsd:string"/>
     <xsd:element name="filename" type="xsd:string"/>
-    <xsd:element name="input" type="xsd:string"/>
-    <xsd:element name="output" type="xsd:string"/>
+    <xsd:element name="type" type="xsd:string"/>
+    <xsd:element name="location" type="xsd:string"/>
+    
     
      <!-- define attributes-->
     <xsd:attribute name="id" type="xsd:string" />
     <xsd:attribute name="moduleName" type="xsd:string"/>
+    <xsd:attribute name="labName" type="xsd:string"/>
     
     <!-- define complex elements -->
+   
+   <xsd:element name="input">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="type" />
+                <xsd:element ref="filename" /> 
+                <xsd:element ref="location" />
+            </xsd:sequence>
+            <!--xsd:attribute ref="id" use="required"/-->
+        </xsd:complexType>
+   </xsd:element>
+    
+   <xsd:element name="output">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="type" />
+                <xsd:element ref="filename" />
+                <xsd:element ref="location" />
+            </xsd:sequence>
+        <!--xsd:attribute ref="id" use="required"/-->
+        </xsd:complexType>
+   </xsd:element> 
+    
    
     <xsd:element name="module">
         <xsd:complexType>
@@ -65,11 +90,12 @@
             <xsd:sequence>
                 <xsd:element ref="owner" maxOccurs="1"/>
                 <xsd:element ref="permissions" maxOccurs="1"/>
-                <xsd:element ref="module" minOccurs="0" maxOccurs="1"/>
+                <xsd:element ref="module" minOccurs="0" maxOccurs="unbounded"/>
                 <xsd:element ref="lastRunDate" />
                 <xsd:element ref="lastRunUser" />
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
+            <xsd:attribute ref="labName" use="required"/>
         </xsd:complexType>
     </xsd:element>
 

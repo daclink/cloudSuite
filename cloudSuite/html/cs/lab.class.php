@@ -11,17 +11,50 @@
  * @author drew
  */
 class Lab {
-
+    
     private $labSchema;
     private $xmlFile;
-    private $labXML;
     private $user;
     private $id;
     private $labname;
-    /**The data element contains all the data needed for a lab.
-     * Owner, permisions, and an array of module objects stored with
-     * the sequence number as the array key.
+    private $modules;
+    
+    private $lastRunDate;
+    private $lastRunUser;
+    
+    private $owner;
+    private $permissions =array('owner'=>'',
+                                'group'=>'',
+                                'everyone'=>'');
+    private $module = array('1' => 
+                        array('id'            => '',
+                              'moduleName'    => '',
+                              //'seqNumber'     => '',
+                              'method'        => '',
+                              'xmlrpcString'  => '',
+                              'filename'      => '',
+                              'input' => 
+                                    array( 'type'       => '',
+                                           'filename'   => '',
+                                           'location'   => ''
+                                        ),
+                              'output' => 
+                                    array( 'type'       => '',
+                                           'filename'   => '',
+                                           'location'   => ''
+                                        )
+                             )
+                           );
+
+    
+    /**DEPRICATED The data element contains all the data needed for a lab.
+     * DEPRICATED Owner, permisions, and an array of module objects stored with
+     * DEPRICATED the sequence number as the array key.
+     * 
+     * The correct way to access data is by calling it directly. The
+     * 'magic' getters and setters were too confusing.
      */
+    
     private $data = array('owner' => '',
                           'permissions' => array('owner'=>'7',
                                                  'group'=>'5',
@@ -86,15 +119,22 @@ class Lab {
         }*/
 	
     //function __construct($user,$labSchema, $labXML) {
-    function __construct($user) {
+    function __construct($user, $id = NULL) {
     $this->user = $user;
-    $this->id = Utils::genID();
+    
+    if ($id == Null){
+        $this->id = Utils::genID();
+    } else {
+        $this->id = $id;
+    }
+    
+    
     $this->labname = 'temp';
     $this->data['owner'] = $user;
     $this->data['permisions']['owner'] = 7;
     $this->data['permisions']['group'] = 4;
     $this->data['permisions']['everyone'] = 4;
-    $this->data['fileName'] = $this->user . "." . $this->id . $this.labname . ".xml";
+    $this->data['fileName'] = $this->user . "." . $this->id . $this->labname . ".xml";
  
 }
 
@@ -166,8 +206,61 @@ function writeLab(){
        
     }
     
+    public static function loadLab($xmlFile, $xmlSchema = NULL){
+        
+        if($xmlSchema == null){
+            $xmkSchema= $_ENV['cs']['schema_dir'].'lab.xsd';
+        }
+        if($xmlFile == null){
+            throw new Exception("XML File must not be null", "1", null);
+            return false;
+        }
+        
+        if (!Utils::load_xml($xmlSchema, $xmlFile, $xml)){
+            throw new Exception("could not load file.", "2", null);
+            return false;
+        }
+        
+        $lab = new Lab($xml->owner, $xml['id']);
+        
+        $lab->labSchema = $xmlSchema;
+        $lab->labname   = $xml['labName'];
+        $lab->owner     = $xml->owner;
+        
+        $lab->permissions['owner']    = $xml->permssions->owner;
+        $lab->permissions['group']    = $xml->permssions->group;
+        $lab->permissions['everyone'] = $xml->permssions->everyone;
+        
+        foreach ($xml->module as $module) {
+            
+            $lab->module[(String) $module->seqNumber] = array( 'id' => $module['id'],
+                                         'moduleName' => $module['moduleName'],
+                                         //'seqNumber'     => $module->seqNumber,
+                                         'method'        => $module->method,
+                                         'xmlrpcString'  => $module->xmlrpcString,
+                                         'filename'      => $module->filename,
+                                         'input' => 
+                                               array( 'type'       => $module->input->type,
+                                                      'filename'   => $module->input->filename,
+                                                      'location'   => $module->input->location
+                                                   ),
+                                         'output' => 
+                                               array( 'type'       => $module->output->type,
+                                                      'filename'   => $module->output->filename,
+                                                      'location'   => $module->output->location
+                                                   )
+                                                     );
+        }
+        
+        $lab->lastRunDate = $xml->lastRunDate;
+        $lab->lastRunUser = $xml->lastRunUser;
+           
+        return $lab;
+    }
+    
     function addModule($xmlFile, $xmlSchema, $moduleArray){
       
+        
       if (array_key_exists($moduleArray['seqNumber'], $this->data['modules'])) {
           $temp = array(""=>"");
           foreach($this->data['modules'] as $key =>$vlaue) {
@@ -192,10 +285,6 @@ function writeLab(){
         
     }
 
-    public static function loadLab($labID){
-
-    }
-
     function runLab(){
         $request = xmlrpc_encode_request($method, $params);
         $context = stream_context_create(
@@ -208,8 +297,20 @@ function writeLab(){
                 );
         
     }
+    
+    public static function runAllLabs($xmlSchema = NULL, $labDirectory = NULL) {
+        if($xmlSchema == null){
+            $xmkSchema= $_ENV['cs']['schema_dir'].'lab.xsd';
+        }
+        if($labDirectory == null){
+            $labDirectory = $_ENV['cs']['labs_dir'];
+        }
         
-     
+        $labs = Utils::returnFiles($labDirectory);
+        
+        print_r($labs);
+        
+    }
 }
 
 ?>

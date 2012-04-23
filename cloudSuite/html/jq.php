@@ -42,7 +42,7 @@ and open the template in the editor.
             });
         </script>
         
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <style type="text/css">
             #collections {width: 25%;}
         </style>
@@ -57,8 +57,23 @@ and open the template in the editor.
         
         $lab->writeLab();
         */
+      //  Lab::runAllLabs();
         Module::loadModule($xmlSchema, $xmlFile);
         
+        $labs = Utils::returnFiles('labs');
+        
+        $xmlSchema = $_ENV['cs']['schema_dir']."lab.xsd";
+        $xmlFile =  $_ENV['cs']['labs_dir'].$labs[0];
+        
+        $lab = Lab::loadLab($xmlFile, $xmlSchema);
+
+        echo "<h1>VERITAS</h1>";
+       ?><pre>
+        <?php
+        print_r($lab);
         ?>
+       </pre>
+        
+        
     </body>
 </html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : lab.xml
+    Created on : April 3, 2012, 9:10 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<lab id="500" labName="dac lab 001">
+    <owner>drew</owner>
+    <permissions>
+        <owner></owner>
+        <group></group>
+        <everyone></everyone>
+    </permissions>
+    <module id="241" moduleName="genetic algortihm">
+        <seqNumber>1</seqNumber>
+        <method>234_ga</method>
+        <xmlrpcString></xmlrpcString>
+        <filename>genetic_algorithm.232.xml</filename>
+        <input>
+            <type>CSV</type>
+            <filename>ga.data.txt</filename>
+            <location>data/supportFiles</location>
+        </input>
+        <output>
+            <type>module</type>
+            <filename>250.ga_data.xml</filename>
+            <location>modules</location>
+        </output>
+    </module>
+    <module id="243" moduleName="Curve Fitting">
+        <seqNumber>2</seqNumber>
+        <method>243_fitter</method>
+        <xmlrpcString></xmlrpcString>
+        <filename>curve_fitter.243.xml</filename>
+        <input>
+            <type>module</type>
+            <filename>250.ga_data.xml</filename>
+            <location>modules</location>
+        </input>
+        <output>
+            <type>module</type>
+            <filename>251.curveFitData.xml</filename>
+            <location>modules</location>
+        </output>
+    </module>
+    <module id="245" moduleName="genetic algorithm">
+        <seqNumber>3</seqNumber>
+        <method>234_ga</method>
+        <xmlrpcString></xmlrpcString>
+        <filename>genetic_algorithm.232.xml</filename>
+        <input>
+            <type>CSV</type>
+            <filename>ga.data.txt</filename>
+            <location>data/supportFiles</location>
+        </input>
+        <output>
+            <type>module</type>
+            <filename>252.drew_ga_data.xml</filename>
+            <location>modules</location>
+        </output>
+    </module>
+    <lastRunDate></lastRunDate>
+    <lastRunUser></lastRunUser>
+</lab>

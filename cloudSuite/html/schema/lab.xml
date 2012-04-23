@@ -2,7 +2,7 @@
 
 <!--
     Document   : lab.xml
-    Created on : April 3, 2012, 9:10 PM
+    Created on : April 22, 2012, 2:32 PM
     Author     : drew
     Description:
         Purpose of the document follows.
@@ -17,10 +17,31 @@
         <group></group>
         <everyone></everyone>
     </permissions>
-    <module ns0:id="" ns0:seqNumber="">
-        <settings></settings>
+    <module ns0:id="" ns0:moduleName="">
+        <seqNumber></seqNumber>
         <method></method>
-        <attributeString></attributeString>
+        <xmlrpcString></xmlrpcString>
+        <filename></filename>
+        <input></input>
+        <output></output>
     </module>
+    <module ns0:id="" ns0:moduleName="">
+        <seqNumber></seqNumber>
+        <method></method>
+        <xmlrpcString></xmlrpcString>
+        <filename></filename>
+        <input></input>
+        <output></output>
+    </module>
+    <module ns0:id="" ns0:moduleName="">
+        <seqNumber></seqNumber>
+        <method></method>
+        <xmlrpcString></xmlrpcString>
+        <filename></filename>
+        <input></input>
+        <output></output>
+    </module>
+    <lastRunDate></lastRunDate>
+    <lastRunUser></lastRunUser>
 
 </ns0:lab>

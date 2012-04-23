@@ -91,6 +91,26 @@ class Utils {
         
     }
     
+    public static function returnFiles($folder) {
+        $ret = array();
+        
+        if ($handle = opendir($folder)) {
+            while (false !== ($entry = readdir($handle))){
+               
+                if ($entry != "." && $entry != ".."){
+                 array_push($ret, $entry);   
+                }
+                
+            }
+
+        closedir($handle);
+
+        }
+        
+        return $ret;
+        
+    }
+    
 }
 
 ?>

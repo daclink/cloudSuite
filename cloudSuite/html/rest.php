@@ -33,7 +33,7 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
 if (isset($_GET['listModule'])){
     
      $mods = Collection::listModules($_GET['xmlScheme'], $_GET['xmlFile']);
-        foreach($mods as $key => $value){
+        foreach($mods as $key){
             echo "<div class=\"modList\" id=\"$key\">";
             echo $value;
             echo "</div>";

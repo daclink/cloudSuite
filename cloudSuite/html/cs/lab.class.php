@@ -13,11 +13,10 @@
 class Lab {
     
     private $labSchema;
-    private $xmlFile;
     private $user;
     private $id;
     private $labname;
-    private $modules;
+    private $fileName;
     
     private $lastRunDate;
     private $lastRunUser;
@@ -46,6 +45,7 @@ class Lab {
                              )
                            );
 
+    private $lab;
     
     /**DEPRICATED The data element contains all the data needed for a lab.
      * DEPRICATED Owner, permisions, and an array of module objects stored with
@@ -81,121 +81,103 @@ class Lab {
         }
     }
 
-/*    public function addModule($moduleObject) {
-            
-        try{
-            $this->data['modules'][$moduleObject->__get('id')] = $moduleObject;
+    function __construct($owner, $id = NULL, $labName = NULL, $xml=NULL) {
+        $this->user = $owner;
+        
+        Utils::showStuff($labName, 'IN CONSTRUCT LABNAME');
+
+        if ($id == Null){
+            $this->labname = Utils::genID();
+        } else {
+            $this->id = $id;
+        }
+
+        if ($labName != NULL){
+            $this->labname = $labName;
+        } else {
+            $this->labname = Utils::randomName();            
+        }
+        
+        Utils::showStuff($this->labname, 'this lab name...');
+        
+        if ($xml != NULL ) {
+            $this->lab = $xml;
             return true;
-    }catch (Exception $e){
-        echo "there was a problem $e->__toString()";
-        return false;
-    }
+        }
+
+        $lab = new SimpleXMLElement('<lab></lab>');
+        $lab->addAttribute('id', $id);
+        $lab->addAttribute('labName', $labName);
+
+
+        $lab->addChild('owner', $owner);
+
+        $permissions = $lab->addChild('permissions');
+        $permissions->addChild('owner', '7');
+        $permissions->addChild('group', '4');
+        $permissions->addChild('everyone', '4');
+
+        $lab->addChild('lastRunDate');
+        $lab->addChild('lastRunUser');
         
         /*
-        $module = $_labXML->set[0]->addChild($module);
+        $module = $lab->addChild('module');
+        $module->addAttribute('id', '-1');
+        $module->addAttribute($name, $value)
+        */
 
-        $module->addAttribute('name', $moduleObject->getName);
-        $module->addAttribute('id', Utill::genID());
-
-        $sysReqList = $moduleObject->getSystemRequiremts;
-
-        reset($sysReqList);
-        while (list($key, $val) = each($sysReqList)) {
-            $sysReq = $module->addChild('systemRequirement');
-            $sysReq->addChild('product', $moduleObject->getProduct);
-            //  $sysReq->addChild('version', $moduleObject->get)
-        }
-        $fileInfo = $module->addChild('fileInfo');
-
-        $fileInfo->addChild('kind', $moduleObject->getKind);
-        $fileInfo->addChild('path', $moduleObject->getPath);
-
-        $param = $fileInfo->addChild('parameter');
-        $param->addChild('flag');
-        $param->addChild('type');
-        $output = $fileInfo->addChild('output');
-	
+        $this->lab = $lab;
         
-        }*/
-	
-    //function __construct($user,$labSchema, $labXML) {
-    function __construct($user, $id = NULL) {
-    $this->user = $user;
-    
-    if ($id == Null){
-        $this->id = Utils::genID();
-    } else {
-        $this->id = $id;
-    }
-    
-    
-    $this->labname = 'temp';
-    $this->data['owner'] = $user;
-    $this->data['permisions']['owner'] = 7;
-    $this->data['permisions']['group'] = 4;
-    $this->data['permisions']['everyone'] = 4;
-    $this->data['fileName'] = $this->user . "." . $this->id . $this->labname . ".xml";
- 
-}
+        $this->fileName = Utils::fileName($this->id, $this->labname);
 
-function writeLab(){
-        //convert to XML and store to the system.
-    $filename = "labs/".$this->data['fileName'];
-            $domDoc = new DOMDocument;
-            $domDoc->formatOutput = true;
-            
-            $lab = $domDoc->createElement('lab');
-              $labID = $domDoc->createAttribute('id');
-              $labID->appendChild($domDoc->createTextNode($this->id));
-              $lab->appendChild($labID);
-    
-                $owner = $domDoc->createElement('owner');
-                $owner->appendChild($domDoc->createTextNode($this->data['owner']));
-              $lab->appendChild($owner);
-    
-              $permissions = $domDoc->createElement('permissions');
-                  $owner = $domDoc->createElement('owner');
-                    $owner->appendChild($domDoc->createTextNode($this->data['permissions']['owner']));
-                  $group = $domDoc->createElement('group');
-                    $group->appendChild($domDoc->createTextNode($this->data['permissions']['group']));
-                  $everyone = $domDoc->createElement('everyone');
-                    $everyone->appendChild($domDoc->createTextNode($this->data['permissions']['everyone']));
-                $permissions->appendChild($owner);
-                $permissions->appendChild($group);
-                $permissions->appendChild($everyone);
-              $lab->appendChild($permissions);
-       
-              foreach ($this->data['modules'] as $key => $value) {
-                  
-                  $module = $domDoc->createElement('module');
-                    $seqNum = $domDoc->createAttribute('seqNumber');
-                        $seqNum->appendChild($domDoc->createTextNode($key));
-                    $id = $domDoc->createAttribute('id');
-                        $id->appendChild($domDoc->createTextNode($value['id']));
-                        
-                    $settings = $domDoc->createElement('settings');
-                    $method = $domDoc->createElement('method');
-                    $attrString = $domDoc->createElement('AttributeString');
-                    
-                    $settings->appendChild($domDoc->createTextNode($value['settings']));
-                    $method->appendChild($domDoc->createTextNode($value['method']));
-                    $attrString->appendChild($domDoc->createTextNode($value['attributeString']));
-                    
-                    $module->appendChild($seqNum);
-                    $module->appendChild($id);
-                    $module->appendChild($settings);
-                    $module->appendChild($method);
-                    $module->appendChild($attrString);
-                    
-                    $lab->appendChild($module);
-              }
-              
-            $domDoc->appendChild($lab ); 
-            
-            $domDoc->save($filename);
-              
+        return $lab;
+
     }
 
+    function setFileName($labName) {
+        
+        $labName = str_replace(" ","_",$labName);
+        
+        $this->lab['labName'] = $labName;
+        $this->fileName = Utils::fileName($this->lab['id'], $labName);
+        
+    }
+    
+    function getFileName(){
+        
+        return $this->fileName;
+    }
+    
+    function writeLab($filename = NULL){
+            //convert to XML and store to the system.
+        
+       // if (! Utils::validate($this->labSchema, $this->lab->asXML())){
+        //    Throw new Exception("invalid Lab structure.", '1', Null);
+         //   return false;
+       // }
+        
+        if($filename == NULL){
+            $filename = $_ENV['cs']['labs_dir'] . $this->fileName;
+        }
+        
+        
+        if (file_exists($filename)){
+            //TODO: add lock code.
+        }
+        
+        if(! $this->lab->asXML($filename)){
+            Throw new Exception("Could not save file $filename", '2', NULL);
+        }
+        echo $this->fileName;
+        return true;
+
+        
+    }
+
+    function getLab(){
+        return $this->lab;
+    }
+    
     static function readLab(String $filename){
        $domDoc = new DOMDocument();
        $domDoc->load($_ENV['labs_dir'].$filename);
@@ -221,67 +203,76 @@ function writeLab(){
             return false;
         }
         
-        $lab = new Lab($xml->owner, $xml['id']);
-        
-        $lab->labSchema = $xmlSchema;
-        $lab->labname   = $xml['labName'];
-        $lab->owner     = $xml->owner;
-        
-        $lab->permissions['owner']    = $xml->permssions->owner;
-        $lab->permissions['group']    = $xml->permssions->group;
-        $lab->permissions['everyone'] = $xml->permssions->everyone;
-        
-        foreach ($xml->module as $module) {
-            
-            $lab->module[(String) $module->seqNumber] = array( 'id' => $module['id'],
-                                         'moduleName' => $module['moduleName'],
-                                         //'seqNumber'     => $module->seqNumber,
-                                         'method'        => $module->method,
-                                         'xmlrpcString'  => $module->xmlrpcString,
-                                         'filename'      => $module->filename,
-                                         'input' => 
-                                               array( 'type'       => $module->input->type,
-                                                      'filename'   => $module->input->filename,
-                                                      'location'   => $module->input->location
-                                                   ),
-                                         'output' => 
-                                               array( 'type'       => $module->output->type,
-                                                      'filename'   => $module->output->filename,
-                                                      'location'   => $module->output->location
-                                                   )
-                                                     );
-        }
-        
-        $lab->lastRunDate = $xml->lastRunDate;
-        $lab->lastRunUser = $xml->lastRunUser;
-           
-        return $lab;
+        return new Lab($xml->owner , $xml['id'], (String) $xml['labName'], $xml);
+         
     }
     
-    function addModule($xmlFile, $xmlSchema, $moduleArray){
+    function addModule($moduleXML, $xmlFile = NULL, $xmlSchema = NULL, $seqNumber = NULL){
       
+        if ( $xmlSchema == NULL && $this->labSchema != NULL) {
+            $xmlSchema = $this->labSchema;     
+        } else {
+            $xmlSchema = $_ENV['cs']['schema_dir'].'lab.xsd';
+        }
+        //Utils::showStuff($xmlSchema, 'schema');
         
-      if (array_key_exists($moduleArray['seqNumber'], $this->data['modules'])) {
-          $temp = array(""=>"");
-          foreach($this->data['modules'] as $key =>$vlaue) {
-              if ($key >= $moduleArray['seqNumber'] ) {
-                  $temp[$key+1] = $value;
-              }
-          }
-          $this->data['modules'] + $temp;
-       }
+        $modules = $this->lab->module;
+        
+        $seqNumber  = ($seqNumber > sizeof($modules) +1) ? (sizeof($modules) + 1) : $seqNumber;
+        $id = ($moduleXML['id'] == NULL) ? Utils::genID() : $moduleXML['id'];
       
-      $this->data['modules'][$moduleArray['seqNumber']] = array(
-                            'id' => $moduleArray['id'],
-                            'settings' => $moduleArray['settings'],
-                            'method' => $moduleArray['method'],
-                            'attributeString' => $moduleArray['attrString']
-                            );
-
+        if ($seqNumber != NULL && $seqNumber < sizeOf($modules)) {
+            foreach ($modules as $module){
+                if($module->seqNumber == $moduleXML->seqNumber){
+                    $module->seqNumber = $module->seqNumber +1;
+                }elseif ($module->seqNumber > $moduleXML->seqNumber ) {
+                    $module->seqNumber = $module->seqNumber +1;
+                }
+                
+            }
+          
+      } else {
+          $seqNumber = sizeof($modules) + 1;
       }
       
+      $module = $this->lab->addChild('module');
+      
+   
+      $module->addAttribute('id', $id);
+      $module->addAttribute('moduleName', $moduleXML['moduleName']);
+      
+      $module->addChild('seqNumber', $seqNumber);
+      $module->addChild('method', $moduleXML->method);
+      $module->addChild('xmlrpcString', $moduleXML->xmlrpcString);
+      $module->addChild('filename', $moduleXML->filename);
+      
+      $input = $module->addChild('input', $moduleXML->input);
+      $input->addChild('type', $moduleXML->input->type);
+      $input->addChild('filename', $moduleXML->input->filename);
+      $input->addChild('location', $moduleXML->input->location);
+      
+      
+      $output = $module->addChild('output',$moduleXML->output);
+      $output->addChild('type', $moduleXML->output->type);
+      $output->addChild('filename', $moduleXML->output->filename);
+      $output->addChild('location', $moduleXML->output->location);
+     
+      
+      echo "<h1> in lab</h1>";
+      print_r($this->lab);
+      echo "<h1> out lab</h1>";
+      
+      if (! Utils::validate($xmlSchema, $this->lab->asXML())) {
+          Throw new Exception("Bad module.", '3',NULL);
+          return false;
+      }
+      
+      return true;
+      
+    }
+      
     function listModules() {
-        return $this->data['modules'];
+        return $this->lab;
         
     }
 

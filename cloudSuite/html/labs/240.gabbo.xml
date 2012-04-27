@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-    Document   : lab.xml
-    Created on : April 3, 2012, 9:10 PM
-    Author     : drew
-    Description:
-        Purpose of the document follows.
--->
-
-<lab id="500" labName="dac lab 001">
+<lab id="500" labName="daclab001" >
     <owner>drew</owner>
     <permissions>
         <owner></owner>
         <group></group>
         <everyone></everyone>
     </permissions>
+    <lastRunDate></lastRunDate>
+    <lastRunUser></lastRunUser>
     <module id="241" moduleName="genetic algortihm">
         <seqNumber>1</seqNumber>
         <method>234_ga</method>
@@ -23,7 +16,7 @@
         <input>
             <type>CSV</type>
             <filename>ga.data.txt</filename>
-            <location>data/supportFiles</location>
+            <location>datasupportFiles</location>
         </input>
         <output>
             <type>module</type>
@@ -55,7 +48,7 @@
         <input>
             <type>CSV</type>
             <filename>ga.data.txt</filename>
-            <location>data/supportFiles</location>
+            <location>data</location>
         </input>
         <output>
             <type>module</type>
@@ -63,6 +56,4 @@
             <location>modules</location>
         </output>
     </module>
-    <lastRunDate></lastRunDate>
-    <lastRunUser></lastRunUser>
 </lab>

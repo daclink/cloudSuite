@@ -10,5 +10,10 @@
  $_ENV['cs']['collection_dir'] = 'collections'.DIRECTORY_SEPARATOR;
  $_ENV['cs']['module_dir'] = 'modules'.DIRECTORY_SEPARATOR;
  $_ENV['cs']['css'] = 'script' .DIRECTORY_SEPARATOR;
+ 
+ $_ENV['cs']['debug'] = TRUE;
+ 
 
+ date_default_timezone_set('America/Los_Angeles');
+ 
 ?>

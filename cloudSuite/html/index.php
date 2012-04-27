@@ -58,7 +58,9 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
 					return false;
 				});
 
-
+               $('').click(function(){
+                   $(this).toggle();
+               })
             });
         </script>
        

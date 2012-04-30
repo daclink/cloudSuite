@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://cloudsuite.info"
+xmlns:cs="http://cloudsuite.info">
 
     <xsd:annotation>
       <xsd:appinfo>CloudSuite module schema</xsd:appinfo>
@@ -113,6 +115,5 @@
             <xsd:attribute ref="name" use="required"/>
         </xsd:complexType>
     </xsd:element>
- 
 </xsd:schema>
 

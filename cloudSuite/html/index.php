@@ -19,6 +19,13 @@ elseif (getenv('HOME') && file_exists(getenv('HOME') . DIRECTORY_SEPARATOR . '.a
 /*%******************************************************************************************%*/
 
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
+
+if (isset($_GET['debug'])){
+    
+    $_ENV['cs']['debug'] = $_GET['debug'];
+    
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,132 +77,22 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
     </head>
     <body>
             
-        <div id="task-bar">
-            <div class="task-bar-item chiClick csshadow">Lab</div> 
-            <div class="task-bar-item chiClick csshadow">Admin</div>
-            <div class="task-bar-item chiClick csshadow">Settings</div>
-            <div id="username" class="chiClick csshadow">User Name</div>
+        <?php include('./ui/taskbar.html');?>
+        
+        <div class="labDisplay">
+             <?php include('./ui/lab.php'); ?>
+            
+        </div>
+        <div class="adminDisplay">
+             <?php include('./ui/admin.php'); ?>
+            
+        </div>
+        <div class="settingsDisplay">
+             <?php include('./ui/settings.php'); ?>
+            
         </div>
         
-        
-        <div id="collections">
-            <span style="text-align:center;"><h2>Collections</h2></span>
-            <?php
-            
-            $xmlScheme = $_ENV['cs']['schema_dir'].'collection.xsd';
-            $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
-            
-            
-                if ($handle = opendir($_ENV['cs']['collection_dir'])) {
-                   // echo "\nDir handle : $handle";
-                    
-                   // $divList = "";
-                   // echo "<ul>";
-                    while (false !== ($entry = readdir($handle))) {
-                        if ($entry != '.' && $entry != '..' ) {
-                           
-                            $parts = explode(".", $entry);
-                            
-                            $xmlFile = $_ENV['cs']['collection_dir'].$entry;
-                            $desc = Collection::getDesc($xmlScheme, $xmlFile);
-                            $modules = Collection::listModules($xmlScheme, $xmlFile);
-                            
-                            echo "<div>";
-                                echo "<h3><a href=\"#\">$parts[0]</a></h3>";
-                                echo "<div>";
-                                    echo $desc[0];
-                                    echo "<div id=\"showMods\">";//<h2><a href=\"#\">Show Modules</a></h2>";
-                                        foreach ($modules as $module ) {
-                                            $key = $module['id'];
-                                            $value = $module->desc;
-                                            echo "<div id=\"".$module['id']."\" ><h4>$module->desc</h4></div>";
-                                            
-                                            echo "<div id=\"".$key."_link\" class=\"chiClick csshadow module\">".$module['name']." </div>";
-                                            //<a href=\"#\" id=\"".$key."_link\" class=\"ui_state-default ui-corner-all\"></a>
-                                            ?>
-                                        <script> $('#<?php echo $key;?>').dialog({
-                                            autoOpen: false,
-                                            width: 600,
-                                            buttons: {
-						"Add to Lab": function() { 
-							$(this).dialog("close"); 
-						}, 
-						"Cancel": function() { 
-							$(this).dialog("close"); 
-						} 
-                                            }   
-                                        });
-				
-				// Dialog Link
-                                        $('#<?php echo $key;?>_link').click(function(){
-                                                $('#<?php echo $key;?>').dialog('open');
-                                                return false;
-                                        });
-                                        </script>
-                                            <?php
-                                           
-                                            
-                                        }
-                                    echo "</div>";
-                                    
-                                echo "</div>";
-                            
-                           echo "</div>";
-                        }
-                     }
-                    
-                    closedir($handle);
-                    //echo "</ul>";
-                    //echo $divList;
-                }
-            ?>
-       
-       
-        </div>
-        <div id="lab"> 
-            <span style="text-align:center;"><h2>Lab Name</h2></span>
-            
-            <?php
-            
-            $lab = new Lab("gabbo");
-            
-            ?>
-            
-            <div class="lab-content csshadow">
-                <ul>
-                    <li>Module: Genetic Algorithm </li>
-                    <li>Crossover : Two-Point</li>
-                    <li>Mutation : random </li>
-                    <li>Selection : roulette </li>
-                    <li>Output Type : module</li>
-                    <li>Output Name : Drew_ga_data_001</li>
-                </ul>
-            </div>
-            <div class="lab-content csshadow">
-                 <ul>
-                    <li>Module: Curve Fitting </li>
-                    <li>Input Type: module</li>
-                    <li>Input Name: Drew_ga_data</li>
-                    <li>Output Type : image</li>
-                    <li>Output Name : drew_data_graph_001.jpg</li>
-                </ul>
-            </div>
-            <div class="lab-content csshadow">
-                <ul>
-                    <li>Module: Genetic Algorithm </li>
-                    <li>Crossover : Two-Point</li>
-                    <li>Mutation : random </li>
-                    <li>Selection : roulette </li>
-                    <li>Output Type : module</li>
-                    <li>Output Name : Drew_ga_data_002</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div id="status-bar">
-               <div class="status-bar-item chiClick csshadow">Save Lab</div>
-               <div class="status-bar-item chiClick csshadow">load Lab</div>
-        </div>
+        <?php include('./ui/statusbar.html');?>
         
      
         <script type="text/javascript">
@@ -209,6 +106,12 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                 $("button").click(function(){
                 $("#module").load('./rest.php?listModule=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
                 });
+                $("div.settingsDisplay").hide();
+                $("div.adminDisplay").hide();
+                $("div.labDisplay").show();
+                $("#settingsButton").removeClass("ChiSelected");
+                $("#labButton").addClass("ChiSelected");
+                $("#adminButton").removeClass("ChiSelected");
             });
             
              $("div.modList").live('click', function() {
@@ -226,6 +129,33 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
                  $(this).addClass("clicked").removeClass("csshadow");
              }).mouseout(function(){
                  $(this).addClass("csshadow").removeClass("clicked");
+             });
+             
+             $("#settingsButton").mouseup(function(){
+                $("div.settingsDisplay").show();
+                $("div.adminDisplay").hide();
+                $("div.labDisplay").hide();
+                $("#settingsButton").addClass("ChiSelected");
+                $("#labButton").removeClass("ChiSelected");
+                $("#adminButton").removeClass("ChiSelected");
+             });
+             
+             $("#labButton").mouseup(function(){
+                $("div.settingsDisplay").hide();
+                $("div.adminDisplay").hide();
+                $("div.labDisplay").show();
+                $("#settingsButton").removeClass("ChiSelected");
+                $("#labButton").addClass("ChiSelected");
+                $("#adminButton").removeClass("ChiSelected");
+             });
+             
+             $("#adminButton").mouseup(function(){
+                $("div.settingsDisplay").hide();
+                $("div.adminDisplay").show();
+                $("div.labDisplay").hide();
+                $("#settingsButton").removeClass("ChiSelected");
+                $("#labButton").removeClass("ChiSelected");
+                $("#adminButton").addClass("ChiSelected");
              });
              
         </script>

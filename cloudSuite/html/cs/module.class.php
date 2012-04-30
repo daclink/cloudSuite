@@ -9,6 +9,7 @@ class Module {
 // CORE DEPENDENCIES
 // Look for include file in the same directory (e.g. `./config.inc.php`).
     
+    private $myXML;
     private $__moduleSchema;
     private $__moduleXmlFile;
     private $__data = array('id' => '',
@@ -31,7 +32,16 @@ class Module {
                             'group' => '',
                             'everyone' => '');
                             
-    function __construct($schema, $xmlFile) {
+    
+    /**
+     *Creates and returns a module object
+     * 
+     * @param String $schema
+     * @param String $xmlFile
+     * @param String $name 
+     * @return module Object
+     */
+    function __construct($creator, $type, $schema = NULL, $xmlFile = NULL, $name = NULL) {
         if ($schema != null) {
             $this->__moduleSchema = $schema;
         } else {
@@ -39,10 +49,54 @@ class Module {
         }
         
         if ($xmlFile != null) {
+            
             $this->__moduleXmlFile = $xmlFile;
             return;
         }
-        $this->__set('id', Utils::genID());
+        
+        $myXML = new SimpleXMLElement('<module></module>');
+       
+        $id = Utils::genID();
+        $name = ($name == NULL) ? Utils::randomName() : $name;
+        
+        $myXML->addAttribute('id', $id);
+        $myXML->addAttribute('name', $name);
+        
+        $moduleType = $myXML->addChild('moduleType', $type);
+            
+        $description = $myXML->addChild('description');
+        
+        $systemReq = $myXML->addChild('systemRequirement');
+            $systemReq->addChild('product');
+            $systemReq->addChild('version');
+        
+        $fieldset = $myXML->addChild('fieldset');
+            $fieldset->addChild('legend');
+            
+            $element = $fieldset->addChild('element');
+                $element->addChild('type');
+                $element->addChild('name');
+                $element->addChild('value');
+                $element->addChild('description');
+                $element->addChild('input');
+                $element->addChild('output');
+                $element->addChild('required');
+                $element->addChild('defualt');
+        
+        $permissions = $myXML->addChild('permissions');
+            $permissions->addChild('owner');
+            $permissions->addChild('group');
+            $permissions->addChild('everyone');
+            $permissions->addAttribute('clearance', '9');
+            
+        $methodName = $myXML->addChild('methodName');
+        $createdBy = $myXML->addChild('createdBy', $creator);
+        $dateCreated = $myXML->addChild('dateCreated', date('Y-m-d'));
+        
+        $modType = $myXML->addChild('moduleType');
+        
+        $this->myXML = $myXML;
+        
     }
 
     function __destruct() {
@@ -163,57 +217,7 @@ class Module {
                                             'exclusive'     => $parameterArray['exclusive'],
                                             'input'         => $parameterArray['input'],
                                             'output'        => $parameterArray['output']); 
-       /*    
-       if (! $this->__data['parameter'][$parameterArray['flag']] = $parameterArray['flag']){
-           throw new Exception('value requried');
-           return false;
-       }
-
-       if (! $this->__data['parameter'][$parameterArray['flag']]['description'] = $parameterArray['description']){
-            throw new Exception('Description requred');
-            return false;
-       }
-
-       if (! $this->__data['parameter'][$parameterArray['flag']]['required'] = $parameterArray['required']){
-           throw new Exception('required required (INCEPTION!)');
-           return false;
-       }
-
-       if (! $this->__data['parameter'][$parameterArray['flag']]['dataType'] = $parameterArray['dataType']){
-           throw new Exception('dataType Required');
-           return false;
-       }
-
-       if (! $this->__data['parameter'][$parameterArray['flag']]['default'] = $parameterArray['default']){
-           throw new Exception('default required');
-           return false;
-       }
-
-       if ( is_array($parameterArray['exclusive'])){ 
-
-           $foo = (Array)$parameterArray['exclusive'];
-
-           foreach($foo as $key => $value){
-               echo ("key($key) == value($value)");
-            if(! $this->__data['parameter'][$parameterArray['flag']] = array($key=>$value )){
-                throw new Exception('Exclusive required');
-                return false;
-             }    
-           }
-
-       } else {
-           throw new Exception ('Exclusive must be an array');
-           return false;
-       }
-
-       if (! $this->__data['parameter']['output'] = $parameterArray['output']){
-           throw new Exception('output required');
-           return FALSE;
-       }
-
-       print_r($this->__data);
-
-        */
+      
    } 
 
    function listParamters(){
@@ -251,6 +255,19 @@ class Module {
     return true;
 }
  */
+
+   
+
+   /**
+    *
+    * @return SimpleXMLElement 
+    */
+    public function getSimpleXML(){
+
+        return $this->myXML;
+    }
+
+
 
 }
 ?>

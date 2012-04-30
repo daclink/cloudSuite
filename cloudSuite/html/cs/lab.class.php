@@ -86,11 +86,13 @@ class Lab {
         
         Utils::showStuff($labName, 'IN CONSTRUCT LABNAME');
 
-        if ($id == Null){
-            $this->labname = Utils::genID();
+        if ($id == NULL){
+            $this->id = Utils::genID();
+            
         } else {
             $this->id = $id;
         }
+        
 
         if ($labName != NULL){
             $this->labname = $labName;
@@ -106,8 +108,8 @@ class Lab {
         }
 
         $lab = new SimpleXMLElement('<lab></lab>');
-        $lab->addAttribute('id', $id);
-        $lab->addAttribute('labName', $labName);
+        $lab->addAttribute('id', $this->id);
+        $lab->addAttribute('labName', $this->labname);
 
 
         $lab->addChild('owner', $owner);
@@ -117,8 +119,8 @@ class Lab {
         $permissions->addChild('group', '4');
         $permissions->addChild('everyone', '4');
 
-        $lab->addChild('lastRunDate');
-        $lab->addChild('lastRunUser');
+        $lab->addChild('lastRunDate', '0');
+        $lab->addChild('lastRunUser', '0');
         
         /*
         $module = $lab->addChild('module');
@@ -127,7 +129,8 @@ class Lab {
         */
 
         $this->lab = $lab;
-        
+        $lname = Utils::fileName($this->id, $this->labname);
+         
         $this->fileName = Utils::fileName($this->id, $this->labname);
 
         return $lab;
@@ -156,7 +159,10 @@ class Lab {
          //   return false;
        // }
         
+        Utils::showStuff($this->fileName, 'This file name');
+        
         if($filename == NULL){
+             
             $filename = $_ENV['cs']['labs_dir'] . $this->fileName;
         }
         
@@ -165,11 +171,13 @@ class Lab {
             //TODO: add lock code.
         }
         
+       
+        
         if(! $this->lab->asXML($filename)){
             Throw new Exception("Could not save file $filename", '2', NULL);
         }
-        echo $this->fileName;
-        return true;
+        return $this->fileName;
+        //return true;
 
         
     }
@@ -191,7 +199,7 @@ class Lab {
     public static function loadLab($xmlFile, $xmlSchema = NULL){
         
         if($xmlSchema == null){
-            $xmkSchema= $_ENV['cs']['schema_dir'].'lab.xsd';
+            $xmlSchema= $_ENV['cs']['schema_dir'].'lab.xsd';
         }
         if($xmlFile == null){
             throw new Exception("XML File must not be null", "1", null);
@@ -203,7 +211,13 @@ class Lab {
             return false;
         }
         
-        return new Lab($xml->owner , $xml['id'], (String) $xml['labName'], $xml);
+       // $lab = new Lab($owner, $id, $xml->, $xml)
+        
+        $owner = (String) $xml->owner;
+        $id = (String) $xml['id'];
+        $labName = (String) $xml['labName'];
+        
+        return new Lab( $owner , $id, $labName, $xml);
          
     }
     
@@ -219,7 +233,7 @@ class Lab {
         $modules = $this->lab->module;
         
         $seqNumber  = ($seqNumber > sizeof($modules) +1) ? (sizeof($modules) + 1) : $seqNumber;
-        $id = ($moduleXML['id'] == NULL) ? Utils::genID() : $moduleXML['id'];
+        $id = ($moduleXML->module['id'] == NULL) ? Utils::genID() : $moduleXML['id'];
       
         if ($seqNumber != NULL && $seqNumber < sizeOf($modules)) {
             foreach ($modules as $module){
@@ -235,11 +249,12 @@ class Lab {
           $seqNumber = sizeof($modules) + 1;
       }
       
+      
       $module = $this->lab->addChild('module');
       
    
       $module->addAttribute('id', $id);
-      $module->addAttribute('moduleName', $moduleXML['moduleName']);
+      $module->addAttribute('moduleName', (String) $moduleXML['name']);
       
       $module->addChild('seqNumber', $seqNumber);
       $module->addChild('method', $moduleXML->method);
@@ -258,20 +273,16 @@ class Lab {
       $output->addChild('location', $moduleXML->output->location);
      
       
-      echo "<h1> in lab</h1>";
-      print_r($this->lab);
-      echo "<h1> out lab</h1>";
-      
-      if (! Utils::validate($xmlSchema, $this->lab->asXML())) {
-          Throw new Exception("Bad module.", '3',NULL);
-          return false;
-      }
+    //  if (! Utils::validate($xmlSchema, $this->lab->asXML())) {
+    ////      Throw new Exception("Bad module.", '3',NULL);
+    //      return false;
+    //  }
       
       return true;
       
     }
       
-    function listModules() {
+    function getModules() {
         return $this->lab;
         
     }
@@ -300,6 +311,13 @@ class Lab {
         $labs = Utils::returnFiles($labDirectory);
         
         print_r($labs);
+        
+    }
+    
+    
+    public function getSimpleXML() {
+        
+        return $this->lab;
         
     }
 }

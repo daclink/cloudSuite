@@ -66,4 +66,50 @@ if (isset($_GET['colGetDesc'])){
      
 }
 
+if (isset($_GET['newModule'])){
+    
+    $_ENV['cs']['debug'] = TRUE;
+    print_r($_GET);
+     $module = new Module('Drew', 'data', NULL, NULL, (String)$_GET['modName']);
+     
+     //$desc = Collection::getDesc($_GET['xmlScheme'], $_GET['xmlFile']);
+     
+     //$desc = Collection::getDesc($xmlScheme, $xmlFile);
+     
+      $xmlSchema = $_ENV['cs']['schema_dir']."lab.xsd";
+      $xmlFile =  $_ENV['cs']['labs_dir']."240.gabbo.xml";
+        
+      $lab = new Lab("Drew");
+      $xmlFile =  $_ENV['cs']['labs_dir']. $lab->getFileName();
+      //$xmlFile =  $_ENV['cs']['labs_dir']. '3872.han.xml';
+      
+      Utils::showStuff($xmlFile, 'file is');
+      
+      /*if (Utils::validate($xmlSchema, TRUE, $lab->getSimpleXML())){
+          echo "<div>it' good!</div>";
+      } else {
+          echo "<div>damn!</div>";
+      }*/
+      
+     // $lab->writeLab();
+      
+      $lab->writeLab();
+      //$lab = Lab::loadLab($xmlFile);
+      $lab->addModule($module->getSimpleXML());
+      
+      $modules = $lab->getModules();
+      
+      print_r($modules);
+      
+      $lab->writeLab();
+      
+     
+     echo "<pre>";
+     //echo $desc[0][0];
+     //print_r($module);
+     print_r($lab);
+     echo "</pre>";
+     
+}
+
 ?>

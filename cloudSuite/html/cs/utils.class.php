@@ -58,6 +58,7 @@ class Utils {
         Utils::showStuff($schema, 'UTILS SCHEMA');
 
         $doc = new DOMDocument();
+        
         try {
 
             $doc->load($xmlFile);
@@ -152,8 +153,8 @@ class Utils {
     }
 
     public static function fileName($id, $filename) {
-
-        return $id . '.' . $filename . '.xml';
+            $fname = $id . '.' . $filename . '.xml';
+        return $fname;
     }
 
 }

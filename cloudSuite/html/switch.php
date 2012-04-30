@@ -64,6 +64,28 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
             });
         </script>
        
+        <script language="JavaScript">
+        
+          function newMod(form) {
+            
+              var dest = form.destination.value;
+              var loadString = form.method.value + "=" +form.name;
+              loadString = loadString + "&modName=" + form.modName.value;
+              
+              $("#"+dest).load('./rest.php?'+ loadString);
+              
+          }
+        
+        function clearDiv(id){
+            
+            $("#"+id).text();
+            
+        }
+        
+        </script>
+        
+        
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
            
@@ -80,6 +102,29 @@ include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATO
         <div class="lab-content settings">settings</div>
         <div class="lab-content admin">Admin</div>
         <div class="lab-content lab">lab</div>
+        
+        
+        <div id="adminSection">
+            
+            <div class="testContent">
+                <form name="newModule" action="" method="get"> 
+                   new module name : 
+                   <input type="text" name="modName" />
+                   <input type="hidden" name="destination" value="newModuleContent" />
+                   <input type="hidden" name="method" value="newModule" />  <br/>
+                   
+                   <input type="button" name="button" value="click" onClick="newMod(this.form)"/>
+                   
+                </form>
+                
+                <div id="newModuleContent">
+                    
+                </div>
+                
+               
+            </div>
+            
+        </div>
         
      
         <script type="text/javascript">

@@ -11,7 +11,7 @@
  $_ENV['cs']['module_dir'] = 'modules'.DIRECTORY_SEPARATOR;
  $_ENV['cs']['css'] = 'script' .DIRECTORY_SEPARATOR;
  
- $_ENV['cs']['debug'] = TRUE;
+ $_ENV['cs']['debug'] = FALSE;
  
 
  date_default_timezone_set('America/Los_Angeles');

@@ -41,6 +41,59 @@ div {
    border-radius:15px;
    -moz-border-radius:15px;
 }
+
+#adminSection {
+    display: block;
+    width: 98%;
+    height: 85%;
+    float: left;
+    background-color:#D2E0E6;
+    color: #c00;
+    border-color: white;
+    margin: 2px;
+    margin-left: 0px;
+    border-radius:15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+}
+.admin-content {
+    width: 86%;
+    height: 15%;
+    /*float: right;*/
+    background-color:white;
+    color: #c00;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+    margin-left: 6%;
+    padding-left: 1%;
+}
+#settingsSection {
+    display: block;
+    width: 98%;
+    height: 85%;
+    float: left;
+    background-color:#D2E0E6;
+    color: #c00;
+    border-color: white;
+    margin: 2px;
+    margin-left: 0px;
+    border-radius:15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+}
+.settings-content {
+    width: 86%;
+    height: 15%;
+    /*float: right;*/
+    background-color:white;
+    color: #c00;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+    margin-left: 6%;
+    padding-left: 1%;
+}
 #lab {
     display: block;
     width: 64%;
@@ -128,6 +181,11 @@ div {
     border-radius: 15px;
     text-align: center;
 }
+#username:hover {
+    font-style: italic;
+    color: white;
+    background-color: #c00;
+}
 
 button {
     padding: 10px;
@@ -149,3 +207,32 @@ div.module {
     text-align: center;
 }
 
+div.ChiSelected{
+    font-style: italic;
+    color: white;
+    background-color: #c00;
+}
+
+div.chiClick:hover{
+    font-style: italic;
+    color: white;
+    background-color: #c00;
+}
+
+#test {
+    
+}
+
+div.testContent {
+    width: 86%;
+    /*height: 15%;*/
+    /*float: right;*/
+    background-color:white;
+    color: #c00;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+    margin-left: 6%;
+    padding-left: 1%;
+}

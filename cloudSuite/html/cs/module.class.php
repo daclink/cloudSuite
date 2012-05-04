@@ -10,6 +10,7 @@ class Module {
 // Look for include file in the same directory (e.g. `./config.inc.php`).
     
     private $myXML;
+    private $fileName;
     private $__moduleSchema;
     private $__moduleXmlFile;
     private $__data = array('id' => '',
@@ -49,15 +50,18 @@ class Module {
         }
         
         if ($xmlFile != null) {
-            
             $this->__moduleXmlFile = $xmlFile;
-            return;
+            Utils::load_xml($schema, $xmlFile, $xml);
+            $this->myXML = $xml;
+            $this->fileName = Utils::fileName($xml['id'], $xml['name']);
+            return true;
         }
         
         $myXML = new SimpleXMLElement('<module></module>');
        
         $id = Utils::genID();
         $name = ($name == NULL) ? Utils::randomName() : $name;
+        $this->fileName = Utils::fileName($xml['id'], $xml['name']);
         
         $myXML->addAttribute('id', $id);
         $myXML->addAttribute('name', $name);
@@ -97,6 +101,8 @@ class Module {
         
         $this->myXML = $myXML;
         
+        return true;
+        
     }
 
     function __destruct() {
@@ -124,7 +130,7 @@ class Module {
         }
     }
     
-    static function loadModule($xmlSchema, $xmlFile){
+    static function getModuleForm($xmlSchema, $xmlFile){
         
         echo "<pre> \n"; 
         
@@ -184,6 +190,17 @@ class Module {
         
     }
 
+     static function loadModule($xmlSchema, $xmlFile){
+        
+        if (! Utils::load_xml($xmlSchema, $xmlFile, $xml)) {
+            throw new Exception("Could not load file $xmlFile", '1', NULL);
+            return false;
+        }
+        
+        return new Module($$xml->createdBy, $xml->moduleType, NULL, $xmlFile);
+        
+    }
+    
     function removeParam($flag){
 
             if(!array_key_exists($this->__data['parameter'][$flag])){

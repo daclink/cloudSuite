@@ -102,6 +102,10 @@ class Lab {
         
         Utils::showStuff($this->labname, 'this lab name...');
         
+        $lname = Utils::fileName($this->id, $this->labname);
+         
+        $this->fileName = Utils::fileName($this->id, $this->labname);
+        
         if ($xml != NULL ) {
             $this->lab = $xml;
             return true;
@@ -129,9 +133,7 @@ class Lab {
         */
 
         $this->lab = $lab;
-        $lname = Utils::fileName($this->id, $this->labname);
-         
-        $this->fileName = Utils::fileName($this->id, $this->labname);
+       
 
         return $lab;
 
@@ -143,6 +145,9 @@ class Lab {
         
         $this->lab['labName'] = $labName;
         $this->fileName = Utils::fileName($this->lab['id'], $labName);
+        
+        $foo = new SimpleXMLElement("<lab></lab>");
+        $foo->addChild('bar');
         
     }
     
@@ -171,9 +176,12 @@ class Lab {
             //TODO: add lock code.
         }
         
-       
+        $dom = new DOMDocument(1.0);
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($this->lab->asXML());       
         
-        if(! $this->lab->asXML($filename)){
+        if(! $dom->save($filename)){
             Throw new Exception("Could not save file $filename", '2', NULL);
         }
         return $this->fileName;
@@ -283,7 +291,7 @@ class Lab {
     }
       
     function getModules() {
-        return $this->lab;
+        return $this->lab->module;
         
     }
 

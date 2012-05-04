@@ -29,10 +29,15 @@ body {
 div {
     overflow:scroll;
 }
+
+#mainContainer {
+height: 85%;
+}
+
 #collections {
    display: block;
    width: 35%;
-   height: 85%;
+   height: 100%;
    float: left;                   
    background-color:#D2E0E6;
    color: #c00;
@@ -45,7 +50,7 @@ div {
 #adminSection {
     display: block;
     width: 98%;
-    height: 85%;
+    height: 100%;
     float: left;
     background-color:#D2E0E6;
     color: #c00;
@@ -71,7 +76,7 @@ div {
 #settingsSection {
     display: block;
     width: 98%;
-    height: 85%;
+    height: 100%;
     float: left;
     background-color:#D2E0E6;
     color: #c00;
@@ -97,7 +102,7 @@ div {
 #lab {
     display: block;
     width: 64%;
-    height: 85%;
+    height: 100%;
     float: left;
     background-color:#D2E0E6;
     color: #c00;

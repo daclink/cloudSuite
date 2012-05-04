@@ -77,13 +77,11 @@ if (isset($_GET['newModule'])){
      //$desc = Collection::getDesc($xmlScheme, $xmlFile);
      
       $xmlSchema = $_ENV['cs']['schema_dir']."lab.xsd";
-      $xmlFile =  $_ENV['cs']['labs_dir']."240.gabbo.xml";
+      $xmlFile =  $_ENV['cs']['labs_dir']."4358.book.xml";
         
-      $lab = new Lab("Drew");
-      $xmlFile =  $_ENV['cs']['labs_dir']. $lab->getFileName();
+      $lab = Lab::loadLab($xmlFile);
+      //$xmlFile =  $_ENV['cs']['labs_dir']. $lab->getFileName();
       //$xmlFile =  $_ENV['cs']['labs_dir']. '3872.han.xml';
-      
-      Utils::showStuff($xmlFile, 'file is');
       
       /*if (Utils::validate($xmlSchema, TRUE, $lab->getSimpleXML())){
           echo "<div>it' good!</div>";
@@ -93,7 +91,7 @@ if (isset($_GET['newModule'])){
       
      // $lab->writeLab();
       
-      $lab->writeLab();
+      //$lab->writeLab();
       //$lab = Lab::loadLab($xmlFile);
       $lab->addModule($module->getSimpleXML());
       
@@ -110,6 +108,39 @@ if (isset($_GET['newModule'])){
      print_r($lab);
      echo "</pre>";
      
+}
+
+if (isset($_GET['listLab'])){
+    //echo $_GET['listLab'];
+    $labs =  Utils::returnFiles($_ENV['cs']['labs_dir']);
+    
+    foreach ($labs as $lab) {
+        
+        $parts = explode(".", $lab);
+        echo "<script>var $parts[0] = $lab </script>";
+        echo"<div id=\"$parts[0]\" class=\"labChoice lab-content csshadow chiClick\" name=\"$lab\" onclick=\"loadLabReturnNormal('$parts[0]','$parts[1]')\">$parts[1]</div>";
+          
+    }
+}
+
+if (isset($_GET['loadLabByFileName'])){
+    $filename = $_ENV['cs']['labs_dir'].$_GET['loadLabByFileName'];
+    
+    $lab = Lab::loadLab($filename);
+    $lab = $lab->getSimpleXML();
+    $labname = $lab['labName'];
+    
+    
+    $return = "<span style=\"text-align:center;\">\n";
+    $return = $return . "\t<h2>". $labname ."</h2>\n";
+    $return = $return . "</span>\n";
+    foreach ($lab->module as $module) {
+        $return = $return . "<div class=\"lab-content csshadow\">";
+        $return = $return . $module['moduleName'];
+        $return = $return . "</div>\n"; 
+    }
+    
+    echo $return;
 }
 
 ?>

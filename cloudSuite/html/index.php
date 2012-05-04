@@ -17,7 +17,9 @@ elseif (getenv('HOME') && file_exists(getenv('HOME') . DIRECTORY_SEPARATOR . '.a
 */
 
 /*%******************************************************************************************%*/
-
+session_start();
+$_SESSION['cs']['lab'] = 'foo';
+$_SESSION['cs']['username'] = 'Drew';
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
 
 if (isset($_GET['debug'])){
@@ -40,34 +42,48 @@ if (isset($_GET['debug'])){
 	<script type="text/javascript" src="./theme/js/jquery-ui-1.8.18.custom.min.js"></script>
         
         <script type="text/javascript">
+            
+          function loadLabReturnNormal(id, name){
+                $("#status-bar").animate({height:"10%"},1000);
+                $("#mainContainer").animate({height:"85%"},1000);
+                $("#labList").hide();
+                $("#labListAccordian").replaceWith("<div id=\"labListAccordian\"></div>"); 
+                
+                if(id != null){
+                    
+                    var file = id + '.' + name + '.xml';
+                    
+                    file = './rest.php?loadLabByFileName=' + file;
+                    $('#lab').load(file);
+                }
+             }
+             
           $(function(){
         	// Tabs
 		$('#tabs').tabs();
                 $("#collections").accordion({ header: "h3" });
                 
-                	// Dialog			
-				$('#dialog').dialog({
-					autoOpen: false,
-					width: 600,
-					buttons: {
-						"Ok": function() { 
-							$(this).dialog("close"); 
-						}, 
-						"Cancel": function() { 
-							$(this).dialog("close"); 
-						} 
-					}
-				});
+                // Dialog			
+		$('#dialog').dialog({
+                    autoOpen: false,
+                    width: 600,
+                    buttons: {
+                        "Ok": function() { 
+			$(this).dialog("close"); 
+			}, 
+			"Cancel": function() { 
+			$(this).dialog("close"); 
+			} 
+                    }
+		});
 				
-				// Dialog Link
-				$('#dialog_link').click(function(){
-					$('#dialog').dialog('open');
-					return false;
-				});
+                // Dialog Link
+                $('#dialog_link').click(function(){
+                        $('#dialog').dialog('open');
+                        return false;
+                });
 
-               $('').click(function(){
-                   $(this).toggle();
-               })
+              
             });
         </script>
        
@@ -76,22 +92,26 @@ if (isset($_GET['debug'])){
            
     </head>
     <body>
-            
+        <?php 
+            Utils::showStuff(SID, 'session ID '); 
+            Utils::showStuff($_SESSION['cs']['lab'],"lab");
+         ?>
+        
         <?php include('./ui/taskbar.html');?>
-        
-        <div class="labDisplay">
-             <?php include('./ui/lab.php'); ?>
-            
+        <div id="mainContainer">
+            <div class="labDisplay">
+                 <?php include('./ui/lab.php'); ?>
+
+            </div>
+            <div class="adminDisplay">
+                 <?php include('./ui/admin.php'); ?>
+
+            </div>
+            <div class="settingsDisplay">
+                 <?php include('./ui/settings.php'); ?>
+
+            </div>
         </div>
-        <div class="adminDisplay">
-             <?php include('./ui/admin.php'); ?>
-            
-        </div>
-        <div class="settingsDisplay">
-             <?php include('./ui/settings.php'); ?>
-            
-        </div>
-        
         <?php include('./ui/statusbar.html');?>
         
      
@@ -112,6 +132,7 @@ if (isset($_GET['debug'])){
                 $("#settingsButton").removeClass("ChiSelected");
                 $("#labButton").addClass("ChiSelected");
                 $("#adminButton").removeClass("ChiSelected");
+                $("#labList").hide();
             });
             
              $("div.modList").live('click', function() {
@@ -158,8 +179,24 @@ if (isset($_GET['debug'])){
                 $("#adminButton").addClass("ChiSelected");
              });
              
+             $("#loadLab").mouseup(function(){
+                $("#labListAccordian").load('./rest.php?listLab=true');
+                $("#labList").show();
+                $("#status-bar").animate({height:"85%"},1000);
+                $("#mainContainer").animate({height:"10%"},1000);
+             });
+             
+             
+             $("div.labChoice").mouseup(function(){loadLabReturnNormal()});
+             
+             
+             
         </script>
-       
+       <script>
+    
+
+
+</script>
         
         
     </body>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module.xml
+    Created on : May 8, 2012, 7:56 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+     id="7" name="ga">
+    <moduleType>method</moduleType>
+    <description>Use a Genetic Algorithm to optimize data</description>
+    <systemRequirement>
+        <product>gcc</product>
+        <version>2</version>
+    </systemRequirement>
+    <fieldset>
+        <legend>Crossover</legend>
+        <element id="8">
+            <type>radio</type>
+            <name>single</name>
+            <value>-single</value>
+            <description>Choose a single crossover point randomly</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default>0</default>
+            <selected>true</selected>
+        </element>
+        <element id="9">
+            <type>radio</type>
+            <name>double</name>
+            <value>-double</value>
+            <description>Choose two crossover points randomly</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default>0</default>
+            <selected>true</selected>
+        </element>
+    </fieldset>
+    <permissions clearance="">
+        <owner>7</owner>
+        <everyone>4</everyone>
+        <group>4</group>
+        <groupname></groupname>
+    </permissions>
+    <methodName></methodName>
+    <createdBy>Drew</createdBy>
+    <dateCreated>20120505</dateCreated>
+
+</module>

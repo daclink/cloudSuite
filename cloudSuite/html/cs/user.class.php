@@ -13,6 +13,11 @@ class User {
       private $__lname;
       private $__clearance;
      */
+    
+    private $users = array('1' => 'Drew',
+                           '2' => 'Gabbo',
+                           '3' => 'Jenny',
+                           '4' => 'AJ');
 
     private $data = array('id' => '',
         'name' => '',
@@ -48,6 +53,37 @@ class User {
         foreach ($this as $key => $value) {
             unset($this->$key);
         }
+    }
+    
+    public static function login ($uname, $id=NULL) {
+        
+        $users = array('1' => 'Drew',
+                           '2' => 'Gabbo',
+                           '3' => 'Jenny',
+                           '4' => 'AJ');
+        
+        foreach ($users as $id => $name) {
+            if ($uname === $name){
+                session_start();
+                $_SESSION['cs']['username'] = $name;
+                
+                setcookie('cs_uname',$name);
+                
+                return array ($id => $name);
+            }
+        }
+        
+        return false;
+    }
+    
+    public static function logout () {
+        if (isset($_SESSION['cs']['username'])){
+            unset($_SESSION['cs']);
+        }
+        if (isset($_COOKIE['cs_uname'])){
+            unset($$_COOKIE['cs_uname']);
+        }
+        
     }
 }
 

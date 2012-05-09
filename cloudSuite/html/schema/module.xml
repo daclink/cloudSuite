@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module.xml
+    Created on : May 8, 2012, 7:56 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+     id="" name="">
+    <moduleType></moduleType>
+    <description></description>
+    <systemRequirement>
+        <product></product>
+        <version></version>
+    </systemRequirement>
+    <fieldset>
+        <legend></legend>
+        <element id="">
+            <type></type>
+            <name></name>
+            <value></value>
+            <description></description>
+            <input></input>
+            <output></output>
+        </element>
+    </fieldset>
+    <permissions clearance="">
+        <owner>7</owner>
+        <everyone>4</everyone>
+        <group>4</group>
+        <groupname></groupname>
+    </permissions>
+    <methodName></methodName>
+    <createdBy></createdBy>
+    <dateCreated></dateCreated>
+
+</module>

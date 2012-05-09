@@ -2,10 +2,19 @@
 <?php
 $uname = (isset($_SESSION['cs']['username'])) ? $_SESSION['cs']['username'] : "Login";
 ?>
-
+<script>
+    $(document).ready(function(){
+        $(".login-item").hide();
+    });
+</script>
 <div id="task-bar">
     <div id="labButton" class="task-bar-item chiClick csshadow">Lab</div> 
     <div id="adminButton" class="task-bar-item chiClick csshadow">Admin</div>
     <div id="settingsButton" class="task-bar-item chiClick csshadow">Settings</div>
-    <div id="username" class="task-bar-item chiClick csshadow"><?php echo $uname; ?></div>
+    <div id="username" class="task-bar-item chiClick csshadow" onclick="loginButtonOpen()"><?php echo $uname; ?></div>
+
+<div class="login-item">Login items coming soon!</div>
+<div class="login-item"><input type="text" name="username"/></div>
+<div class="login-item login-button chiClick csshadow" onclick="loginButtonClose()">Return</div>
+
 </div>

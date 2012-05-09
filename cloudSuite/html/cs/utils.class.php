@@ -156,6 +156,29 @@ class Utils {
             $fname = $id . '.' . $filename . '.xml';
         return $fname;
     }
+    
+    public static function formatLab($lab){
+        $lab = $lab->getSimpleXML();
+        $labname = $lab['labName'];
+        $filename = Utils::fileName($lab['id'], $labname);
+            
+        $return = "<span style=\"text-align:center;\">\n";
+        $return = $return . "\t<h2>". $labname ."</h2>\n";
+        $return = $return . "</span>\n";
+        $return = $return . "<input id=\"labFileNameHidden\" type=\"hidden\" name=\"filename\" value=\"$filename\" />";
+        
+        foreach ($lab->module as $module) {
+            $return = $return . "<div class=\"lab-content csshadow\">";
+            $return = $return . "<ul>";
+            $return = $return . "<li>Module Name :" . $module['moduleName'] . "</li>";
+            $return = $return . "<li>Description :". $module->description ."</li>";
+            $return = $return . "</ul>";
+            $return = $return . "</div>\n"; 
+        }
+       
+        
+        return $return;
+    }
 
 }
 

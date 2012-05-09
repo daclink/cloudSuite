@@ -27,25 +27,32 @@
                                     echo $desc[0];
                                     echo "<div id=\"showMods\">";//<h2><a href=\"#\">Show Modules</a></h2>";
                                         foreach ($modules as $module ) {
+                                            
                                             $key = $module['id'];
                                             $value = $module->desc;
-                                            echo "<div id=\"".$module['id']."\" ><h4>$module->desc</h4></div>";
-                                            
+                                            echo "<div id=\"".$module['id']."\" ><h4>$module->desc</h4>";
+                                               // foreach($module->fieldset as $fieldset){
+                                            $xmlFile = $_ENV['cs']['module_dir'] . Utils::fileName($module['id'],$module['name']);
+                                            echo  Module::getModuleForm($xmlFile);
+                                                //}
+                                            echo "</div>";
                                             echo "<div id=\"".$key."_link\" class=\"chiClick csshadow module\">".$module['name']." </div>";
                                             //<a href=\"#\" id=\"".$key."_link\" class=\"ui_state-default ui-corner-all\"></a>
                                             ?>
-                                        <script> $('#<?php echo $key;?>').dialog({
-                                            autoOpen: false,
-                                            width: 600,
-                                            buttons: {
-						"Add to Lab": function() { 
-							$(this).dialog("close"); 
-						}, 
-						"Cancel": function() { 
-							$(this).dialog("close"); 
-						} 
-                                            }   
-                                        });
+                                                <script> $('#<?php echo $key;?>').dialog({
+                                                                autoOpen: false,
+                                                                width: 600,
+
+                                                                buttons: {
+                                                                    "Add to Lab": function() {
+                                                                            addToLab("<?php echo $xmlFile ?>");
+                                                                            $(this).dialog("close"); 
+                                                                    }, 
+                                                                    "Cancel": function() { 
+                                                                            $(this).dialog("close"); 
+                                                                    } 
+                                                                }   
+                                                            });
 				
 				// Dialog Link
                                         $('#<?php echo $key;?>_link').click(function(){
@@ -78,7 +85,7 @@
             
             <?php
             
-            $lab = new Lab("gabbo");
+            $lab = new Lab("No_Lab_loaded");
             
             ?>
             

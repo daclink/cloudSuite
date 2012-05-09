@@ -14,21 +14,13 @@
     <ownerID>22</ownerID>
     <clearance>10</clearance>
     <created>2012.02.11</created>
-    <module name="charts" id="11">
+    <module name="graphs" id="11">
         <methodName></methodName>
         <parameterString></parameterString>
         <sequenceNumber></sequenceNumber>
         <desc>Chart some data yo</desc>
         <input></input>
         <output></output>
-    </module>
-    <module name="graphs" id="12">
-        <methodName></methodName>
-        <parameterString></parameterString>
-        <sequenceNumber></sequenceNumber>
-        <desc>Generate Pretty Graphs</desc>
-        <input></input>
-        <output></output> 
     </module>
     <desc>
         A Collection of modules used to display quantative data.

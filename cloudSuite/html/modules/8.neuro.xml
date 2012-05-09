@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module.xml
+    Created on : May 8, 2012, 7:56 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+     id="8" name="neuro">
+   <moduleType>method</moduleType>
+    <description>Open, train, and use a neural network</description>
+    <systemRequirement>
+        <product>gcc</product>
+        <version>2</version>
+    </systemRequirement>
+    <fieldset>
+        <legend>Hidden Layer</legend>
+        <element id="9">
+            <type>radio</type>
+            <name>3</name>
+            <value>-h3</value>
+            <description>Three Hidden Nodes</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default>0</default>
+            <selected>true</selected>
+        </element>
+        <element id="9">
+            <type>radio</type>
+            <name>4</name>
+            <value>-h4</value>
+            <description>Four Hidden Nodes</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default>0</default>
+            <selected>true</selected>
+        </element>
+        <element id="12">
+            <type>radio</type>
+            <name>5</name>
+            <value>-h5</value>
+            <description>Five Hidden Nodes</description>
+            <input></input>
+            <output></output>
+            <required>0</required>
+            <default>0</default>
+            <selected>true</selected>
+        </element>
+    </fieldset>
+    <permissions clearance="">
+        <owner>7</owner>
+        <everyone>4</everyone>
+        <group>4</group>
+        <groupname></groupname>
+    </permissions>
+    <methodName></methodName>
+    <createdBy>Drew</createdBy>
+    <dateCreated>20120505</dateCreated>
+
+</module>

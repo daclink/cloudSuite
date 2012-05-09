@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module1.xml
+    Created on : May 8, 2012, 6:59 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module  id="11" name="graphs">
+    <moduleType>method</moduleType>
+    <description>Plot data using a varity of methods</description>
+    <systemRequirement>
+        <product>gcc</product>
+        <version>2.4</version>
+    </systemRequirement>
+    <fieldset>
+        <legend>Data</legend>
+        <element id="20">
+            <type>csv</type>
+            <name>infile</name>
+            <value>-in</value>
+            <description>File to plot</description>
+            <input>csv</input>
+            <output>TextFile</output>
+            <required>0</required>
+            <default>0</default>
+            <selected></selected>
+        </element>
+    </fieldset>
+    <permissions clearance="10">
+        <owner>7</owner>
+        <everyone>4</everyone>
+        <group>4</group>
+        <groupname>awesome</groupname>
+    </permissions>
+    <methodName>rsaEncryptor</methodName>
+    <createdBy>Drew</createdBy>
+    <dateCreated>20120505</dateCreated>
+</module>

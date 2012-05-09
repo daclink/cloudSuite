@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : module1.xml
+    Created on : May 8, 2012, 6:59 PM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<module  id="21" name="rsa">
+    <moduleType>method</moduleType>
+    <description>Encrypt or decrypt a file using RSA.</description>
+    <systemRequirement>
+        <product>gcc</product>
+        <version>2.4</version>
+    </systemRequirement>
+    <fieldset>
+        <legend>Encrypt or Decrypt</legend>
+        <element id="300">
+            <type>radio</type>
+            <name>Encrypt</name>
+            <value>-encrypt</value>
+            <description>Encrypt file using RSA with provided key.</description>
+            <input></input>
+            <output>TextFile</output>
+            <required>0</required>
+            <default>0</default>
+            <selected>true</selected>
+        </element>
+        <element id="301">
+            <type>radio</type>
+            <name>Decrypt</name>
+            <value>-decrypt</value>
+            <description>Decrypt a file using RSA with provided key.</description>
+            <input></input>
+            <output>TextFile</output>
+            <required>0</required>
+            <default>0</default>
+            <selected></selected>
+        </element>
+    </fieldset>
+    <fieldset>
+        <legend>Files</legend>
+        <element id="302">
+            <type>text</type>
+            <name>infile</name>
+            <value>-in</value>
+            <description>File to encrypt/decrypt</description>
+            <input>TextFile</input>
+            <output>TextFile</output>
+            <required>0</required>
+            <default>0</default>
+            <selected></selected>
+        </element>
+        <element id="305">
+            <type>text</type>
+            <name>outfile</name>
+            <value>-out</value>
+            <description>Name of output file</description>
+            <input>TextFile</input>
+            <output>TextFile</output>
+            <required>0</required>
+            <default>0</default>
+            <selected></selected>
+        </element>
+        <element id="303">
+            <type>text</type>
+            <name>key</name>
+            <value>-inkey</value>
+            <description>Key used to encrypt/decrypt</description>
+            <input>KeyFile</input>
+            <output></output>
+            <required>0</required>
+            <default>0</default>
+            <selected></selected>
+        </element>
+        <element id="304">
+            <type>text</type>
+            <name>pubkey</name>
+            <value>-pubin</value>
+            <description>Public key used to encrypt/decrypt</description>
+            <input>KeyFile</input>
+            <output></output>
+            <required>0</required>
+            <default>0</default>
+            <selected></selected>
+        </element>
+    </fieldset>
+    <permissions clearance="10">
+        <owner>7</owner>
+        <everyone>4</everyone>
+        <group>4</group>
+        <groupname>awesome</groupname>
+    </permissions>
+    <methodName>rsaEncryptor</methodName>
+    <createdBy>Drew</createdBy>
+    <dateCreated>20120505</dateCreated>
+</module>

@@ -19,7 +19,7 @@ elseif (getenv('HOME') && file_exists(getenv('HOME') . DIRECTORY_SEPARATOR . '.a
 /*%******************************************************************************************%*/
 session_start();
 $_SESSION['cs']['lab'] = 'foo';
-$_SESSION['cs']['username'] = 'Drew';
+//$_SESSION['cs']['username'] = 'Drew';
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
 
 if (isset($_GET['debug'])){
@@ -32,7 +32,7 @@ if (isset($_GET['debug'])){
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CloudSuite v0.2.1 </title>
+        <title>CloudSuite v0.3</title>
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
         <link type="text/css" href="theme/css/blitzer/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
         <link type="text/css" href="./styles/main.css" rel="stylesheet" />
@@ -43,20 +43,48 @@ if (isset($_GET['debug'])){
         
         <script type="text/javascript">
             
+          function returnLab(){
+              $("#status-bar").animate({height:"10%"},1000);
+              $("#mainContainer").animate({height:"85%"},1000);
+              $("#labList").hide();
+          }
+          
+          function addToLab(moduleWPath){
+              //alert("Hey there! " + $("#labFileNameHidden").val());
+              //console.log("Module with path is "+moduleWPath)+$("#labFileNameHidden").val();
+              var restPath = "./rest.php?addModuleToLab="+$("#labFileNameHidden").val();
+              restPath = restPath + "&moduleToLoad="+moduleWPath;
+              $("#lab").load(restPath);
+          }
+            
           function loadLabReturnNormal(id, name){
-                $("#status-bar").animate({height:"10%"},1000);
-                $("#mainContainer").animate({height:"85%"},1000);
-                $("#labList").hide();
+                returnLab();
                 $("#labListAccordian").replaceWith("<div id=\"labListAccordian\"></div>"); 
                 
                 if(id != null){
                     
                     var file = id + '.' + name + '.xml';
-                    
+                   // alert("id = " + id + "File = " + file);
                     file = './rest.php?loadLabByFileName=' + file;
                     $('#lab').load(file);
                 }
              }
+             
+          function loginButtonOpen(){
+              $("#task-bar").animate({height: "15%"},1000);
+              $("#mainContainer").animate({height:"75%"},1000);
+              $(".task-bar-item").fadeOut(500,function(){
+                  $(".login-item").fadeIn(500);
+                });
+          }
+          
+          function loginButtonClose(){
+              $("#task-bar").animate({height: "5%"},1000);
+              $("#mainContainer").animate({height:"85%"},1000);
+              $(".login-item").fadeOut(500,function(){
+                $(".task-bar-item").fadeIn(500);
+              });
+          }
              
           $(function(){
         	// Tabs
@@ -144,12 +172,15 @@ if (isset($_GET['debug'])){
                  $("#colDesc").load('./rest.php?colGetDesc=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
              });
              
-             $("div.chiClick").mouseup(function(){
-                 $(this).addClass("csshadow").removeClass("clicked");
-             }).mousedown(function(){
-                 $(this).addClass("clicked").removeClass("csshadow");
-             }).mouseout(function(){
-                 $(this).addClass("csshadow").removeClass("clicked");
+             $("div.chiClick").live('click', function (){
+                 $("div.chiClick").mouseup(function(){
+                     $(this).addClass("csshadow").removeClass("clicked");
+                 }).mousedown(function(){
+                     $(this).addClass("clicked").removeClass("csshadow");
+                 }).mouseout(function(){
+                     $(this).addClass("csshadow").removeClass("clicked");
+                 });
+             
              });
              
              $("#settingsButton").mouseup(function(){
@@ -186,18 +217,38 @@ if (isset($_GET['debug'])){
                 $("#mainContainer").animate({height:"10%"},1000);
              });
              
-             
              $("div.labChoice").mouseup(function(){loadLabReturnNormal()});
              
+             $("#newLab").mouseup(function(){
+                $("#labListAccordian").load('./ui/newLab.php');
+                $("#labList").show();
+                $("#status-bar").animate({height:"85%"},1000);
+                $("#mainContainer").animate({height:"10%"},1000);
+             });
+             
+             $("#saveLab").mouseup(function(){
+                 //alert("woo!" + $("#labFileNameHidden").val());
+                 
+                 if ($("#labFileNameHidden").val() != null ){
+                    var sendData = new Object();
+                    sendData["saveLab"] = $("#labFileNameHidden").val();
+                    $.ajax({
+                       //url: "http://cloudsuite.info/rest.php?saveLab="+$("#labFileNameHidden").val()
+                       url: "http://cloudsuite.info/rest.php",
+                       data: sendData
+                    }).done(function (data) {
+                       console.log(data);
+                       alert($("#labFileNameHidden").val() + " saved"); 
+                    });
+                     
+                 } else {
+                     alert("No Lab to save!");
+                 }
+                 
+             })
              
              
         </script>
-       <script>
-    
-
-
-</script>
-        
         
     </body>
 </html>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    
+    <!-- 
 targetNamespace="http://cloudsuite.info"
-xmlns:cs="http://cloudsuite.info">
+xmlns:cs="http://cloudsuite.info"-->
 
     <xsd:annotation>
       <xsd:appinfo>CloudSuite module schema</xsd:appinfo>
@@ -21,18 +23,25 @@ xmlns:cs="http://cloudsuite.info">
     <xsd:element name="value" type="xsd:string" />
     <xsd:element name="required" type="xsd:boolean" />
     <xsd:element name="dataType" type="xsd:string" />
-    <xsd:element name="default" type="xsd:string" />
+    <xsd:element name="default" type="xsd:string" default="0" />
     <xsd:element name="description" type="xsd:string" />
     <xsd:element name="groupname" type="xsd:string" />
     <xsd:element name="everyone" type="xsd:byte" default="4"/>
     <xsd:element name="group" type="xsd:byte" default="4"/>
     <xsd:element name="owner" type="xsd:byte" default="7"/>
-    <xsd:element name="input" type="xsd:string"/>
+    <xsd:element name="input">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string"></xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="output" type="xsd:string"/>
     <xsd:element name="methodName" type="xsd:string"/>
     <xsd:element name="createdBy" type="xsd:string"/>
     <xsd:element name="dateCreated" type="xsd:string"/>
     <xsd:element name="legend" type="xsd:string" />
+    <xsd:element name="selected" type="xsd:string" />
     
     <!-- define attributes-->
     <xsd:attribute name="name" type="xsd:string" />
@@ -69,10 +78,11 @@ xmlns:cs="http://cloudsuite.info">
                 <xsd:element ref="name" />
                 <xsd:element ref="value" />
                 <xsd:element ref="description" />
-                <xsd:element ref="input" />
-                <xsd:element ref="output" />
-                <xsd:element ref="required" />
-                <xsd:element ref="default" />
+                <xsd:element ref="input" maxOccurs="unbounded" minOccurs="0" />
+                <xsd:element ref="output" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="required" minOccurs="0"/>
+                <xsd:element ref="default" minOccurs="0"/>
+                <xsd:element ref="selected" minOccurs="0" />
             </xsd:sequence>
         <xsd:attribute ref="id" />
         </xsd:complexType>		

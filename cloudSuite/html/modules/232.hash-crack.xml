@@ -8,8 +8,7 @@
         Purpose of the document follows.
 -->
 
-<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-   id="233" name="hash_crack">
+<module  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' id="232" name="hash_crack">
     <moduleType>method</moduleType>
     <description>A method for cracking hashes</description>
     <systemRequirement>
@@ -27,6 +26,7 @@
             <output>text file</output>
             <required>1</required>
             <default></default>
+            <selected>false</selected>
         </element>
     </fieldset>
     <fieldset>
@@ -40,6 +40,7 @@
             <output></output>
             <required>0</required>
             <default></default>
+            <selected>false</selected>
         </element>
         <element id="236">
             <type>checkbox</type>
@@ -50,6 +51,7 @@
             <output></output>
             <required>0</required>
             <default></default>
+            <selected>true</selected>
         </element>
         <element id="237">
             <type>checkbox</type>
@@ -60,6 +62,7 @@
             <output></output>
             <required>0</required>
             <default></default>
+            <selected>true</selected>
         </element>
     </fieldset>
     <permissions clearance="5">

@@ -66,6 +66,27 @@ if (isset($_GET['colGetDesc'])){
      
 }
 
+if(isset($_GET['addModuleToLab'])){
+    $filename = $_ENV['cs']['labs_dir'].$_GET['addModuleToLab'];
+    //print_r($_GET);
+    $lab = Lab::loadLab($filename);
+    $module = Module::loadModule($_GET['moduleToLoad']);
+    //print_r($module);
+    try{
+        $lab->addModule($module->getSimpleXML());
+        $lab->writeLab();
+    } catch (Exception $e){
+               //$foo = $e->getMessage();
+        echo "console.log(alert(\"There was a problem adding the module! " +$foo +"\"))";
+        echo Utils::formatLab($lab);
+        return false;
+    }
+    
+    $_SESSION['cs']['labFileName'] = $filename;
+    
+    echo Utils::formatLab($lab);
+}
+
 if (isset($_GET['newModule'])){
     
     $_ENV['cs']['debug'] = TRUE;
@@ -116,9 +137,17 @@ if (isset($_GET['listLab'])){
     
     foreach ($labs as $lab) {
         
+        $labFile = Lab::loadLab($_ENV['cs']['labs_dir'] . $lab);
+        $xml = $labFile->getSimpleXML();
+        
         $parts = explode(".", $lab);
+        
+        $desc = "Labname : " . $xml['labName'] . " <br/> ";
+        $desc = $desc . "Description : " . (String) $xml->description . "<br/>";
+        $desc = $desc . "ID : " . $parts[0];
+        
         echo "<script>var $parts[0] = $lab </script>";
-        echo"<div id=\"$parts[0]\" class=\"labChoice lab-content csshadow chiClick\" name=\"$lab\" onclick=\"loadLabReturnNormal('$parts[0]','$parts[1]')\">$parts[1]</div>";
+        echo"<div id=\"$parts[0]\" class=\"labChoice lab-content csshadow chiClick\" name=\"$lab\" onclick=\"loadLabReturnNormal('$parts[0]','$parts[1]')\">$desc</div>";
           
     }
 }
@@ -127,7 +156,9 @@ if (isset($_GET['loadLabByFileName'])){
     $filename = $_ENV['cs']['labs_dir'].$_GET['loadLabByFileName'];
     
     $lab = Lab::loadLab($filename);
-    $lab = $lab->getSimpleXML();
+    
+    $_SESSION['cs']['labFileName'] = $filename;
+  /*  $lab = $lab->getSimpleXML();
     $labname = $lab['labName'];
     
     
@@ -140,7 +171,63 @@ if (isset($_GET['loadLabByFileName'])){
         $return = $return . "</div>\n"; 
     }
     
-    echo $return;
+    echo $return; */
+    
+    echo Utils::formatLab($lab);
+    
 }
+
+if (isset($_GET['loginUname'])){
+    $creds = User::login("Drew");
+    
+    $_ENV['cs']['debug'] = TRUE;
+    
+    Utils::showStuff($creds, "credentials yo!");
+    Utils::showStuff(SID, "Session ID? maybe?" );
+}
+
+if (isset($_GET['logout'])){
+
+    User::logout();
+}
+
+if (isset($_GET['newLab'])){
+    
+    $owner='Drew';
+    $id=NULL;
+    $labName = $_GET['newLab'];
+    $description = NULL;
+    
+    
+    
+    $lab = new Lab($owner, $id, $labName, $description);
+    
+    $lab->writeLab();
+    
+    echo Utils::formatLab($lab);
+    
+    
+}
+
+if (isset($_GET['saveLab'])){
+    $filename = $_ENV['cs']['labs_dir'].$_GET['saveLab']; 
+    try{
+        $lab = Lab::loadLab($filename);
+        $success = $lab->writeLab();
+    } catch (Exception $e){
+        echo "failed to save lab";
+        return false;
+    }
+    
+    echo $success;
+}
+
+
+if (isset($_GET['addModuleToLab'])){
+    
+    echo $_GET['addModuleToLab'];
+    
+}
+
 
 ?>

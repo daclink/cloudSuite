@@ -43,13 +43,14 @@ class Module {
      * @return module Object
      */
     function __construct($creator, $type, $schema = NULL, $xmlFile = NULL, $name = NULL) {
-        if ($schema != null) {
+        if ($schema != NULL) {
             $this->__moduleSchema = $schema;
         } else {
             $this->__moduleSchema = $_ENV['cs']['schema_dir'] . "module.xsd";
         }
         
-        if ($xmlFile != null) {
+        if ($xmlFile != NULL) {
+
             $this->__moduleXmlFile = $xmlFile;
             Utils::load_xml($schema, $xmlFile, $xml);
             $this->myXML = $xml;
@@ -130,7 +131,11 @@ class Module {
         }
     }
     
-    static function getModuleForm($xmlSchema, $xmlFile){
+    static function getModuleForm($xmlFile,$xmlSchema =NULL){
+        
+        if ($xmlSchema == NULL){
+            $xmlSchema = $_ENV['cs']['schema_dir']."module.xsd";
+        }
         
         echo "<pre> \n"; 
         
@@ -161,7 +166,7 @@ class Module {
                   
                  echo "<input type=\"". $element->type ."\" name=\"".$element->name."\"> $element->description"; 
                  if ($element->input) {
-                     echo "<div>$element->input</div";
+                    echo "<div class=\"moduleInput\">$element->input</div>";
                  }
                  echo "</input>";
                  echo "<br />";
@@ -171,8 +176,8 @@ class Module {
         
     // $foo = $fs[0]->xpath('/@legend');
        //  print_r($foo);
-        echo "size of array is... ". count($fs);
-        print_r($module);
+       // echo "size of array is... ". count($fs);
+        //print_r($module);
        
        /* 
         foreach ($systemRequirement[0] as $key => $value){
@@ -190,14 +195,19 @@ class Module {
         
     }
 
-     static function loadModule($xmlSchema, $xmlFile){
+     static function loadModule($xmlFile, $xmlSchema=NULL){
         
+        if ($xmlSchema == NULL){
+            $xmlSchema = $_ENV['cs']['schema_dir']."module.xsd";
+        }
+         
         if (! Utils::load_xml($xmlSchema, $xmlFile, $xml)) {
             throw new Exception("Could not load file $xmlFile", '1', NULL);
             return false;
         }
         
-        return new Module($$xml->createdBy, $xml->moduleType, NULL, $xmlFile);
+        //__construct($creator, $type, $schema = NULL, $xmlFile = NULL, $name = NULL)
+        return new Module($xml->createdBy, $xml->moduleType, $xmlSchema, $xmlFile, NULL);
         
     }
     
@@ -248,33 +258,7 @@ class Module {
        
    }
 
- /* load and save to XML ...
- *    $this->__moduleSchema = ($schema !=NULL) ? $schema :
-        $_ENV['cs']['schema_dir'].DIRECTORY_SEPARATOR.'module.xsd' ;
-    $this->__moduleXmlFile = ($xmlFILE !=NULL) ? $schema :
-        $_ENV['cs']['schema_dir'].DIRECTORY_SEPARATOR.'module.xsd' ;
-    $this->__id = Utils.genID();
-
-
-    if (!\CSModel\Utils::load_xml($schema, $xmlFile, $xml)) {
-        return false;
-    }
-
-    $this->__data['id']
-            = $xml->xpath("/set/@id");
-    $this->__data['name']
-            = $xml->xpath("/set/@name");
-    $this->__data['parameters']
-            = $xml->xpath("parameters");
-    $this->__data['inputs']
-            = $xml->xpath("inputs");
-
-    return true;
-}
- */
-
-   
-
+ 
    /**
     *
     * @return SimpleXMLElement 

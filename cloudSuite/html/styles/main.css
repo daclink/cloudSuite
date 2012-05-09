@@ -171,6 +171,18 @@ height: 85%;
     text-align: center;
 }
 
+.login-item {
+    float: left;
+    background-color:white;
+    color: #c00;
+    margin: 5px;
+    border-radius: 15px;
+    text-align: center;
+}
+.login-button {
+    width: 10%;
+}
+
 .overlay {
     margin: 5px;
     border-radius: 15px;
@@ -240,4 +252,15 @@ div.testContent {
     -moz-border-radius:15px; /* Firefox 3.6 and earlier */
     margin-left: 6%;
     padding-left: 1%;
+}
+
+.newLabForm {
+ padding-right: 5px;
+ padding-left: 10px;
+ width: 85%;
+ text-align: left;
+}
+
+.moduleInput {
+    display:none;
 }

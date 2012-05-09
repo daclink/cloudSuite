@@ -17,6 +17,7 @@ class Lab {
     private $id;
     private $labname;
     private $fileName;
+    private $description;
     
     private $lastRunDate;
     private $lastRunUser;
@@ -81,7 +82,7 @@ class Lab {
         }
     }
 
-    function __construct($owner, $id = NULL, $labName = NULL, $xml=NULL) {
+    function __construct($owner, $id = NULL, $labName = NULL, $description = NULL, $xml=NULL) {
         $this->user = $owner;
         
         Utils::showStuff($labName, 'IN CONSTRUCT LABNAME');
@@ -98,6 +99,12 @@ class Lab {
             $this->labname = $labName;
         } else {
             $this->labname = Utils::randomName();            
+        }
+        
+        if ($description != NULL){
+            $this->description = $description;
+        } else {
+            $this->description = "$owner made an unknown lab.";            
         }
         
         Utils::showStuff($this->labname, 'this lab name...');
@@ -117,6 +124,7 @@ class Lab {
 
 
         $lab->addChild('owner', $owner);
+        $lab->addChild('description', $description);
 
         $permissions = $lab->addChild('permissions');
         $permissions->addChild('owner', '7');
@@ -155,7 +163,14 @@ class Lab {
         
         return $this->fileName;
     }
-    
+    /**
+     *
+     * @param string $filename
+     * @return Success String
+     * @return fail False
+     * 
+     * Always expects a FULL path name so append $_ENV['cs']['labs_dir']
+     */
     function writeLab($filename = NULL){
             //convert to XML and store to the system.
         
@@ -183,11 +198,10 @@ class Lab {
         
         if(! $dom->save($filename)){
             Throw new Exception("Could not save file $filename", '2', NULL);
+            return false;
         }
-        return $this->fileName;
-        //return true;
-
-        
+        //return $this->fileName;
+        return true;
     }
 
     function getLab(){
@@ -203,7 +217,12 @@ class Lab {
        return $domDoc;
        
     }
-    
+    /**
+     *
+     * @param type $xmlFile must append lab directory
+     * @param string $xmlSchema
+     * @return Lab 
+     */
     public static function loadLab($xmlFile, $xmlSchema = NULL){
         
         if($xmlSchema == null){
@@ -224,13 +243,22 @@ class Lab {
         $owner = (String) $xml->owner;
         $id = (String) $xml['id'];
         $labName = (String) $xml['labName'];
-        
-        return new Lab( $owner , $id, $labName, $xml);
+        $description = (String) $xml->description;
+
+        return new Lab( $owner , $id, $labName, $description, $xml);
          
     }
     
+    /**
+     *
+     * @param SimpleXMLElement $moduleXML 
+     * @param String $xmlFile
+     * @param String $xmlSchema
+     * @param String $seqNumber
+     * @return Boolean 
+     */
     function addModule($moduleXML, $xmlFile = NULL, $xmlSchema = NULL, $seqNumber = NULL){
-      
+        
         if ( $xmlSchema == NULL && $this->labSchema != NULL) {
             $xmlSchema = $this->labSchema;     
         } else {
@@ -257,7 +285,6 @@ class Lab {
           $seqNumber = sizeof($modules) + 1;
       }
       
-      
       $module = $this->lab->addChild('module');
       
    
@@ -265,11 +292,34 @@ class Lab {
       $module->addAttribute('moduleName', (String) $moduleXML['name']);
       
       $module->addChild('seqNumber', $seqNumber);
-      $module->addChild('method', $moduleXML->method);
-      $module->addChild('xmlrpcString', $moduleXML->xmlrpcString);
-      $module->addChild('filename', $moduleXML->filename);
+      $module->addChild('method', $moduleXML->methodName);
+      //$module->addChild('xmlrpcString', $moduleXML->xmlrpcString);
+      //$module->addChild('filename', $moduleXML->filename);
       
-      $input = $module->addChild('input', $moduleXML->input);
+      //TEMPORARY HACK FIX
+      $module->addChild('xmlrpcString', "one");
+      $module->addChild('filename', Utils::fileName($moduleXML['id'], $moduleXML['name']));
+      
+      /*input and output MUST be pulled from the form. 
+       * It doesn't make sense to pull it from the module as these values
+       * ARE NOT KNOWN to the module. The input and output in the module
+       * would more correctly be labled 'input TYPE' and 'output TYPE'
+       * 
+       * sorry about the confusion.
+       */
+      
+      $input = $module->addChild('input');
+      $input->addChild('type', 'input type');
+      $input->addChild('filename', 'filename');
+      $input->addChild('location', 'location');
+      
+      
+      $output = $module->addChild('output');
+      $output->addChild('type', 'output->type');
+      $output->addChild('filename', 'output->filename');
+      $output->addChild('location', 'output->location');
+      
+      /*$input = $module->addChild('input', $moduleXML->input);
       $input->addChild('type', $moduleXML->input->type);
       $input->addChild('filename', $moduleXML->input->filename);
       $input->addChild('location', $moduleXML->input->location);
@@ -279,7 +329,7 @@ class Lab {
       $output->addChild('type', $moduleXML->output->type);
       $output->addChild('filename', $moduleXML->output->filename);
       $output->addChild('location', $moduleXML->output->location);
-     
+     */
       
     //  if (! Utils::validate($xmlSchema, $this->lab->asXML())) {
     ////      Throw new Exception("Bad module.", '3',NULL);

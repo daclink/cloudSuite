@@ -24,7 +24,7 @@
     <xsd:element name="filename" type="xsd:string"/>
     <xsd:element name="type" type="xsd:string"/>
     <xsd:element name="location" type="xsd:string"/>
-    
+    <xsd:element name="description" type="xsd:string"/>
     
      <!-- define attributes-->
     <xsd:attribute name="id" type="xsd:string" />
@@ -89,6 +89,7 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="owner" maxOccurs="1"/>
+                <xsd:element ref="description" />
                 <xsd:element ref="permissions" maxOccurs="1"/>
                 <xsd:element ref="lastRunDate" />
                 <xsd:element ref="lastRunUser" />

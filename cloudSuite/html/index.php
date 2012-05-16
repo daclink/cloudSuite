@@ -85,16 +85,51 @@ if (isset($_GET['debug'])){
                 $(".task-bar-item").fadeIn(500);
               });
           }
+          
+          function delMod(modID, labID, modName) {
+              console.log("delete modID" + modID + " labID = " + labID);
+             // $(function() {
+		$( "#delModDialog" ).dialog({
+                    modal: true,
+                    title: "Remove : " + modName + "?",
+                    width: 600,
+                    buttons: {
+                        "Remove": function() {
+                            var path = './restLab.php?removeMod=' + modID + "&labID=" +labID;
+                            $('#lab').load(path);
+                            $(this).dialog("close");
+                        },
+                        "Cancel": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+              //});
+          }
+          function editMod(modID, labID, modName) {
+              console.log("rdit modName = " + modName + " edit modID = " + modID + " labID = " + labID);
+              $('#editModDialog').dialog({
+                  buttons: {
+                        "Ok": function() { 
+			$(this).dialog("close"); 
+			}, 
+			"Cancel": function() { 
+			$(this).dialog("close"); 
+			} 
+                   }
+              });
+          }
              
           $(function(){
         	// Tabs
 		$('#tabs').tabs();
-                $("#collections").accordion({ header: "h3" });
+                $("#collections").accordion({ clearStyle:true, header: "h3" });
                 
                 // Dialog			
 		$('#dialog').dialog({
                     autoOpen: false,
                     width: 600,
+                    modal: true,
                     buttons: {
                         "Ok": function() { 
 			$(this).dialog("close"); 
@@ -127,15 +162,15 @@ if (isset($_GET['debug'])){
         
         <?php include('./ui/taskbar.html');?>
         <div id="mainContainer">
-            <div class="labDisplay">
+            <div id="lab_container" class="labDisplay">
                  <?php include('./ui/lab.php'); ?>
 
             </div>
-            <div class="adminDisplay">
+            <div id="admin_container" class="adminDisplay">
                  <?php include('./ui/admin.php'); ?>
 
             </div>
-            <div class="settingsDisplay">
+            <div id="settings_container" class="settingsDisplay">
                  <?php include('./ui/settings.php'); ?>
 
             </div>
@@ -145,7 +180,7 @@ if (isset($_GET['debug'])){
      
         <script type="text/javascript">
          <?php
-             $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
+            // $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
              
              
          ?>
@@ -249,7 +284,10 @@ if (isset($_GET['debug'])){
              
              
         </script>
-        
+        <div id="dialog_hider">
+            <div id="delModDialog"> Remove the module from the lab?</div>
+            <div id="editModDialog"> hey hey hey</div>
+        </div>
     </body>
 </html>
 

@@ -48,8 +48,6 @@ xmlns:cs="http://cloudsuite.info"-->
     <xsd:attribute name="id" type="xsd:string" />
     <xsd:attribute name="clearance" type="xsd:string" />
    
-
-   
     <xsd:element name="moduleType" >
         <xsd:simpleType>
             <xsd:restriction base="xsd:string">

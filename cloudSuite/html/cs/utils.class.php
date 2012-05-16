@@ -73,7 +73,13 @@ class Utils {
             return false;
         }
     }
-
+    /**
+     *
+     * @param type $xmlSchema
+     * @param type $xmlFile
+     * @param SimpleXMLElement $xml
+     * @return type 
+     */
     public static function load_xml($xmlSchema, $xmlFile, &$xml) {
         if (!Utils::validate($xmlSchema, $xmlFile)) {
 
@@ -164,18 +170,22 @@ class Utils {
             
         $return = "<span style=\"text-align:center;\">\n";
         $return = $return . "\t<h2>". $labname ."</h2>\n";
+        $return = $return . "\t<h4>". $lab->description ."</h4>\n";
         $return = $return . "</span>\n";
         $return = $return . "<input id=\"labFileNameHidden\" type=\"hidden\" name=\"filename\" value=\"$filename\" />";
         
+        
+        
         foreach ($lab->module as $module) {
-            $return = $return . "<div class=\"lab-content csshadow\">";
+            $return = $return . "<div class=\"lab-content csshadow lab-slider\">";
             $return = $return . "<ul>";
             $return = $return . "<li>Module Name :" . $module['moduleName'] . "</li>";
             $return = $return . "<li>Description :". $module->description ."</li>";
             $return = $return . "</ul>";
+            $return = $return . "<div onclick=\"delMod(".$module['id'].",".$lab['id'].", '".$module['moduleName']."')\") id=\"".$module['id']."_delete\" class=\"status-bar-item labDisplay labButton\">Remove</div>";
+            $return = $return . "<div onclick=\"editMod(".$module['id'].",".$lab['id'].", '".$module['moduleName']."')\") id=\"".$module['id']."_edit\" class=\"status-bar-item labDisplay labButton\">Edit</div>";
             $return = $return . "</div>\n"; 
         }
-       
         
         return $return;
     }

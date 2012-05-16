@@ -11,9 +11,13 @@
 </script>
 
 <form name="newLabForm" action="javascript:getNewForm();">
-    <div class="status-bar-item labDisplay newLabForm">Lab Name
-        <input id="labName" type="text" />
+    <div class="status-bar-item labDisplay newLabForm">
+        Lab Name : <input id="labName" type="text" />        
     </div> 
+    <div class="status-bar-item labDisplay newLabForm">
+        Lab Description : <input id="labDesc" type="text" size="75"/>
+    </div> 
+    
 
     <div id="newLabButton" class="status-bar-item chiClick csshadow labDisplay" type="submit">
             Create Lab
@@ -26,7 +30,8 @@
     $("#newLabButton").mouseup(function() {
           
           returnLab();
-          $('#lab').load('./rest.php?newLab='+$('#labName').val());
+          $('#lab').load('./rest.php?newLab='+encodeURIComponent($('#labName').val())
+              +"&labDesc="+ encodeURIComponent($('#labDesc').val()));
           
     });
 </script>

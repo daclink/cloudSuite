@@ -31,9 +31,23 @@ div {
 }
 
 #mainContainer {
-height: 85%;
+height: 83%;
+padding-top: 2px;
+padding-bottom: 2px;
 }
 
+#lab_container {
+    height: 100%;
+}
+#admin_container {
+    height: 100%;
+}
+#settings_container {
+    height: 100%;
+}
+.cs_accordian{
+    height: 50%;
+}
 #collections {
    display: block;
    width: 35%;
@@ -264,3 +278,17 @@ div.testContent {
 .moduleInput {
     display:none;
 }
+
+.labButton {
+    float:right;
+    opacity:0.1;
+}
+
+.labButton:hover {
+    text-decoration:underline;
+    opacity:1;
+}
+#dialog_hider {
+    display: none;
+}
+

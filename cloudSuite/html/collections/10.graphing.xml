@@ -11,6 +11,9 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="http://www.cloudsuite.info/schema/collection.xsd"
             >
+    <desc>
+        A Collection of modules used to display quantative data.
+    </desc>
     <ownerID>22</ownerID>
     <clearance>10</clearance>
     <created>2012.02.11</created>
@@ -22,7 +25,4 @@
         <input></input>
         <output></output>
     </module>
-    <desc>
-        A Collection of modules used to display quantative data.
-    </desc>
 </collection>

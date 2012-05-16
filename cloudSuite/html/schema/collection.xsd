@@ -57,11 +57,11 @@ elementFormDefault="qualified">
 <xsd:element name="collection">
 	<xsd:complexType>
 		<xsd:sequence>
+                    <xsd:element ref="desc" /> 
                     <xsd:element ref="ownerID" />
                     <xsd:element ref="clearance" />
                     <xsd:element ref="created" />
-                    <xsd:element ref="module" maxOccurs="unbounded"/>
-                    <xsd:element ref="desc" /> 
+                    <xsd:element ref="module" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 		<xsd:attribute ref="name" use="required"/>
 		<xsd:attribute ref="id" use="required"/>

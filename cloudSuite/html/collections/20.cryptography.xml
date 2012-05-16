@@ -7,30 +7,28 @@
     Description:
 -->
 
-<collection name="biological" id="1"
+<collection name="cryptography" id="20"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="http://www.cloudsuite.info/schema/collection.xsd"
             >
+    <desc>A Collection of modules used for cryptographic purposes.</desc>
     <ownerID>22</ownerID>
     <clearance>10</clearance>
     <created>2012.02.11</created>
-    <module name="ga" id="7">
+    <module name="rsa" id="21">
         <methodName></methodName>
         <parameterString></parameterString>
         <sequenceNumber></sequenceNumber>
-        <desc>Genetic algorithm for pattern matching</desc>
+        <desc>Encrypt using RSA</desc>
         <input></input>
         <output></output>
     </module>
-    <module name="neuro" id="8">
+    <module name="hash-crack" id="232">
         <methodName></methodName>
         <parameterString></parameterString>
         <sequenceNumber></sequenceNumber>
-        <desc>Initializing Neural net</desc>
+         <desc>Crack a hash file.</desc>
         <input></input>
         <output></output>
     </module>
-    <desc>
-        A Collection of modules used in genetically inspired computing.
-    </desc>
 </collection>

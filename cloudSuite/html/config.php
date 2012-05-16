@@ -11,6 +11,9 @@
  $_ENV['cs']['module_dir'] = 'modules'.DIRECTORY_SEPARATOR;
  $_ENV['cs']['css'] = 'script' .DIRECTORY_SEPARATOR;
  
+ //Clearance level required to delete
+ $_ENV['cs']['DEL_LEVEL'] = 10;
+ 
  $_ENV['cs']['debug'] = FALSE;
  
 

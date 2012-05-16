@@ -87,14 +87,9 @@ class Lab {
         
         Utils::showStuff($labName, 'IN CONSTRUCT LABNAME');
 
-        if ($id == NULL){
-            $this->id = Utils::genID();
-            
-        } else {
-            $this->id = $id;
-        }
         
-
+        $this->id = ($id == NULL) ? Utils::genID() : $id;
+        
         if ($labName != NULL){
             $this->labname = $labName;
         } else {
@@ -141,7 +136,6 @@ class Lab {
         */
 
         $this->lab = $lab;
-       
 
         return $lab;
 
@@ -179,7 +173,7 @@ class Lab {
          //   return false;
        // }
         
-        Utils::showStuff($this->fileName, 'This file name');
+        //Utils::showStuff($this->fileName, 'This file name');
         
         if($filename == NULL){
              
@@ -237,8 +231,6 @@ class Lab {
             throw new Exception("could not load file.", "2", null);
             return false;
         }
-        
-       // $lab = new Lab($owner, $id, $xml->, $xml)
         
         $owner = (String) $xml->owner;
         $id = (String) $xml['id'];
@@ -378,6 +370,112 @@ class Lab {
         return $this->lab;
         
     }
+    
+    public static function delLab($fileName, $clearance = 0) {
+
+        if (!($clearance >= $_ENV['cs']['DEL_LEVEL'])) {
+            throw new Exception("Not authorized to delete $fileName", '401', NULL);
+        }
+
+        $lab = $_ENV['cs']['labs_dir'] . $fileName;
+
+        if(!file_exists($lab)) {
+            throw new Exception("File $lab not found", "404", NULL );
+        }
+        
+        try {
+            unlink($lab);
+        } catch (Exception $e) {
+            throw new Exception("Could not Delete file $fileName", "500", $e);
+        }
+
+        return true;
+    }
+    
+    static function removeModuleById ($labID, $id) {
+        
+        $labs = Utils::returnFiles($_ENV['cs']['labs_dir']);
+        
+        $xmlSchema = $_ENV['cs']['schema_dir'] . "lab.xsd";
+        
+        Utils::showStuff($labID, "lab ID");
+        Utils::showStuff($id, "id");
+        Utils::showStuff($labs, "labs");
+        
+        foreach ($labs as $lab){
+            $parts = explode(".", $lab);
+            
+            if($parts[0] == $labID) {
+                $filename = $_ENV['cs']['labs_dir'] . $lab;
+                Utils::load_xml($xmlSchema, $filename , $xml);
+                break;
+            }
+        }
+        
+        //Utils::showStuff($xml->xpath("//module[@id='$id']"));
+        
+        //Utils::showStuff($xml->xpath("//module[@id=$id]"),'direct');
+        
+        
+        // Utils::showStuff($xml,"after unset");
+         
+        $dom_sxe = dom_import_simplexml($xml);
+        
+        if (!$dom_sxe) {
+            throw new Exception("Could not load file", "1", null);
+            exit;
+        }
+        
+        $dom = new DOMDocument('1.0');
+        $dom_sxe = $dom->importNode($dom_sxe, true);
+        $dom_sxe = $dom->appendChild($dom_sxe);
+        
+        $xpath = new DOMXPath($dom);
+        
+        foreach($xpath->query("//module[@id=$id]") as $node){
+            $node->parentNode->removeChild($node);
+        }
+        
+        
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        
+        if (!$dom->save($filename)) {
+            Throw new Exception("Could not save file $filename", '3', NULL);
+            return false;
+        }
+        //return $this->fileName;
+        return true;
+        
+    }
+    
+    public static function loadLabbyID($labID) {
+        
+        $labs = Utils::returnFiles($_ENV['cs']['labs_dir']);
+        
+        $xmlSchema = $_ENV['cs']['schema_dir'] . "lab.xsd";
+        
+        Utils::showStuff($labID, "lab ID");
+        Utils::showStuff($labs, "labs");
+        
+        foreach ($labs as $lab){
+            $parts = explode(".", $lab);
+            
+            if($parts[0] == $labID) {
+                $filename = $_ENV['cs']['labs_dir'] . $lab;
+                Utils::load_xml($xmlSchema, $filename , $xml);
+                break;
+            }
+        }
+        Utils::showStuff($xmlSchema, 'schema');
+        Utils::showStuff($filename, 'filename');
+        
+        Utils::load_xml($xmlSchema, $filename, $xml);
+        
+        return new Lab($xml->owner, $labID, $xml['labName'], $xml->description, $xml);
+        
+    }
+    
 }
 
 ?>

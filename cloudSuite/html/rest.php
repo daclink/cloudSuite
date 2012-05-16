@@ -65,11 +65,16 @@ if (isset($_GET['colGetDesc'])){
      echo "</pre>";
      
 }
-
+/*
+ * Used to add a module to a lab in the main screen
+ */
 if(isset($_GET['addModuleToLab'])){
     $filename = $_ENV['cs']['labs_dir'].$_GET['addModuleToLab'];
     //print_r($_GET);
     $lab = Lab::loadLab($filename);
+    
+    //$lab = new Lab($owner, $id, $labName, $description, $xml);
+    
     $module = Module::loadModule($_GET['moduleToLoad']);
     //print_r($module);
     try{
@@ -82,7 +87,7 @@ if(isset($_GET['addModuleToLab'])){
         return false;
     }
     
-    $_SESSION['cs']['labFileName'] = $filename;
+   // $_SESSION['cs']['labFileName'] = $filename;
     
     echo Utils::formatLab($lab);
 }
@@ -120,13 +125,15 @@ if (isset($_GET['newModule'])){
       
       print_r($modules);
       
-      $lab->writeLab();
+      if (! $lab->writeLab()) {
+          return false;
+      }
       
      
      echo "<pre>";
      //echo $desc[0][0];
      //print_r($module);
-     print_r($lab);
+   //  print_r($lab);
      echo "</pre>";
      
 }
@@ -135,6 +142,7 @@ if (isset($_GET['listLab'])){
     //echo $_GET['listLab'];
     $labs =  Utils::returnFiles($_ENV['cs']['labs_dir']);
     
+    natcasesort($labs);
     foreach ($labs as $lab) {
         
         $labFile = Lab::loadLab($_ENV['cs']['labs_dir'] . $lab);
@@ -196,16 +204,20 @@ if (isset($_GET['newLab'])){
     $owner='Drew';
     $id=NULL;
     $labName = $_GET['newLab'];
-    $description = NULL;
     
-    
+    if (isset($_GET['labDesc'])) {
+        $description = $_GET['labDesc'];
+    } else {
+        echo "FAIL!";
+        //echo "<script>alert(\"Must supply a description\");</script>";
+        return false;
+    }
     
     $lab = new Lab($owner, $id, $labName, $description);
     
     $lab->writeLab();
     
     echo Utils::formatLab($lab);
-    
     
 }
 

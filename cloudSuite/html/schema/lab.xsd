@@ -23,14 +23,21 @@
     <xsd:element name="lastRunUser" type="xsd:string"/>
     <xsd:element name="filename" type="xsd:string"/>
     <xsd:element name="type" type="xsd:string"/>
+    <xsd:element name="name" type="xsd:string" />
+    <xsd:element name="value" type="xsd:string" />
+    <xsd:element name="dataType" type="xsd:string" />
+    <xsd:element name="default" type="xsd:string" default="0" />
     <xsd:element name="location" type="xsd:string"/>
     <xsd:element name="description" type="xsd:string"/>
+    <xsd:element name="required" type="xsd:boolean" />
+    <xsd:element name="legend" type="xsd:string" />
     
      <!-- define attributes-->
     <xsd:attribute name="id" type="xsd:string" />
     <xsd:attribute name="moduleName" type="xsd:string"/>
     <xsd:attribute name="labName" type="xsd:string"/>
-    
+    <xsd:element name="selected" type="xsd:string" />
+     
     <!-- define complex elements -->
    
    <xsd:element name="input">
@@ -55,7 +62,32 @@
         </xsd:complexType>
    </xsd:element> 
     
-   
+    <xsd:element name="element">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="type" />
+                <xsd:element ref="name" />
+                <xsd:element ref="value" />
+                <xsd:element ref="description" />
+                <xsd:element ref="input" maxOccurs="unbounded" minOccurs="0" />
+                <xsd:element ref="output" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="required" minOccurs="0"/>
+                <xsd:element ref="default" minOccurs="0"/>
+                <xsd:element ref="selected" minOccurs="0" />
+            </xsd:sequence>
+        <xsd:attribute ref="id" />
+        </xsd:complexType>		
+    </xsd:element>
+    
+    <xsd:element name="fieldset">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="legend" />
+                <xsd:element ref="element" maxOccurs="unbounded" /> 
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
     <xsd:element name="module">
         <xsd:complexType>
             <xsd:sequence>
@@ -63,8 +95,7 @@
                 <xsd:element ref="method" />
                 <xsd:element ref="xmlrpcString" /> 
                 <xsd:element ref="filename" />
-                <xsd:element ref="input" />
-                <xsd:element ref="output" />
+                <xsd:element ref="fieldset" maxOccurs="unbounded" minOccurs="0"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
             <xsd:attribute ref="moduleName" use="required"/>

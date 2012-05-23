@@ -235,9 +235,32 @@ if (isset($_GET['saveLab'])){
 }
 
 
-if (isset($_GET['addModuleToLab'])){
+if (isset($_GET['getModProperties']) && isset($_GET['create'])){
     
-    echo $_GET['addModuleToLab'];
+    //$filename = $_ENV['cs']['labs_dir'].$_GET['labToLoad'];
+    //print_r($_GET);
+    //$lab = Lab::loadLab($filename);
+    
+    //$lab = new Lab($owner, $id, $labName, $description, $xml);
+    
+    $module = Module::loadModule($_GET['modToLoad']);
+    //print_r($module);
+    /*try{
+        $lab->addModule($module->getSimpleXML());
+        $lab->writeLab();
+    } catch (Exception $e){
+               //$foo = $e->getMessage();
+        echo "console.log(alert(\"There was a problem adding the module! " +$foo +"\"))";
+        echo Utils::formatLab($lab);
+        return false;
+    }*/
+    
+   // $_SESSION['cs']['labFileName'] = $filename;
+    
+  //  echo Utils::formatLab($lab);
+    //add error check
+ 
+    echo Module::getModuleForm($_GET['modToLoad'],NULL,$_GET['labFileName']);
     
 }
 

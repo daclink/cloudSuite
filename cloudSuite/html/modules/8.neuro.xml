@@ -29,7 +29,7 @@
             <default>0</default>
             <selected>true</selected>
         </element>
-        <element id="9">
+        <element id="10">
             <type>radio</type>
             <name>4</name>
             <value>-h4</value>

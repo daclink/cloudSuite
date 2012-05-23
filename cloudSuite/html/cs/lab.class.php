@@ -298,8 +298,17 @@ class Lab {
        * would more correctly be labled 'input TYPE' and 'output TYPE'
        * 
        * sorry about the confusion.
+       * 
+       * to add to the confusion the input and output are now known to the module SOMEWHAT.
+       * Inputs are now ONLY modules new data is added by creating a new module.
+       * Outputs are, also, modules. A method will be created to download data
+       * from modules.
+       * 
        */
       
+      //$fieldset = $module->addChild('fieldset');
+      
+      /*
       $input = $module->addChild('input');
       $input->addChild('type', 'input type');
       $input->addChild('filename', 'filename');
@@ -310,7 +319,7 @@ class Lab {
       $output->addChild('type', 'output->type');
       $output->addChild('filename', 'output->filename');
       $output->addChild('location', 'output->location');
-      
+      */
       /*$input = $module->addChild('input', $moduleXML->input);
       $input->addChild('type', $moduleXML->input->type);
       $input->addChild('filename', $moduleXML->input->filename);

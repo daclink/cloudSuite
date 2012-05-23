@@ -32,7 +32,7 @@ if (isset($_GET['debug'])){
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CloudSuite v0.3</title>
+        <title>CloudSuite v0.3.1.1</title>
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
         <link type="text/css" href="theme/css/blitzer/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
         <link type="text/css" href="./styles/main.css" rel="stylesheet" />
@@ -42,6 +42,17 @@ if (isset($_GET['debug'])){
 	<script type="text/javascript" src="./theme/js/jquery-ui-1.8.18.custom.min.js"></script>
         
         <script type="text/javascript">
+          
+          
+          function getModToAdd(xmlFile){
+              console.log("getModToAdd was called " + xmlFile);
+              var restPath = "./rest.php?getModProperties=true&create=true&modToLoad="+xmlFile;
+              restPath = restPath + "&labFileName=" + $("#labFileNameHidden").val();
+              $("#lab").append("<div id='edit-mod'></div>");
+              $("#edit-mod").load(restPath);
+              $("#edit-mod").addClass('lab-content csshadow lab-slider');
+              
+          }
             
           function returnLab(){
               $("#status-bar").animate({height:"10%"},1000);
@@ -49,7 +60,7 @@ if (isset($_GET['debug'])){
               $("#labList").hide();
           }
           
-          function addToLab(moduleWPath){
+          function addModToLab(moduleWPath){
               //alert("Hey there! " + $("#labFileNameHidden").val());
               //console.log("Module with path is "+moduleWPath)+$("#labFileNameHidden").val();
               var restPath = "./rest.php?addModuleToLab="+$("#labFileNameHidden").val();
@@ -280,9 +291,23 @@ if (isset($_GET['debug'])){
                      alert("No Lab to save!");
                  }
                  
-             })
+             });
              
-             
+              
+          $("#addModForm-button").live('click',function() { 
+              
+                $('input').each(function(){
+                    console.log("ID = " + $(this).attr('id') + " val = " + $(this).val() + " checked? = " +$(this).attr('checked'));
+                    
+                    
+                });
+                console.log("edit mod name " + $('#edit-mod-name').val());
+                addModToLab($("#edit-mod-name").val());
+            });
+            
+          $("#cancelModForm-button").live('click',function() {   
+            $("#edit-mod").remove();
+          });
         </script>
         <div id="dialog_hider">
             <div id="delModDialog"> Remove the module from the lab?</div>

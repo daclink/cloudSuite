@@ -131,18 +131,23 @@ class Module {
         }
     }
     
-    static function getModuleForm($xmlFile,$xmlSchema =NULL){
+    static function getModuleForm($xmlFile, $xmlSchema =NULL, $labFileName= NULL){
         
         if ($xmlSchema == NULL){
             $xmlSchema = $_ENV['cs']['schema_dir']."module.xsd";
         }
         
-        echo "<pre> \n"; 
-        
+        if ($labFileName != NULL) {
+            echo "<input type='hidden' value='$labFileName' name='labFileName' />";
+            
+        }
         if (! Utils::load_xml($xmlSchema, $xmlFile, $xml)) {
             throw new Exception("Could not load file $xmlFile", '1', NULL);
             return false;
         }
+        echo "<h4 class='modTitle'>".$xml['name']."</h4>";
+        echo "<form id='addModForm' onSubmit='addFormTolab()' action=''>"; 
+        echo "<input id='edit-mod-name' type='hidden' value='$xmlFile' />";
         
         $module['moduleType'] = $xml->xpath("//moduleType");
         $module['description'] = $xml->xpath("/module/description");
@@ -152,6 +157,7 @@ class Module {
         $module['methodName'] = $xml->xpath("//methodName");
         $module['createdBy'] = $xml->xpath("//createdBy");
         $module['dateCreated'] = $xml->xpath("//dateCreated");
+        $module['id'] = $xml['id'];
         
         $fs = $xml->xpath("//fieldset");
       
@@ -163,8 +169,8 @@ class Module {
                 
                  //print_r($element);
                  
-                  
-                 echo "<input type=\"". $element->type ."\" name=\"".$element->name."\"> $element->description"; 
+                  $id=$element['id']; 
+                 echo "<input id='$id' type=\"". $element->type ."\" name=\"".$element->name."\"> $element->description"; 
                  if ($element->input) {
                     echo "<div class=\"moduleInput\">$element->input</div>";
                  }
@@ -173,25 +179,10 @@ class Module {
              }
             echo "</fieldset>";
         }
-        
-    // $foo = $fs[0]->xpath('/@legend');
-       //  print_r($foo);
-       // echo "size of array is... ". count($fs);
-        //print_r($module);
-       
-       /* 
-        foreach ($systemRequirement[0] as $key => $value){
-            echo "$key \n $value \n ";
-        }
-       
-        echo "\n desc = $description[0] \n";
-        
-        
-        foreach ($fileInfo[0] as $key => $value) {
-            echo "$key \n $value \n ";
-        }
-        */
-        echo "\n </pre>";
+        $labName = explode('.', $labFileName);
+        echo "<div id='cancelModForm-button' class='modButton chiClick csshadow'> Cancel </div>";
+        echo "<div id='addModForm-button' class='modButton chiClick csshadow'> Add to $labName[1] </div>";
+        echo "</form>";
         
     }
 

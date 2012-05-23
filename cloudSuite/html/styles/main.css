@@ -288,6 +288,28 @@ div.testContent {
     text-decoration:underline;
     opacity:1;
 }
+
+.modButton {
+    background-color: #D2E0E6;
+    float:right;
+    opacity:1;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+    margin-right: 6%;
+    padding-right: 1%;
+}
+
+.modButton:hover {
+    text-decoration:underline;
+    opacity:1;
+}
+.modTitle {
+    
+    text-align: center;
+    text-decoration: underline;
+}
 #dialog_hider {
     display: none;
 }

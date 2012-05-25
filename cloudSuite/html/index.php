@@ -81,6 +81,29 @@ if (isset($_GET['debug'])){
                 }
              }
              
+          function login() {
+              
+              alert("Uname = " + $("#login-name").val() + "pass = "+ $("#login-pass").val());
+              loginButtonClose();
+                            
+              $.ajax({
+               type: 'GET',
+                url: 'ui/login.php',
+               data: {uname:$("#login-name").val(), pass:$("#login-pass").val()}
+              }).done(function( msg ){
+               // alert("function complete " + msg + " session uname == " + " <?php if (isset($_SESSION['cs']['username'])){ echo $_SESSION['cs']['username']; } else {echo "nope";}; ?> ");  
+                
+              }); 
+        /*
+                var jqxhr = $.ajax( "example.php" )
+                    .done(function() { alert("success"); })
+                    .fail(function() { alert("error"); })
+                    .always(function() { alert("complete"); });
+                */    
+                    
+
+          }   
+             
           function loginButtonOpen(){
               $("#task-bar").animate({height: "15%"},1000);
               $("#mainContainer").animate({height:"75%"},1000);

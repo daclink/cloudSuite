@@ -186,16 +186,21 @@ padding-bottom: 2px;
 }
 
 .login-item {
-    float: left;
     background-color:white;
     color: #c00;
     margin: 5px;
     border-radius: 15px;
     text-align: center;
+    width:33%;
+    margin-left:66%;
+    background-position: right;
 }
 .login-button {
     width: 10%;
+    float: left;
+    margin-left: 89%;
 }
+
 
 .overlay {
     margin: 5px;

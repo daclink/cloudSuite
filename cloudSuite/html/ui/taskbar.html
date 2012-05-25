@@ -13,8 +13,9 @@ $uname = (isset($_SESSION['cs']['username'])) ? $_SESSION['cs']['username'] : "L
     <div id="settingsButton" class="task-bar-item chiClick csshadow">Settings</div>
     <div id="username" class="task-bar-item chiClick csshadow" onclick="loginButtonOpen()"><?php echo $uname; ?></div>
 
-<div class="login-item">Login items coming soon!</div>
-<div class="login-item"><input type="text" name="username"/></div>
-<div class="login-item login-button chiClick csshadow" onclick="loginButtonClose()">Return</div>
-
+    <div class="login-item login-name">Username : <input id="login-name" type="text" name="loginName"/></div>
+    <div class="login-item login-pass">Password : <input id="login-pass" type="password" name="loginPass"/></div>
+    
+    <div id="login" class="login-item login-button chiClick csshadow" onclick="login()">Login</div>
+    <div id="cancel-login" class="login-item login-button chiClick csshadow" onclick="loginButtonClose()">Return</div>
 </div>

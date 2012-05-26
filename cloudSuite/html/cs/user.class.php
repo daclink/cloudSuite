@@ -55,22 +55,24 @@ class User {
         }
     }
     
-    public static function login ($uname, $id=NULL) {
+    public static function login ($uname, $pass, $id=NULL) {
         
-        $users = array('1' => 'Drew',
-                           '2' => 'Gabbo',
-                           '3' => 'Jenny',
-                           '4' => 'AJ');
+        $users = array('Drew'  => 'drew',
+                       'Gabbo' => 'gabbo',
+                       'Jenny' => 'penny',
+                       'AJ'    => 'aj');
         
-        foreach ($users as $id => $name) {
-            if ($uname === $name){
-                session_start();
-                $_SESSION['cs']['username'] = $name;
-                
-                setcookie('cs_uname',$name);
-                
-                return array ($id => $name);
+
+        if ($users[$uname] === $pass){
+          if (!isset($_SESSION)) {
+             session_start();
             }
+            
+            $_SESSION['cs']['username'] = $uname;
+
+            setcookie('cs_uname',$uname);
+            return 1;
+           // return array ($id => $name);
         }
         
         return false;

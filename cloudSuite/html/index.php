@@ -81,17 +81,34 @@ if (isset($_GET['debug'])){
                 }
              }
              
+          function clearTaskAlert(){
+               $('#taskBarAlert').fadeOut(1600, "swing");
+               $('#taskBarAlert').html();
+               $('#taslBarAlert').attr('class','');
+          }
           function login() {
               
-              alert("Uname = " + $("#login-name").val() + "pass = "+ $("#login-pass").val());
-              loginButtonClose();
-                            
+              //alert("Uname = " + $("#login-name").val() + "pass = "+ $("#login-pass").val());
+              var var_uname = $("#login-name").val();
+              var var_pass = $("#login-pass").val();
+              
               $.ajax({
                type: 'GET',
                 url: 'ui/login.php',
                data: {uname:$("#login-name").val(), pass:$("#login-pass").val()}
               }).done(function( msg ){
-               // alert("function complete " + msg + " session uname == " + " <?php if (isset($_SESSION['cs']['username'])){ echo $_SESSION['cs']['username']; } else {echo "nope";}; ?> ");  
+                  
+                  if (msg == "1") {
+                      $('#username').html(var_uname);
+                      loginButtonClose();
+                  } else {
+                      $('#taskBarAlert').addClass("login-item");
+                      $('#taskBarAlert').html("Please try again!");
+                      clearTaskAlert();
+                  }
+                  
+                  $("#login-name").attr('value','');
+                  $("#login-pass").attr('value','');
                 
               }); 
         /*

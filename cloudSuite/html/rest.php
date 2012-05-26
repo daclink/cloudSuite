@@ -29,6 +29,8 @@ elseif (getenv('HOME') && file_exists(getenv('HOME') . DIRECTORY_SEPARATOR . '.a
 
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
 
+session_start();
+
 
 if (isset($_GET['listModule'])){
     
@@ -129,34 +131,40 @@ if (isset($_GET['newModule'])){
           return false;
       }
       
-     
+     /*
      echo "<pre>";
-     //echo $desc[0][0];
-     //print_r($module);
-   //  print_r($lab);
-     echo "</pre>";
+     echo $desc[0][0];
+     print_r($module);
+     print_r($lab);
+     echo "</pre>";*/
      
 }
 
 if (isset($_GET['listLab'])){
     //echo $_GET['listLab'];
     $labs =  Utils::returnFiles($_ENV['cs']['labs_dir']);
-    
+    if(isset($_SESSION['cs']['username'])){
+        $uname = $_SESSION['cs']['username'];
+        } else {
+            echo "<div class=\"labChoice lab-content csshadow chiClick\" name='nullLab' onclick=\"loadLabReturnNormal()\">You must be logged in to load a lab.</div>";
+            return FALSE;
+        }
+        
     natcasesort($labs);
     foreach ($labs as $lab) {
-        
-        $labFile = Lab::loadLab($_ENV['cs']['labs_dir'] . $lab);
-        $xml = $labFile->getSimpleXML();
-        
-        $parts = explode(".", $lab);
-        
-        $desc = "Labname : " . $xml['labName'] . " <br/> ";
-        $desc = $desc . "Description : " . (String) $xml->description . "<br/>";
-        $desc = $desc . "ID : " . $parts[0];
-        
-        echo "<script>var $parts[0] = $lab </script>";
-        echo"<div id=\"$parts[0]\" class=\"labChoice lab-content csshadow chiClick\" name=\"$lab\" onclick=\"loadLabReturnNormal('$parts[0]','$parts[1]')\">$desc</div>";
-          
+        if ($xml->owner == $uname) {
+            $labFile = Lab::loadLab($_ENV['cs']['labs_dir'] . $lab);
+            $xml = $labFile->getSimpleXML();
+
+            $parts = explode(".", $lab);
+
+            $desc = "Labname : " . $xml['labName'] . " <br/> ";
+            $desc = $desc . "Description : " . (String) $xml->description . "<br/>";
+            $desc = $desc . "ID : " . $parts[0];
+
+            echo "<script>var $parts[0] = $lab </script>";
+            echo"<div id=\"$parts[0]\" class=\"labChoice lab-content csshadow chiClick\" name=\"$lab\" onclick=\"loadLabReturnNormal('$parts[0]','$parts[1]')\">$desc</div>";
+        }
     }
 }
 

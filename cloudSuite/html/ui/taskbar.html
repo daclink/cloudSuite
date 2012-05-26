@@ -17,6 +17,9 @@ $uname = (isset($_SESSION['cs']['username'])) ? $_SESSION['cs']['username'] : "L
     <div class="login-item login-name">Username : <input id="login-name" type="text" name="loginName"/></div>
     <div class="login-item login-pass">Password : <input id="login-pass" type="password" name="loginPass"/></div>
     
+    <div class="logged-in-item">Username =</div>
+    <div id="logout" class="logged-in-item chiClick csshadow">Lab</div> 
+    
     <div id="login" class="login-item login-button chiClick csshadow" onclick="login()">Login</div>
     <div id="cancel-login" class="login-item login-button chiClick csshadow" onclick="loginButtonClose()">Return</div>
 </div>

@@ -9,7 +9,11 @@
  }
  
 </script>
+<?php
+    if (isset($_ENV['cs']['username'])){
 
+    
+?>
 <form name="newLabForm" action="javascript:getNewForm();">
     <div class="status-bar-item labDisplay newLabForm">
         Lab Name : <input id="labName" type="text" />        
@@ -24,6 +28,12 @@
     </div>
 </form>
 
+<?php
+
+} else {
+    echo "<div class='status-bar-item labDisplay newLabForm'>You must be logged in to create a new lab.</div> ";
+}
+?>
 <script>
 
 

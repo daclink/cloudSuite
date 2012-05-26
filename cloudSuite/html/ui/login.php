@@ -9,6 +9,7 @@ include_once  '../' . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
     if (User::login($_GET['uname'], $_GET['pass'])) {
         
         echo "1";
+        
         return 1;
         
     }

@@ -18,8 +18,10 @@ elseif (getenv('HOME') && file_exists(getenv('HOME') . DIRECTORY_SEPARATOR . '.a
 
 /*%******************************************************************************************%*/
 session_start();
-$_SESSION['cs']['lab'] = 'foo';
-//$_SESSION['cs']['username'] = 'Drew';
+//$_SESSION['cs']['lab'] = 'foo';
+if (isset($_SESSION['cs']['username'])) {
+    $_ENV['cs']['username'] = $_SESSION['cs']['username'];
+}
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
 
 if (isset($_GET['debug'])){
@@ -82,9 +84,9 @@ if (isset($_GET['debug'])){
              }
              
           function clearTaskAlert(){
-               $('#taskBarAlert').fadeOut(1600, "swing");
-               $('#taskBarAlert').html();
+               $('#taskBarAlert').html("");
                $('#taslBarAlert').attr('class','');
+               console.log("Clear!");
           }
           function login() {
               
@@ -100,15 +102,18 @@ if (isset($_GET['debug'])){
                   
                   if (msg == "1") {
                       $('#username').html(var_uname);
+                      $('#username').attr('onclick',"loginButtonOpen('"+var_uname+"')");
                       loginButtonClose();
+                      clearTaskAlert();
                   } else {
+                      //alert("fail!");
                       $('#taskBarAlert').addClass("login-item");
                       $('#taskBarAlert').html("Please try again!");
-                      clearTaskAlert();
+                      $('#taskBarAlert').fadeOut(1600, "swing");
+                      $("#login-pass").focus();
                   }
                   
-                  $("#login-name").attr('value','');
-                  $("#login-pass").attr('value','');
+                  
                 
               }); 
         /*
@@ -121,12 +126,22 @@ if (isset($_GET['debug'])){
 
           }   
              
-          function loginButtonOpen(){
-              $("#task-bar").animate({height: "15%"},1000);
-              $("#mainContainer").animate({height:"75%"},1000);
+          function loginButtonOpen(uname){
+          
+            clearTaskAlert();
+            $("#task-bar").animate({height: "15%"},1000);
+            $("#mainContainer").animate({height:"75%"},1000);
+            
+            if (uname == null) {
               $(".task-bar-item").fadeOut(500,function(){
-                  $(".login-item").fadeIn(500);
-                });
+                    $(".login-item").fadeIn(500);
+              });
+            } else {
+              $(".task-bar-item").fadeOut(500,function(){
+                    $(".logged-in-item").fadeIn(500);
+              });    
+            }
+            
           }
           
           function loginButtonClose(){
@@ -135,6 +150,10 @@ if (isset($_GET['debug'])){
               $(".login-item").fadeOut(500,function(){
                 $(".task-bar-item").fadeIn(500);
               });
+              $("#login-name").attr('value','');
+              $("#login-pass").attr('value','');
+              clearTaskAlert();
+              
           }
           
           function delMod(modID, labID, modName) {
@@ -208,7 +227,7 @@ if (isset($_GET['debug'])){
     <body>
         <?php 
             Utils::showStuff(SID, 'session ID '); 
-            Utils::showStuff($_SESSION['cs']['lab'],"lab");
+            //Utils::showStuff($_SESSION['cs']['lab'],"lab");
          ?>
         
         <?php include('./ui/taskbar.html');?>
@@ -242,6 +261,7 @@ if (isset($_GET['debug'])){
                 });
                 $("div.settingsDisplay").hide();
                 $("div.adminDisplay").hide();
+                $("div.logged-in-item").hide();
                 $("div.labDisplay").show();
                 $("#settingsButton").removeClass("ChiSelected");
                 $("#labButton").addClass("ChiSelected");

@@ -69,7 +69,7 @@ class User {
             }
             
             $_SESSION['cs']['username'] = $uname;
-
+            $_ENV['cs']['username'] = $uname;
             setcookie('cs_uname',$uname);
             return 1;
            // return array ($id => $name);

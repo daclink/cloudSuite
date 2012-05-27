@@ -28,8 +28,10 @@ elseif (getenv('HOME') && file_exists(getenv('HOME') . DIRECTORY_SEPARATOR . '.a
 /*%******************************************************************************************%*/
 
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
+if(!isset($_SESSION)) {
+    session_start();
+}
 
-session_start();
 
 
 if (isset($_GET['listModule'])){
@@ -209,7 +211,7 @@ if (isset($_GET['logout'])){
 
 if (isset($_GET['newLab'])){
     
-    $owner='Drew';
+    $owner= $_SESSION['cs']['username'];
     $id=NULL;
     $labName = $_GET['newLab'];
     

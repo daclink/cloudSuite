@@ -1,4 +1,8 @@
 <?php
+if (!isset($_SESSION)){
+    session_start();
+}
+$uname = $_SESSION['cs']['username'];
 
 ?>
 
@@ -10,7 +14,7 @@
  
 </script>
 <?php
-    if (isset($_ENV['cs']['username'])){
+    if (isset($_SESSION['cs']['username'])){
 
     
 ?>

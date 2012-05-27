@@ -145,27 +145,27 @@ if (isset($_GET['listLab'])){
     $labs =  Utils::returnFiles($_ENV['cs']['labs_dir']);
     if(isset($_SESSION['cs']['username'])){
         $uname = $_SESSION['cs']['username'];
-        } else {
-            echo "<div class=\"labChoice lab-content csshadow chiClick\" name='nullLab' onclick=\"loadLabReturnNormal()\">You must be logged in to load a lab.</div>";
-            return FALSE;
-        }
-        
-    natcasesort($labs);
-    foreach ($labs as $lab) {
-        if ($xml->owner == $uname) {
+        natcasesort($labs);
+        foreach ($labs as $lab) {
             $labFile = Lab::loadLab($_ENV['cs']['labs_dir'] . $lab);
             $xml = $labFile->getSimpleXML();
+            $owner = $xml->owner;
+            
+            if ($owner == $uname) {
+                $parts = explode(".", $lab);
 
-            $parts = explode(".", $lab);
+                $desc = "Labname : " . $xml['labName'] . " <br/> ";
+                $desc = $desc . "Description : " . (String) $xml->description . "<br/>";
+                $desc = $desc . "ID : " . $parts[0];
 
-            $desc = "Labname : " . $xml['labName'] . " <br/> ";
-            $desc = $desc . "Description : " . (String) $xml->description . "<br/>";
-            $desc = $desc . "ID : " . $parts[0];
-
-            echo "<script>var $parts[0] = $lab </script>";
-            echo"<div id=\"$parts[0]\" class=\"labChoice lab-content csshadow chiClick\" name=\"$lab\" onclick=\"loadLabReturnNormal('$parts[0]','$parts[1]')\">$desc</div>";
+                echo "<script>var $parts[0] = $lab </script>";
+                echo"<div id=\"$parts[0]\" class=\"labChoice lab-content csshadow chiClick\" name=\"$lab\" onclick=\"loadLabReturnNormal('$parts[0]','$parts[1]')\">$desc</div>";
+            }
         }
-    }
+     } else {
+            echo "<div class=\"labChoice lab-content csshadow chiClick\" name='nullLab' onclick=\"loadLabReturnNormal()\">You must be logged in to load a lab.</div>";
+            return false;
+        }
 }
 
 if (isset($_GET['loadLabByFileName'])){

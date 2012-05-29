@@ -64,9 +64,9 @@
             ?>
             <div class="lab-content csshadow">
                  <ul>
-                    <li>Please create a lab</li>
-                    <li>Or load a previous lab</li>
-                    <li>Both buttons below.</li>
+                    <li>Load an extant lab</li>
+                    <li>or you may create a lab</li>
+                    <li>Please login to start.</li>
                     
                 </ul>
             </div>

@@ -174,8 +174,8 @@ if (isset($_GET['loadLabByFileName'])){
     $filename = $_ENV['cs']['labs_dir'].$_GET['loadLabByFileName'];
     
     $lab = Lab::loadLab($filename);
-    
-    $_SESSION['cs']['labFileName'] = $filename;
+    $uname = $_SESSION['cs']['username'];
+    $_SESSION['cs'][$uname]['labFileName'] = $_GET['loadLabByFileName'];
   /*  $lab = $lab->getSimpleXML();
     $labname = $lab['labName'];
     
@@ -207,6 +207,7 @@ if (isset($_GET['loginUname'])){
 if (isset($_GET['logout'])){
 
     User::logout();
+        
 }
 
 if (isset($_GET['newLab'])){

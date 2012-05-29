@@ -79,13 +79,20 @@ class User {
     }
     
     public static function logout () {
-        if (isset($_SESSION['cs']['username'])){
-            unset($_SESSION['cs']);
-        }
-        if (isset($_COOKIE['cs_uname'])){
+      try {  
+          
+          if (isset($_SESSION['cs']['username'])){
+              unset($_SESSION['cs']);
+          }
+          if (isset($_COOKIE['cs_uname'])){
             unset($$_COOKIE['cs_uname']);
-        }
-        
+          }
+          
+          return true;
+          
+      } catch (Exception $e) {
+          return false;
+      }
     }
 }
 

@@ -21,6 +21,7 @@ session_start();
 //$_SESSION['cs']['lab'] = 'foo';
 if (isset($_SESSION['cs']['username'])) {
     $_ENV['cs']['username'] = $_SESSION['cs']['username'];
+    $uname = $_SESSION['cs']['username'];
 }
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
 
@@ -88,6 +89,36 @@ if (isset($_GET['debug'])){
                $('#taslBarAlert').attr('class','');
                console.log("Clear!");
           }
+          
+          function logout() {
+              $("#confirmLogOut").dialog({
+                    resizable: false,
+                    height:200,
+                    modal: true,
+                    buttons: {
+                        "Logout?": function() {
+                            $( this ).dialog( "close" );
+                        $.ajax({
+                            type: 'GET',
+                            url: 'rest.php',
+                            data: {logout:'TRUE'}
+                        }).done(function( msg ){
+                            $('#username').html('Login');
+                            $('#username').attr('onclick',"loginButtonOpen()");
+                            loggedInButtonClose();
+                            clearTaskAlert();
+                            $('#lab').load('./ui/defaultLabDisplay.php');
+                        }); 
+                            
+                            
+                        },
+                        Cancel: function() {
+                            $( this ).dialog( "close" );
+                        }
+                }
+            });
+	  }
+          
           function login() {
               
               //alert("Uname = " + $("#login-name").val() + "pass = "+ $("#login-pass").val());
@@ -103,8 +134,11 @@ if (isset($_GET['debug'])){
                   if (msg == "1") {
                       $('#username').html(var_uname);
                       $('#username').attr('onclick',"loginButtonOpen('"+var_uname+"')");
+                      $('#logout').html("Log out " + var_uname +"?");
+                      
                       loginButtonClose();
                       clearTaskAlert();
+                      $('#lab').load('./rest.php?listLab=true');
                   } else {
                       //alert("fail!");
                       $('#taskBarAlert').addClass("login-item");
@@ -116,12 +150,6 @@ if (isset($_GET['debug'])){
                   
                 
               }); 
-        /*
-                var jqxhr = $.ajax( "example.php" )
-                    .done(function() { alert("success"); })
-                    .fail(function() { alert("error"); })
-                    .always(function() { alert("complete"); });
-                */    
                     
 
           }   
@@ -132,7 +160,7 @@ if (isset($_GET['debug'])){
             $("#task-bar").animate({height: "15%"},1000);
             $("#mainContainer").animate({height:"75%"},1000);
             
-            if (uname == null) {
+            if (uname == null || uname == '') {
               $(".task-bar-item").fadeOut(500,function(){
                     $(".login-item").fadeIn(500);
               });
@@ -153,6 +181,16 @@ if (isset($_GET['debug'])){
               $("#login-name").attr('value','');
               $("#login-pass").attr('value','');
               clearTaskAlert();
+              
+          }
+          
+          function loggedInButtonClose(){
+              $("#task-bar").animate({height: "5%"},1000);
+              $("#mainContainer").animate({height:"85%"},1000);
+              $(".logged-in-item").fadeOut(500,function(){
+                $(".task-bar-item").fadeIn(500);
+              });
+              //clearTaskAlert();
               
           }
           
@@ -267,6 +305,20 @@ if (isset($_GET['debug'])){
                 $("#labButton").addClass("ChiSelected");
                 $("#adminButton").removeClass("ChiSelected");
                 $("#labList").hide();
+                $("div.logged-in-item").hide();
+                
+                <?php
+                    
+                    if(isset($_SESSION['cs'][$uname]['labFileName'])){
+                ?>
+                var prevLab = './rest.php?loadLabByFileName=<?php echo $_SESSION['cs'][$uname]['labFileName']?>';
+                    $('#lab').load(prevLab);
+                <?php } elseif(isset($_SESSION['cs']['username']))  {?>
+                    $('#lab').load('./rest.php?listLab=true');
+                <?php
+                } else { ?>
+                    $('#lab').load('./ui/defaultLabDisplay.php');
+                <?php } ?>
             });
             
              $("div.modList").live('click', function() {
@@ -373,6 +425,8 @@ if (isset($_GET['debug'])){
             <div id="delModDialog"> Remove the module from the lab?</div>
             <div id="editModDialog"> hey hey hey</div>
         </div>
+        
+        <div id="confirmLogOut">Confirm log out.</div>
     </body>
 </html>
 

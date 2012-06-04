@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   
+   <xsd:annotation>
+      <xsd:appinfo>CloudSuite user schema</xsd:appinfo>
+      <xsd:documentation xml:lang="en">
+        This is the object defenition for the lab object type
+        used in CloudSuite.info
+        Copyright 2012 Drew A. Clinkenbeard.
+        All rights reserved.
+      </xsd:documentation>
+    </xsd:annotation>
+   
+    <!-- define simple elements -->
+    <xsd:element name="displayName" type="xsd:string"/>
+    <xsd:element name="firstName" type="xsd:string"/>
+    <xsd:element name="lastName" type="xsd:string"/>
+    <xsd:element name="password" type="xsd:string"/>
+    <xsd:element name="clearance" type="xsd:string"/>
+    <xsd:element name="userName">
+        <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+                <xsd:pattern value="[a-z][A-Z][0-9]"/>
+            </xsd:restriction>
+        </xsd:simpleType>
+    </xsd:element>
+   
+    <!-- define attributes-->
+    <xsd:attribute name="id" type="xsd:string" />
+    
+
+     <xsd:element name="user">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="displayName" />
+                <xsd:element ref="firstName" />
+                <xsd:element ref="lastName" maxOccurs="1"/>
+                <xsd:element ref="password" />
+                <xsd:element ref="clearance" />
+            </xsd:sequence>
+            <xsd:attribute ref="id" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+   
+</xsd:schema>

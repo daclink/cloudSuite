@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   
+   <xsd:annotation>
+      <xsd:appinfo>CloudSuite group schema</xsd:appinfo>
+      <xsd:documentation xml:lang="en">
+        This is the object defenition for the lab object type
+        used in CloudSuite.info
+        Copyright 2012 Drew A. Clinkenbeard.
+        All rights reserved.
+      </xsd:documentation>
+    </xsd:annotation>
+   
+    <!-- define simple elements -->
+    <xsd:element name="groupName" type="xsd:string"/>
+    <xsd:element name="ID" type="xsd:string"/>
+    <xsd:element name="type" type="xsd:string"/>
+    <xsd:element name="name" type="xsd:string"/>
+   
+   
+    <!-- define attributes-->
+    <xsd:attribute name="id" type="xsd:string" />
+    <xsd:attribute name="groupName" type="xsd:string"/>
+    
+    <xsd:element name="group">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="ID" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute ref="id" use="required"/>
+            <xsd:attribute ref="groupName" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
+     <xsd:element name="groups">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="group" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+   
+</xsd:schema>

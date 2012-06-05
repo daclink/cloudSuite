@@ -20,9 +20,9 @@ $call = (isset($_SESSION['cs']['username'])) ? $_SESSION['cs']['username'] : "";
 </script>
 <div id="task-bar">
     <div id="taskBarAlert"></div>
-    <div id="labButton" class="task-bar-item chiClick csshadow">Lab</div> 
-    <div id="adminButton" class="task-bar-item chiClick csshadow">Admin</div>
-    <div id="settingsButton" class="task-bar-item chiClick csshadow">Settings</div>
+    <div id="labButton" class="task-bar-item chiClick csshadow" onclick="showLab()">Lab</div> 
+    <div id="adminButton" class="task-bar-item chiClick csshadow" onclick="showAdmin()">Admin</div>
+    <div id="settingsButton" class="task-bar-item chiClick csshadow" onclick="showSettings()">Settings</div>
     <div id="username" class="task-bar-item chiClick csshadow" onclick="loginButtonOpen('<?php echo $call; ?>')"><?php echo $uname; ?></div>
 
     <div class="login-item login-name">Username : <input id="login-name" type="text" name="loginName"/></div>

@@ -341,50 +341,50 @@ if (isset($_GET['debug'])){
              
              });
              
-             $("#settingsButton").mouseup(function(){
+             function showSettings(){
                 $("div.settingsDisplay").show();
                 $("div.adminDisplay").hide();
                 $("div.labDisplay").hide();
                 $("#settingsButton").addClass("ChiSelected");
                 $("#labButton").removeClass("ChiSelected");
                 $("#adminButton").removeClass("ChiSelected");
-             });
+             };
              
-             $("#labButton").mouseup(function(){
+             function showLab(){
                 $("div.settingsDisplay").hide();
                 $("div.adminDisplay").hide();
                 $("div.labDisplay").show();
                 $("#settingsButton").removeClass("ChiSelected");
                 $("#labButton").addClass("ChiSelected");
                 $("#adminButton").removeClass("ChiSelected");
-             });
+             };
              
-             $("#adminButton").mouseup(function(){
+             function showAdmin(){
                 $("div.settingsDisplay").hide();
                 $("div.adminDisplay").show();
                 $("div.labDisplay").hide();
                 $("#settingsButton").removeClass("ChiSelected");
                 $("#labButton").removeClass("ChiSelected");
                 $("#adminButton").addClass("ChiSelected");
-             });
+             };
              
-             $("#loadLab").mouseup(function(){
+             function loadLab(){
                 $("#labListAccordian").load('./rest.php?listLab=true');
                 $("#labList").show();
                 $("#status-bar").animate({height:"85%"},1000);
                 $("#mainContainer").animate({height:"10%"},1000);
-             });
+             };
              
-             $("div.labChoice").mouseup(function(){loadLabReturnNormal()});
+             $("div.labChoice").focus(function(){loadLabReturnNormal()});
              
-             $("#newLab").mouseup(function(){
+            function newLab(){
                 $("#labListAccordian").load('./ui/newLab.php');
                 $("#labList").show();
                 $("#status-bar").animate({height:"85%"},1000);
                 $("#mainContainer").animate({height:"10%"},1000);
-             });
+             };
              
-             $("#saveLab").mouseup(function(){
+             function saveLab(){
                  //alert("woo!" + $("#labFileNameHidden").val());
                  
                  if ($("#labFileNameHidden").val() != null ){
@@ -403,7 +403,7 @@ if (isset($_GET['debug'])){
                      alert("No Lab to save!");
                  }
                  
-             });
+             };
              
               
           $("#addModForm-button").live('click',function() { 

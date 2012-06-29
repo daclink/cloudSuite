@@ -6,13 +6,14 @@
  */
 
 class User {
-    /*
+    
       private $__id;
-      private $__name;
+      private $__uname;
       private $__fname;
       private $__lname;
       private $__clearance;
-     */
+      private $__displayName;
+    
     
     private $users = array('1' => 'Drew',
                            '2' => 'Gabbo',
@@ -45,8 +46,34 @@ class User {
         
     }
     
-    function __construct() {
-        $this->data['id'] = Utils::genID();
+    function __construct($uname, $password, $id=NULL, $xmlFile = NULL, $schema = NULL ) {
+        
+        if ( $schema != NULL ) {
+            $this->schema = $schema;
+        } else {
+            $this->schema = $_ENV['cs']['schema_dir'] . "user.xsd";
+        }
+        
+        if ( $xmlFile != NULL ) {
+            $this->xml = $xmlFile;
+            Utils::load_xml( $schema, $xmlFile, $xml );
+            User::loadUser($xml);
+            return;
+        } 
+        
+        $this->id = Utils::genID();
+        $this->uname = $uname;
+        
+        $user = new SimpleXMLElement('<user></user>');
+        $user->addAttribute('id', $this->id);
+        
+        $user->addChild("userName", $uname);
+        $user->addChild("displayName", $uname);
+        $user->addChild("firstName");
+        $user->addChild("lastName");
+        $user->addChild("password", $password);
+        $user->addChild("clearance");
+        
     }
 
     function __destruct() {
@@ -94,6 +121,51 @@ class User {
           return false;
       }
     }
+    
+    public static function loadUser(SimpleXMLElement $xml) {
+        
+    }
+    
+    public function getUname(){
+        return $this->__uname;
+    }
+    
+    public function getFname(){
+        return $this->__fname;
+    }
+    
+    public function getLname(){
+        return $this->__lname;
+    }
+    
+    public function getClearance(){
+        return $this->__clearance;
+    }
+    
+    public function setUname (String $uname) {
+        $this->uname = $uname;
+        return true;
+    }
+    
+    public function setFname (String $fname) {
+        $this->fname = $fname;
+        return true;
+    }
+    
+    public function setLname(String $lname) {
+        $this->__lname = $lname;
+        return true;
+    }
+    
+    public function setClearance ( int $level) {
+        if ($level > 10 || $level < 0 ) {
+            throw new ErrorException("Level must be between 0 and 10", 1);
+            return false;
+        }
+        
+        $this->__clearance = $level;
+    }
+    
 }
 
 

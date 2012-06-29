@@ -13,7 +13,7 @@
     </xsd:annotation>
    
     <!-- define simple elements -->
-    <xsd:element name="displayName" type="xsd:string"/>
+    <xsd:element name="displayName" type="xsd:string" nillable="false"/>
     <xsd:element name="firstName" type="xsd:string"/>
     <xsd:element name="lastName" type="xsd:string"/>
     <xsd:element name="password" type="xsd:string"/>
@@ -33,6 +33,7 @@
      <xsd:element name="user">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="userName" />
                 <xsd:element ref="displayName" />
                 <xsd:element ref="firstName" />
                 <xsd:element ref="lastName" maxOccurs="1"/>

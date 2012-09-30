@@ -63,7 +63,7 @@ if (isset($_GET['debug'])){
               $("#labList").hide();
           }
           
-          function addModToLab(moduleWPath){
+          function addModToLab(moduleWPath, formVals){
               //alert("Hey there! " + $("#labFileNameHidden").val());
               //console.log("Module with path is "+moduleWPath)+$("#labFileNameHidden").val();
               var restPath = "./rest.php?addModuleToLab="+$("#labFileNameHidden").val();
@@ -330,7 +330,7 @@ if (isset($_GET['debug'])){
                  $("#colDesc").load('./rest.php?colGetDesc=true&xmlScheme=<?echo $xmlScheme?>&xmlFile=<?echo $xmlFile?>');
              });
              
-             $("div.chiClick").live('click', function (){
+             $("body").on('click', 'div.chiClick', function (){
                  $("div.chiClick").mouseup(function(){
                      $(this).addClass("csshadow").removeClass("clicked");
                  }).mousedown(function(){
@@ -341,7 +341,7 @@ if (isset($_GET['debug'])){
              
              });
              
-             $("#settingsButton").mouseup(function(){
+             $("body").on('click','#settingsButton',function(){
                 $("div.settingsDisplay").show();
                 $("div.adminDisplay").hide();
                 $("div.labDisplay").hide();
@@ -405,19 +405,19 @@ if (isset($_GET['debug'])){
                  
              });
              
-              
-          $("#addModForm-button").live('click',function() { 
-              
+               
+          $('#lab').on('click', '#addModForm-button', function(){ 
+              var formVals;
                 $('input').each(function(){
                     console.log("ID = " + $(this).attr('id') + " val = " + $(this).val() + " checked? = " +$(this).attr('checked'));
                     
                     
                 });
                 console.log("edit mod name " + $('#edit-mod-name').val());
-                addModToLab($("#edit-mod-name").val());
+                
+                addModToLab($("#edit-mod-name").val(),formVals);
             });
-            
-          $("#cancelModForm-button").live('click',function() {   
+          $("#lab").on('click', '#cancelModForm-button', function() {  
             $("#edit-mod").remove();
           });
         </script>

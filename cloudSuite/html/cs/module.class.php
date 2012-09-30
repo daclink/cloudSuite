@@ -25,7 +25,8 @@ class Module {
                                                       'dataType' =>'',
                                                       'default' => '',
                                                       'exclusive' => array('flag'),
-                                                      'output' =>'')),*/
+                                                      'output' =>'')),
+                             */
                             'input' => '',
                             'output' => '',
                             'clearance' => '',
@@ -131,7 +132,7 @@ class Module {
         }
     }
     
-    static function getModuleForm($xmlFile, $xmlSchema =NULL, $labFileName= NULL){
+    static function getModuleForm($xmlFile, $xmlSchema = NULL, $labFileName = NULL){
         
         if ($xmlSchema == NULL){
             $xmlSchema = $_ENV['cs']['schema_dir']."module.xsd";
@@ -181,7 +182,11 @@ class Module {
         }
         $labName = explode('.', $labFileName);
         echo "<div id='cancelModForm-button' class='modButton chiClick csshadow'> Cancel </div>";
-        echo "<div id='addModForm-button' class='modButton chiClick csshadow'> Add to $labName[1] </div>";
+        if (array_key_exists(1, $labName)) {
+            echo "<div id='addModForm-button' class='modButton chiClick csshadow'> Add to $labName[1] </div>";
+        } else {
+            echo "<div id='' class='modButton csshadow'> No lab loaded. </div>";
+        }
         echo "</form>";
         
     }

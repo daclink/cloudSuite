@@ -94,6 +94,16 @@ class User {
           return false;
       }
     }
+    
+    public static function getAWSSettings($xmlFile, $xmlSchema = NULL, $id = NULL){
+         if ($xmlSchema == NULL){
+            $xmlSchema = $_ENV['cs']['schema_dir']."user.xsd";
+        }
+        
+        if ($id == NULL && isset($_SESSION)) {
+            
+        }
+    }
 }
 
 

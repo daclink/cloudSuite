@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  body { font-size:16px; font-weight:bolder; }
+  div { width:130px; height:82px; margin:10px; float:left;
+        border:1px solid blue; padding:4px; }
+  #container { width:auto; height:105px; margin:0; float:none;
+        border:none; }
+  .hilite { border-color:red; }
+  #results { display:block; color:red; }
+  p { margin:10px; border:1px solid transparent; }
+  span { color:blue; border:1px solid transparent; }
+  input { width:100px; }
+  em { border:1px solid transparent; }
+  a { border:1px solid transparent; }
+  b { border:1px solid transparent; }
+  button { border:1px solid transparent; }
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+  <div id="container">
+
+    <div>
+      <p>This <span>is the <em>way</em> we</span> 
+      write <em>the</em> demo,</p>
+
+    </div>
+    <div>
+      <a href="#"><b>w</b>rit<b>e</b></a> the <span>demo,</span> <button>write 
+      the</button> demo,
+    </div>
+
+    <div>
+      This <span>the way we <em>write</em> the <em>demo</em> so</span>
+
+      <input type="text" value="early" /> in
+    </div>
+    <p>
+      <span>t</span>he <span>m</span>orning.
+      <span id="results">Found <span>0</span> children in <span>TAG</span>.</span>
+
+    </p>
+  </div>
+    
+    <div id="user">
+        <input id="dessert" name="dessert" type="text" value="cake"/>
+        <input id="name" name="name" type="text" value="foo" />
+        <button id="userB">GO!</button>
+    </div>
+    
+    <div id="formData">
+        
+    </div>
+    <div id="res">
+        RES
+        
+    </div>
+    <!--script>
+
+    $("#container").click(function (e) {
+      $("*").removeClass("hilite");
+      var $kids = $(e.target).children();
+      var len = $kids.addClass("hilite").length;
+
+      $("#results span:first").text(len);
+      $("#results span:last").text(e.target.tagName);
+
+      e.preventDefault();
+      return false;
+    });
+</script-->
+    
+<!--script>
+
+    $("#user").click(function (e) {
+      $("*").removeClass("hilite");
+      var $kids = $(e.target).children();
+      var len = $kids.addClass("hilite").length;
+
+      $("#results span:first").text(len);
+      $("#results span:last").text(e.target.tagName);
+
+      e.preventDefault();
+      return false;
+    });
+</script-->
+<!--script>
+    $("#user").click(function (e){
+        var $kids = $(e.target).childern();
+        for (var i=0; i<$kids.length;i++) {
+            $("#formData").append($kids[i].val());
+            
+        }
+        
+    })
+    
+</script-->
+<!--script>
+var x=document.getElementById("frm1");
+for (var i=0;i<x.length;i++)
+  {
+  document.write(x.elements[i].value);
+  document.write("<br />");
+  }
+</script-->
+<script>
+$('#userB').click(function() {
+    // get all the inputs into an array.
+    var $inputs = $('#user :input');
+
+    // not sure if you wanted this, but I thought I'd add it.
+    // get an associative array of just the values.
+    var values = {};
+    var foo = null;
+    $inputs.each(function() {
+        values[this.name] = $(this).val();
+        $("#formData").append($(this).attr('id') + " " + $(this).val());
+        var val2 = {};
+        $.each($('#user').serializeArray(), function(i, field) {
+        val2[field.name] = field.value;
+        });
+    });
+    
+});
+</script>
+
+</body>
+</html>
+

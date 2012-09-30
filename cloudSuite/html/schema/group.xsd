@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    
+    
+    <!-- 
+targetNamespace="http://cloudsuite.info"
+xmlns:cs="http://cloudsuite.info"-->
+
+    <xsd:annotation>
+      <xsd:appinfo>CloudSuite Group schema</xsd:appinfo>
+      <xsd:documentation xml:lang="en">
+        This is the object defenition for the group type object
+        used in CloudSuite.info
+        Copyright 2012 Drew A. Clinkenbeard.
+        All rights reserved.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <!-- define simple elements -->
+    <!-- xsd:element name="group" type="xsd:s   tring"/-->
+    <!-- xsd:element name="member" type="xsd:string"/-->
+    <!-- xsd:element name="id" type="xsd:string"/-->
+     
+    <!-- define attributes-->
+    <xsd:attribute name="name" type="xsd:string" />
+    <xsd:attribute name="id" type="xsd:string" />
+   
+   <!-- define complex types -->
+ 
+ <xsd:element name="member">
+        <xsd:complexType>
+            <xsd:attribute ref="id" use="required"/>
+        </xsd:complexType>
+ </xsd:element>
+ 
+ <xsd:element name="group">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="member" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute ref="id" use="required"/>
+            <xsd:attribute ref="name" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+ 
+    <xsd:element name="groups">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="group" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+</xsd:schema>
+

@@ -338,39 +338,11 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         });
              
     });
-             
-    /*
-                    $("#task-bar").on('click','#settingsButton',function(){
-                        $("div.settingsDisplay").show();
-                        $("div.adminDisplay").hide();
-                        $("div.labDisplay").hide();
-                        $("#settingsButton").addClass("ChiSelected");
-                        $("#labButton").removeClass("ChiSelected");
-                        $("#adminButton").removeClass("ChiSelected");
-                    });
-	             
-                    $("#labButton").mouseup(function(){
-                        $("div.settingsDisplay").hide();
-                        $("div.adminDisplay").hide();
-                        $("div.labDisplay").show();
-                        $("#settingsButton").removeClass("ChiSelected");
-                        $("#labButton").addClass("ChiSelected");
-                        $("#adminButton").removeClass("ChiSelected");
-                    });
-	             
-                    $("#adminButton").mouseup(function(){
-                        $("div.settingsDisplay").hide();
-                        $("div.adminDisplay").show();
-                        $("div.labDisplay").hide();
-                        $("#settingsButton").removeClass("ChiSelected");
-                        $("#labButton").removeClass("ChiSelected");
-                        $("#adminButton").addClass("ChiSelected");
-                    });
-     */
+  
     function taskBarClick(showClass, buttonID){
             
         $("#mainContainer").children().not(showClass).hide();
-        $("#lab_Container").not(showClass).hide();
+       // $("#lab_Container").not(showClass).hide();
         $("div.status-bar-item").not(showClass).hide();
         $("div.task-bar-item").not(buttonID).removeClass("ChiSelected");
         $(buttonID).addClass("ChiSelected");
@@ -398,15 +370,16 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     });
             
             
-             
-    $("#loadLab").mouseup(function(){
+    $("#status-bar").on('click', '#loadLab', function(){         
+    //$("#loadLab").mouseup(function(){
         $("#labListAccordian").load('./rest.php?listLab=true');
         $("#labList").show();
         $("#status-bar").animate({height:"85%"},1000);
         $("#mainContainer").animate({height:"10%"},1000);
     });
              
-    $("div.labChoice").mouseup(function(){loadLabReturnNormal()});
+    $("#labList").on('click', 'div.labChoice', function(){loadLabReturnNormal()})
+   // $("div.labChoice").mouseup(function(){loadLabReturnNormal()});
              
     $("#newLab").mouseup(function(){
         $("#labListAccordian").load('./ui/newLab.php');

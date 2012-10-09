@@ -274,6 +274,15 @@ if (isset($_GET['debug'])){
                  <?php include('./ui/lab.php'); ?>
 
             </div>
+            
+            <div id="queued_container" class="queuedDisplay">
+                 <?php include('./ui/queued.php'); ?>
+
+            </div>
+            <div id="complete_container" class="completedDisplay">
+                 <?php include('./ui/complete.php'); ?>
+
+            </div>
             <div id="admin_container" class="adminDisplay">
                  <?php include('./ui/admin.php'); ?>
 
@@ -299,6 +308,8 @@ if (isset($_GET['debug'])){
                 });
                 $("div.settingsDisplay").hide();
                 $("div.adminDisplay").hide();
+                $("div.queuedDisplay").hide();
+                $("div.completeDisplay").hide();
                 $("div.logged-in-item").hide();
                 $("div.labDisplay").show();
                 $("#settingsButton").removeClass("ChiSelected");
@@ -341,32 +352,34 @@ if (isset($_GET['debug'])){
              
              });
              
-             $("body").on('click','#settingsButton',function(){
-                $("div.settingsDisplay").show();
-                $("div.adminDisplay").hide();
-                $("div.labDisplay").hide();
-                $("#settingsButton").addClass("ChiSelected");
-                $("#labButton").removeClass("ChiSelected");
-                $("#adminButton").removeClass("ChiSelected");
+             function taskBarClick(showClass, buttonID){
+                $("#lab_Container").not(showClass).hide();
+                $("div.status-bar-item").not(showClass).hide();
+                $("div.task-bar-item").not(buttonID).removeClass("ChiSelected");
+                $(buttonID).addClass("ChiSelected");
+                $(showClass).show();
+             }
+             
+             $("#task-bar").on('click','#settingsButton',function(){
+                 taskBarClick('div.settingsDisplay','#settingsButton');
+             });
+            
+             $("#task-bar").on('click','#labButton',function(){
+                 taskBarClick('div.labDisplay','#labButton');
+             });
+            
+             $("#task-bar").on('click','#adminButton',function(){
+                 taskBarClick('div.adminDisplay','#adminButton');
              });
              
-             $("#labButton").mouseup(function(){
-                $("div.settingsDisplay").hide();
-                $("div.adminDisplay").hide();
-                $("div.labDisplay").show();
-                $("#settingsButton").removeClass("ChiSelected");
-                $("#labButton").addClass("ChiSelected");
-                $("#adminButton").removeClass("ChiSelected");
+             $("#task-bar").on('click','#queuedButton',function(){
+                 taskBarClick('div.queuedDisplay','#queuedButton');
              });
              
-             $("#adminButton").mouseup(function(){
-                $("div.settingsDisplay").hide();
-                $("div.adminDisplay").show();
-                $("div.labDisplay").hide();
-                $("#settingsButton").removeClass("ChiSelected");
-                $("#labButton").removeClass("ChiSelected");
-                $("#adminButton").addClass("ChiSelected");
+             $("#task-bar").on('click','#completedButton',function(){
+                 taskBarClick('div.completedDisplay','#completedButton');
              });
+            
              
              $("#loadLab").mouseup(function(){
                 $("#labListAccordian").load('./rest.php?listLab=true');
@@ -384,7 +397,7 @@ if (isset($_GET['debug'])){
                 $("#mainContainer").animate({height:"10%"},1000);
              });
              
-             $("#saveLab").mouseup(function(){
+             $("#status-bar").on('click', "#saveLab",function(){    
                  //alert("woo!" + $("#labFileNameHidden").val());
                  
                  if ($("#labFileNameHidden").val() != null ){
@@ -405,6 +418,10 @@ if (isset($_GET['debug'])){
                  
              });
              
+             $("#status-bar").on('click', "#runLab",function(){
+                 alert("runlab!");
+             })
+            
                
           $('#lab').on('click', '#addModForm-button', function(){ 
               var formVals;
@@ -420,6 +437,15 @@ if (isset($_GET['debug'])){
           $("#lab").on('click', '#cancelModForm-button', function() {  
             $("#edit-mod").remove();
           });
+          
+          
+          $("#task-bar").on('click', '#loginNameContainer', function(){
+              $("#login-name").focus(); 
+          });
+          $("#task-bar").on('click', '#loginPassContainer', function(){
+              $("#login-pass").focus(); 
+          });
+          
         </script>
         <div id="dialog_hider">
             <div id="delModDialog"> Remove the module from the lab?</div>

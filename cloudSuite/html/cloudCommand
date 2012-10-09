@@ -25,7 +25,13 @@ require 'Slim/Slim.php';
 
 $app = new Slim();
 
-$app->post('/cloudCommand/:func', function ($func) {
+
+$app->get('/', function() {
+            echo '<META HTTP-EQUIV="Refresh" Content="10; URL=http://www.cloudsuite.info">';    
+            echo '<div> <a href="http://www.cloudsuite.info">Click here if you are not redirected in 10 seconds</a></div>';
+        });
+
+$app->post('/:func', function ($func) {
             switch ($func) {
                 case "ec2" :
                     ec2();
@@ -38,10 +44,16 @@ $app->post('/cloudCommand/:func', function ($func) {
                     break;
             }
         });
+
         
-$app->get('/hi',function(){
-    defaulto();
-});
+/*SUPER IMPORTANT */
+$app->run();
+/*SUPER IMPORTANT */
+
+
+/*
+ *helper functions defined below. 
+ */
 
 function ec2() {
     $ec2 = new AmazonEC2(array(
@@ -57,6 +69,7 @@ function ec2() {
     var_dump($response->isOK());
 
     if ($response->isOK()) {
+        echo $response->isOK();
         $ec2->stop_instances($instance_id);
     }
 }
@@ -83,11 +96,11 @@ function s3() {
     var_dump($response->isOK());
 }
 
-function defaulto(){
-    $foo="<html>
+function defaulto() {
+    $foo = "<html>
             <head> <title>gah</title></head>
             <body>Well sir</body>
         </html>";
-    echo $foo;
+    print_r($foo);
 }
 ?> 

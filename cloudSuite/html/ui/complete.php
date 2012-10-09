@@ -1,7 +1,12 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+?>
+<div id="completedSection">
+     <div class="completed-content">
+        You have some completed labs
+    </div>
+</div>
+
+<?php
+
 ?>

@@ -438,7 +438,7 @@ class Lab {
         $dom = new DOMDocument('1.0');
         $dom_sxe = $dom->importNode($dom_sxe, true);
         $dom_sxe = $dom->appendChild($dom_sxe);
-        
+         
         $xpath = new DOMXPath($dom);
         
         foreach($xpath->query("//module[@id=$id]") as $node){
@@ -455,7 +455,7 @@ class Lab {
         }
         //return $this->fileName;
         return true;
-        
+         
     }
     
     public static function loadLabbyID($labID) {

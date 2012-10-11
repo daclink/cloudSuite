@@ -1,5 +1,4 @@
 <?php
-
 ?>
 
 <div id="queuedSection">

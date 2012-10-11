@@ -15,7 +15,7 @@ class Group {
     private $__groupXMLFile;
     private $__groupSchema;
     private $myXML;
-
+ 
     //private SimpleXMLElement $myXML;
 
     function __construct($schema = NULL, $xmlFile = NULL) {

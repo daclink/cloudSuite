@@ -295,6 +295,7 @@ if (isset($_GET['debug'])) {
                 $("button").click(function(){
                     $("#module").load('./rest.php?listModule=true&xmlScheme=<? echo $xmlScheme ?>&xmlFile=<? echo $xmlFile ?>');
                 });
+            /*
                 $("div.settingsDisplay").hide();
                 $("div.adminDisplay").hide();
                 $("div.queuedDisplay").hide();
@@ -304,9 +305,10 @@ if (isset($_GET['debug'])) {
                 $("#settingsButton").removeClass("ChiSelected");
                 $("#labButton").addClass("ChiSelected");
                 $("#adminButton").removeClass("ChiSelected");
+               */
                 $("#labList").hide();
                 $("div.logged-in-item").hide();
-                
+                taskBarClick('div.labDisplay','#labButton');
 <?php
 if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>

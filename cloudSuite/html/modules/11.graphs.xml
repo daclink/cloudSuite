@@ -35,7 +35,7 @@
         <group>4</group>
         <groupname>awesome</groupname>
     </permissions>
-    <methodName>rsaEncryptor</methodName>
+    <methodName>grapher</methodName>
     <createdBy>Drew</createdBy>
     <dateCreated>20120505</dateCreated>
 </module>

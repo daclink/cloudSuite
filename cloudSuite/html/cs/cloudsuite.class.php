@@ -1,8 +1,5 @@
 <?php
 
-/*
- */
-
 /**
  * Description of cloudsuite
  *
@@ -22,6 +19,6 @@ if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php')) {
 	include_once "module.class.php";
 	include_once "user.class.php";
 	include_once "utils.class.php";
-
+        include_once "group.class.php";
 
 ?>

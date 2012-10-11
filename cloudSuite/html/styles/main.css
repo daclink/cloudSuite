@@ -45,6 +45,12 @@ padding-bottom: 2px;
 #settings_container {
     height: 100%;
 }
+#queued_container {
+    height: 100%;
+}
+#complete_container {
+    height: 100%;
+}
 .cs_accordian{
     height: 50%;
 }
@@ -137,6 +143,58 @@ padding-bottom: 2px;
     margin: 5px;
     border-radius: 15px;
 
+}
+#queuedSection {
+    display: block;
+    width: 98%;
+    height: 100%;
+    float: left;
+    background-color:#D2E0E6;
+    color: #c00;
+    border-color: white;
+    margin: 2px;
+    margin-left: 0px;
+    border-radius:15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+}
+.queued-content {
+    width: 86%;
+    height: 15%;
+    /*float: right;*/
+    background-color:white;
+    color: #c00;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+    margin-left: 6%;
+    padding-left: 1%;
+}
+#completedSection {
+    display: block;
+    width: 98%;
+    height: 100%;
+    float: left;
+    background-color:#D2E0E6;
+    color: #c00;
+    border-color: white;
+    margin: 2px;
+    margin-left: 0px;
+    border-radius:15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+}
+.completed-content {
+    width: 86%;
+    height: 15%;
+    /*float: right;*/
+    background-color:white;
+    color: #c00;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 15px;
+    -moz-border-radius:15px; /* Firefox 3.6 and earlier */
+    margin-left: 6%;
+    padding-left: 1%;
 }
 
 #status-bar {

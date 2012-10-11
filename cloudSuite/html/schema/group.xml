@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : group.xml
+    Created on : September 30, 2012, 9:25 AM
+    Author     : drew
+    Description:
+        Purpose of the document follows.
+-->
+
+<groups  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns:ns0='null'
+   xsi:schemaLocation='null group.xsd'>
+    <group id="20" name="comp501">
+        <user id="1"></user>
+        <user id="2"></user>
+        <user id="3"></user>
+        <lab id="4"></lab>
+        <lab id="5"></lab>
+        <lab id="6"></lab>
+        <collection id="7"></collection>
+        <collection id="8"></collection>
+        <collection id="9"></collection>
+        <module id="12"></module>
+        <module id="13"></module>
+        <module id="11"></module>
+    </group>
+    <group id="21" name="comp502">
+        <user id="1"></user>
+        <user id="14"></user>
+        <user id="15"></user>
+        <lab id="4"></lab>
+        <lab id="5"></lab>
+        <lab id="16"></lab>
+        <collection id="17"></collection>
+        <collection id="18"></collection>
+        <collection id="9"></collection>
+        <module id="19"></module>
+        <module id="12"></module>
+        <module id="111"></module>
+    </group>
+
+</groups>

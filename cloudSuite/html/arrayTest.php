@@ -19,7 +19,7 @@ elseif (getenv('HOME') && file_exists(getenv('HOME') . DIRECTORY_SEPARATOR . '.a
 /*%******************************************************************************************%*/
 
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
-
+/*
 $mod = new Module(Null,Null);
 
 $parms = array('flag' => '-t', 
@@ -32,10 +32,21 @@ $parms = array('flag' => '-t',
                'output' =>'text file');
 
 $mod->addParam($parms);
-
-echo json_encode($mod->listParamters());
+*/
+//echo json_encode($mod->listParamters());
 //Utils::showStuff(json_encode($mod->listParamters()));
 
 //return $mod->listParamters();
 
 ?>
+<html>
+    <head>
+        <title>formTest</title>
+    </head>
+    <body>
+        <input type="checkbox" checked="yes" value="cake" name="desserts[]" >cake</input>
+        <input type="checkbox" checked="no" value="pie" name="desserts[]" />
+        <input type="checkbox" checked value="brownie" name="desserts[]" />
+        <input type="checkbox"  value="cookie" name="desserts[]" />
+    </body>
+</html>

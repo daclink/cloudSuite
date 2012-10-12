@@ -20,7 +20,7 @@
         <legend>Crossover</legend>
         <element id="8">
             <type>radio</type>
-            <name>single</name>
+            <name>crossover[]</name>
             <value>-single</value>
             <description>Choose a single crossover point randomly</description>
             <input></input>
@@ -31,7 +31,7 @@
         </element>
         <element id="9">
             <type>radio</type>
-            <name>double</name>
+            <name>crossover[]</name>
             <value>-double</value>
             <description>Choose two crossover points randomly</description>
             <input></input>

@@ -20,7 +20,7 @@
         <legend>Hidden Layer</legend>
         <element id="9">
             <type>radio</type>
-            <name>3</name>
+            <name>Layers[]</name>
             <value>-h3</value>
             <description>Three Hidden Nodes</description>
             <input></input>
@@ -31,7 +31,7 @@
         </element>
         <element id="10">
             <type>radio</type>
-            <name>4</name>
+            <name>Layers[]</name>
             <value>-h4</value>
             <description>Four Hidden Nodes</description>
             <input></input>
@@ -42,7 +42,7 @@
         </element>
         <element id="12">
             <type>radio</type>
-            <name>5</name>
+            <name>Layers[]</name>
             <value>-h5</value>
             <description>Five Hidden Nodes</description>
             <input></input>

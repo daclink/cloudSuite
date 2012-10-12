@@ -19,7 +19,7 @@
         <legend>Encrypt or Decrypt</legend>
         <element id="300">
             <type>radio</type>
-            <name>Encrypt</name>
+            <name>EnDe[]</name>
             <value>-encrypt</value>
             <description>Encrypt file using RSA with provided key.</description>
             <input></input>
@@ -30,7 +30,7 @@
         </element>
         <element id="301">
             <type>radio</type>
-            <name>Decrypt</name>
+            <name>EnDe[]</name>
             <value>-decrypt</value>
             <description>Decrypt a file using RSA with provided key.</description>
             <input></input>

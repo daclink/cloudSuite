@@ -31,7 +31,7 @@ if (isset($_GET['debug'])) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CloudSuite v0.4</title>
+        <title>CloudSuite v0.7</title>
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
         <link type="text/css" href="theme/css/blitzer/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
         <link type="text/css" href="./styles/main.css" rel="stylesheet" />
@@ -60,8 +60,10 @@ if (isset($_GET['debug'])) {
             }
           
             function addModToLab(moduleWPath, formVals){
+                
                 //alert("Hey there! " + $("#labFileNameHidden").val());
-                //console.log("Module with path is "+moduleWPath)+$("#labFileNameHidden").val();
+                console.log("Module with path is " + moduleWPath + $("#labFileNameHidden").val());
+                console.log("Module values " + formVals);
                 var restPath = "./rest.php?addModuleToLab="+$("#labFileNameHidden").val();
                 restPath = restPath + "&moduleToLoad="+moduleWPath;
                 $("#lab").load(restPath);
@@ -418,10 +420,12 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
                
     $('#lab').on('click', '#addModForm-button', function(){ 
         var formVals;
+        console.log("serilazed" + $(this).serialize());
         $('input').each(function(){
-            console.log("ID = " + $(this).attr('id') + " val = " + $(this).val() + " checked? = " +$(this).attr('checked'));
-                    
-                    
+            console.log("ID = " + $(this).attr('id') + " val = " + $(this).val() ); //+ " checked? = " +$(this).attr('checked'));
+                    if ($(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio'){
+                        console.log("value = " + $(this).attr('value') + " checked?? " + $(this).attr('checked'))
+                    }
         });
         console.log("edit mod name " + $('#edit-mod-name').val());
                 

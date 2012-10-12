@@ -171,7 +171,7 @@ class Module {
                  //print_r($element);
                  
                   $id=$element['id']; 
-                 echo "<input id='$id' type=\"". $element->type ."\" name=\"".$element->name."\"> $element->description"; 
+                 echo "<input id='$id' type=\"". $element->type ."\" name=\"".$element->name."\" value=\"$element->value\"> $element->description </input>"; 
                  if ($element->input) {
                     echo "<div class=\"moduleInput\">$element->input</div>";
                  }

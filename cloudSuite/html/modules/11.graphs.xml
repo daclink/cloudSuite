@@ -19,8 +19,8 @@
         <legend>Data</legend>
         <element id="20">
             <type>text</type>
-            <name>infile</name>
-            <value>-in</value>
+            <name>-in</name>
+            <value></value>
             <description>File to plot</description>
             <input>csv</input>
             <output>TextFile</output>

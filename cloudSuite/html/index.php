@@ -39,6 +39,8 @@ if (isset($_GET['debug'])) {
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript" src="./theme/js/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="./theme/js/jquery-ui-1.8.18.custom.min.js"></script>
+        <!--script type="text/javascript" src="./script/jqueryPlugins/jquery.form.js"></script-->
+        <script src="http://malsup.github.com/jquery.form.js"></script> 
 
         <script type="text/javascript">
           
@@ -64,7 +66,7 @@ if (isset($_GET['debug'])) {
                 //alert("Hey there! " + $("#labFileNameHidden").val());
                 console.log("Module with path is " + moduleWPath + $("#labFileNameHidden").val());
                 console.log("Module values " + formVals);
-                var restPath = "./rest.php?addModuleToLab="+$("#labFileNameHidden").val();
+                var restPath = "./rest.php?addModuleToLab="+$("#labFileNameHidden").val()+"&"+formVals;
                 restPath = restPath + "&moduleToLoad="+moduleWPath;
                 $("#lab").load(restPath);
             }
@@ -293,11 +295,11 @@ if (isset($_GET['debug'])) {
 // $xmlFile = $_ENV['cs']['collection_dir'].'biological.xml';
 ?>
             
-            $(document).ready(function(){
-                $("button").click(function(){
-                    $("#module").load('./rest.php?listModule=true&xmlScheme=<? echo $xmlScheme ?>&xmlFile=<? echo $xmlFile ?>');
-                });
-            /*
+    $(document).ready(function(){
+        $("button").click(function(){
+            $("#module").load('./rest.php?listModule=true&xmlScheme=<? echo $xmlScheme ?>&xmlFile=<? echo $xmlFile ?>');
+        });
+        /*
                 $("div.settingsDisplay").hide();
                 $("div.adminDisplay").hide();
                 $("div.queuedDisplay").hide();
@@ -307,10 +309,11 @@ if (isset($_GET['debug'])) {
                 $("#settingsButton").removeClass("ChiSelected");
                 $("#labButton").addClass("ChiSelected");
                 $("#adminButton").removeClass("ChiSelected");
-               */
-                $("#labList").hide();
-                $("div.logged-in-item").hide();
-                taskBarClick('div.labDisplay','#labButton');
+         */
+        $("#labList").hide();
+        $("div.logged-in-item").hide();
+        taskBarClick('div.labDisplay','#labButton');
+                 
 <?php
 if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>
@@ -319,7 +322,7 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
 <?php } elseif (isset($_SESSION['cs']['username'])) { ?>
             $('#lab').load('./rest.php?listLab=true');
 <?php } else { ?>
-                $('#lab').load('./ui/defaultLabDisplay.php');
+            $('#lab').load('./ui/defaultLabDisplay.php');
 <?php } ?>
     });
             
@@ -346,7 +349,7 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     function taskBarClick(showClass, buttonID){
             
         $("#mainContainer").children().not(showClass).hide();
-       // $("#lab_Container").not(showClass).hide();
+        // $("#lab_Container").not(showClass).hide();
         $("div.status-bar-item").not(showClass).hide();
         $("div.task-bar-item").not(buttonID).removeClass("ChiSelected");
         $(buttonID).addClass("ChiSelected");
@@ -375,7 +378,7 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
             
             
     $("#status-bar").on('click', '#loadLab', function(){         
-    //$("#loadLab").mouseup(function(){
+        //$("#loadLab").mouseup(function(){
         $("#labListAccordian").load('./rest.php?listLab=true');
         $("#labList").show();
         $("#status-bar").animate({height:"85%"},1000);
@@ -383,7 +386,7 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     });
              
     $("#labList").on('click', 'div.labChoice', function(){loadLabReturnNormal()})
-   // $("div.labChoice").mouseup(function(){loadLabReturnNormal()});
+    // $("div.labChoice").mouseup(function(){loadLabReturnNormal()});
              
     $("#newLab").mouseup(function(){
         $("#labListAccordian").load('./ui/newLab.php');
@@ -415,21 +418,15 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
              
     $("#status-bar").on('click', "#runLab",function(){
         alert("runlab!");
-    })
+    });
             
-               
+    
     $('#lab').on('click', '#addModForm-button', function(){ 
-        var formVals;
-        console.log("serilazed" + $(this).serialize());
-        $('input').each(function(){
-            console.log("ID = " + $(this).attr('id') + " val = " + $(this).val() ); //+ " checked? = " +$(this).attr('checked'));
-                    if ($(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio'){
-                        console.log("value = " + $(this).attr('value') + " checked?? " + $(this).attr('checked'))
-                    }
-        });
-        console.log("edit mod name " + $('#edit-mod-name').val());
-                
-        addModToLab($("#edit-mod-name").val(),formVals);
+    
+        var form = $('#addModForm').formSerialize();
+        console.log("form stuff is " + form);
+        console.log("edit mod name " + $('#edit-mod-name').val());        
+        addModToLab($("#edit-mod-name").val(), form);
     });
     $("#lab").on('click', '#cancelModForm-button', function() {  
         $("#edit-mod").remove();
@@ -442,6 +439,9 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     $("#task-bar").on('click', '#loginPassContainer', function(){
         $("#login-pass").focus(); 
     });
+    /*  $("body").on('click', 'input', function(){         
+        console.log( $(":checked").val() + " is checked!" );
+    });*/
           
         </script>
         <div id="dialog_hider">

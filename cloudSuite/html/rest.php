@@ -69,6 +69,7 @@ if (isset($_GET['colGetDesc'])){
      echo "</pre>";
      
 }
+
 /*
  * Used to add a module to a lab in the main screen
  */

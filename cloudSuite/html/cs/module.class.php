@@ -148,6 +148,7 @@ class Module {
         }
         echo "<h4 class='modTitle'>".$xml['name']."</h4>";
         echo "<form id='addModForm' onSubmit='addFormTolab()' action=''>"; 
+        //echo "<form id='addModForm' onSubmit='' action='cloudCommand/modForm'>"; 
         echo "<input id='edit-mod-name' type='hidden' value='$xmlFile' />";
         
         $module['moduleType'] = $xml->xpath("//moduleType");
@@ -170,12 +171,13 @@ class Module {
                 
                  //print_r($element);
                  
-                  $id=$element['id']; 
-                 echo "<input id='$id' type=\"". $element->type ."\" name=\"".$element->name."\" value=\"$element->value\"> $element->description </input>"; 
+                  $id=$element['id'];
+                 echo "<input type='hidden' value='$id'>"; 
+                 echo "<input id='$id' type='". $element->type ."' name=".$element->name." value='$element->value'> $element->description </input>"; 
                  if ($element->input) {
                     echo "<div class=\"moduleInput\">$element->input</div>";
                  }
-                 echo "</input>";
+                 //echo "</input>";
                  echo "<br />";
              }
             echo "</fieldset>";
@@ -183,7 +185,8 @@ class Module {
         $labName = explode('.', $labFileName);
         echo "<div id='cancelModForm-button' class='modButton chiClick csshadow'> Cancel </div>";
         if (array_key_exists(1, $labName)) {
-            echo "<div id='addModForm-button' class='modButton chiClick csshadow'> Add to $labName[1] </div>";
+        //    echo "<button id='addModForm-button' type='submit' class='modButton chiClick csshadow'> Add to $labName[1] </button>";
+              echo "<div id='addModForm-button' class='modButton chiClick csshadow'> Add to $labName[1] </div>";
         } else {
             echo "<div id='' class='modButton csshadow'> No lab loaded. </div>";
         }

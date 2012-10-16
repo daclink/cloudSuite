@@ -19,8 +19,8 @@
         <legend>Hash File</legend>
         <element id="234">
             <type>text</type>
-            <name>infile</name>
-            <value>-i</value>
+            <name>-i</name>
+            <value></value>
             <description>The file to crack</description>
             <input>text file</input>
             <output>text file</output>
@@ -33,8 +33,8 @@
         <legend>dictionaries</legend>
         <element id="235">
             <type>checkbox</type>
-            <name>dictionaries[]</name>
-            <value>--english</value>
+            <name>--dictionaries[]</name>
+            <value>english</value>
             <description>english language</description>
             <input></input>
             <output></output>
@@ -44,8 +44,8 @@
         </element>
         <element id="236">
             <type>checkbox</type>
-            <name>dictionaries[]</name>
-            <value>--russian</value>
+            <name>--dictionaries[]</name>
+            <value>russian</value>
             <description>Russian Language</description>
             <input></input>
             <output></output>
@@ -55,8 +55,8 @@
         </element>
         <element id="237">
             <type>checkbox</type>
-            <name>dictionaries[]</name>
-            <value>--french</value>
+            <name>--dictionaries[]</name>
+            <value>french</value>
             <description>French Language</description>
             <input></input>
             <output></output>

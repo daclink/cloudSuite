@@ -79,14 +79,14 @@
         </xsd:complexType>		
     </xsd:element>
     
-    <xsd:element name="fieldset">
+    <!--xsd:element name="fieldset">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="legend" />
                 <xsd:element ref="element" maxOccurs="unbounded" /> 
             </xsd:sequence>
         </xsd:complexType>
-    </xsd:element>
+    </xsd:element-->
     
     <xsd:element name="module">
         <xsd:complexType>
@@ -95,7 +95,9 @@
                 <xsd:element ref="method" />
                 <xsd:element ref="xmlrpcString" /> 
                 <xsd:element ref="filename" />
-                <xsd:element ref="fieldset" maxOccurs="unbounded" minOccurs="0"/>
+                <!--xsd:element ref="fieldset" maxOccurs="unbounded" minOccurs="0"/-->
+                <xsd:element ref="element" minOccurs="0" maxOccurs="unbounded" /> 
+                <xsd:element ref="description" maxOccurs="1" minOccurs="0"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
             <xsd:attribute ref="moduleName" use="required"/>

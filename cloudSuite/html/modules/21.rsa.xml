@@ -19,8 +19,8 @@
         <legend>Encrypt or Decrypt</legend>
         <element id="300">
             <type>radio</type>
-            <name>EnDe[]</name>
-            <value>-encrypt</value>
+            <name>--EnDe[]</name>
+            <value>encrypt</value>
             <description>Encrypt file using RSA with provided key.</description>
             <input></input>
             <output>TextFile</output>
@@ -30,8 +30,8 @@
         </element>
         <element id="301">
             <type>radio</type>
-            <name>EnDe[]</name>
-            <value>-decrypt</value>
+            <name>--EnDe[]</name>
+            <value>decrypt</value>
             <description>Decrypt a file using RSA with provided key.</description>
             <input></input>
             <output>TextFile</output>
@@ -44,8 +44,8 @@
         <legend>Files</legend>
         <element id="302">
             <type>text</type>
-            <name>infile</name>
-            <value>-in</value>
+            <name>-in</name>
+            <value></value>
             <description>File to encrypt/decrypt</description>
             <input>TextFile</input>
             <output>TextFile</output>
@@ -55,8 +55,8 @@
         </element>
         <element id="305">
             <type>text</type>
-            <name>outfile</name>
-            <value>-out</value>
+            <name>-out</name>
+            <value></value>
             <description>Name of output file</description>
             <input>TextFile</input>
             <output>TextFile</output>
@@ -66,8 +66,8 @@
         </element>
         <element id="303">
             <type>text</type>
-            <name>key</name>
-            <value>-inkey</value>
+            <name>-inkey</name>
+            <value></value>
             <description>Key used to encrypt/decrypt</description>
             <input>KeyFile</input>
             <output></output>
@@ -77,8 +77,8 @@
         </element>
         <element id="304">
             <type>text</type>
-            <name>pubkey</name>
-            <value>-pubin</value>
+            <name>-pubin</name>
+            <value></value>
             <description>Public key used to encrypt/decrypt</description>
             <input>KeyFile</input>
             <output></output>

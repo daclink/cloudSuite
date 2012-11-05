@@ -33,13 +33,12 @@ if (isset($_GET['debug'])) {
     <head>
         <title>CloudSuite v0.7</title>
         <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
-        <link type="text/css" href="theme/css/blitzer/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+        <link type="text/css" href="./styles/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
         <link type="text/css" href="./styles/main.css" rel="stylesheet" />
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript" src="./theme/js/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="./theme/js/jquery-ui-1.8.18.custom.min.js"></script>
-        <!--script type="text/javascript" src="./script/jqueryPlugins/jquery.form.js"></script-->
+        <script type="text/javascript" src="./theme/js/jquery-1.8.2.js"></script>
+        <script type="text/javascript" src="./theme/js/jquery-ui-1.9.1.custom.min.js"></script>
         <script src="http://malsup.github.com/jquery.form.js"></script> 
 
         <script type="text/javascript">
@@ -79,8 +78,10 @@ if (isset($_GET['debug'])) {
                     
                     var file = id + '.' + name + '.xml';
                     // alert("id = " + id + "File = " + file);
+                    $("#runLab").attr('name', file);
                     file = './rest.php?loadLabByFileName=' + file;
                     $('#lab').load(file);
+                    
                 }
             }
              
@@ -108,16 +109,17 @@ if (isset($_GET['debug'])) {
                                 loggedInButtonClose();
                                 clearTaskAlert();
                                 $('#lab').load('./ui/defaultLabDisplay.php');
+                                //  $('#lab_container').load('./ui/lab.php');
+                                jQuery.removeData($("#task-bar"),"uname");
+                                getCollections();
                             }); 
-                            
-                            
                         },
                         Cancel: function() {
                             $( this ).dialog( "close" );
                         }
                     }
                 });
-            }
+            };
           
             function login() {
               
@@ -135,10 +137,12 @@ if (isset($_GET['debug'])) {
                         $('#username').html(var_uname);
                         $('#username').attr('onclick',"loginButtonOpen('"+var_uname+"')");
                         $('#logout').html("Log out " + var_uname +"?");
-                      
                         loginButtonClose();
                         clearTaskAlert();
                         $('#lab').load('./rest.php?listLab=true');
+                        $("#task-bar").data("uname", var_uname);
+                        getCollections($("#task-bar").data("uname"));
+                        
                     } else {
                         //alert("fail!");
                         $('#taskBarAlert').addClass("login-item");
@@ -146,7 +150,10 @@ if (isset($_GET['debug'])) {
                         $('#taskBarAlert').fadeOut(1600, "swing");
                         $("#login-pass").focus();
                     }
-                }); 
+                });
+                
+                $("#collections").accordion("refresh");
+                
             }   
              
             function loginButtonOpen(uname){
@@ -319,8 +326,11 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>
                 var prevLab = './rest.php?loadLabByFileName=<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>';
                 $('#lab').load(prevLab);
+                $('#runLab').attr('name','<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>');
+                loadQueued();
 <?php } elseif (isset($_SESSION['cs']['username'])) { ?>
             $('#lab').load('./rest.php?listLab=true');
+            loadQueued();
 <?php } else { ?>
             $('#lab').load('./ui/defaultLabDisplay.php');
 <?php } ?>
@@ -362,6 +372,8 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
             
     $("#task-bar").on('click','#labButton',function(){
         taskBarClick('div.labDisplay','#labButton');
+        console.log("loading lab container!");
+        getCollections($("#task-bar").data("uname"));
     });
             
     $("#task-bar").on('click','#adminButton',function(){
@@ -415,9 +427,42 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         }
                  
     });
-             
+    
+    function loadQueued(){
+        $.ajax({
+            type: 'GET',
+            url: '/cloudCommand/queue',
+            data: {user:'foo'}
+        }).done(function( queuedLabs ){
+            $("#queuedSection").html(queuedLabs);
+            
+            console.log(queuedLabs);
+        });
+    }
+    
     $("#status-bar").on('click', "#runLab",function(){
-        alert("runlab!");
+        
+        var name = $(this).attr('name');
+        $.ajax({
+            type: 'POST',
+            url: '/cloudCommand/queue/'+name,
+            data: {lab:name,userName:"asd"}
+        }).done(function( msg ){
+            if (msg){
+                alert("Lab " + name + " has been queued.");
+                loadQueued();
+            } else {
+                alert("There was a problem queuing " + name);   
+            }
+            //alert("Message is : " + msg);
+            /*       
+            if (msg == "1") {
+                alert("Lab \"" + $(this).attr('name') + "\" has been queued.");
+            } else {
+                alert("fail!");
+            }*/
+       
+        });
     });
             
     
@@ -442,7 +487,19 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     /*  $("body").on('click', 'input', function(){         
         console.log( $(":checked").val() + " is checked!" );
     });*/
-          
+         
+
+    function getCollections(uname){
+    
+        $.ajax({
+            type: 'GET',
+            url: 'ui/lab_1.php',
+            data: {uname:uname}
+        }).done(function( msg ){
+            $('#collections').html(msg);
+        })
+                        
+    }
         </script>
         <div id="dialog_hider">
             <div id="delModDialog"> Remove the module from the lab?</div>

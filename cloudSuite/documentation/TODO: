@@ -1,17 +1,7 @@
-*design manifest schema
-**ensure that origin server is a value
-*design user schema
-*design group schema (fun!)
+On DELETE MODULE, SAVE LAB, RUN LAB
 
-
-**Add a reference to the parent set in each module
-
-
-
-re-design set schema
-
-determine required fields
-determine default values
-determine the number of each element needed.
-
-write xpaths for method calls.
+    FOR each Module check for input type
+        if input type is a module
+            check if module is present
+                if no => error!
+           

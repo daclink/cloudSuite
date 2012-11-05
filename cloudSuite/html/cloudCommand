@@ -27,7 +27,7 @@ $app = new Slim();
 
 
 $app->get('/', function() {
-            echo '<META HTTP-EQUIV="Refresh" Content="10; URL=http://www.cloudsuite.info">';    
+            echo '<META HTTP-EQUIV="Refresh" Content="10; URL=http://www.cloudsuite.info">';
             echo '<div> <a href="http://www.cloudsuite.info">Click here if you are not redirected in 10 seconds</a></div>';
         });
 
@@ -44,43 +44,63 @@ $app->post('/:func', function ($func) {
                     break;
             }
         });
-        
-        
-$app->get('/modForm/', function (){
-   print_r($_GET); 
-   
-  
-   echo "<pre>";
-   $paramString ="";
-   echo "key\t==\tvalue\n";
-   foreach ($_GET as $key => $value) {
-       $paramString = $paramString.$key." ";
-       echo "$key";
-       if (is_array($value)){
-           foreach ($value as $key2 =>$value2) {
-               echo "\t==\t$value2\n\t";
-               $paramString = $paramString.$value2.",";
-           }
-       } else {
-           echo "\t==\t$value\n";
-           $paramString = $paramString.$value;
-       }
-       $paramString = $paramString." ";
-   }
-   echo "</pre>";
-   echo "<pre>";
-   echo "\nparamstring == $paramString\n";
-   echo "</pre>";
-});
 
-        
-/*SUPER IMPORTANT */
+$app->post('/queue/:labName', function ($labName) {
+            echo queue($labName);
+        });
+$app->get('/modForm/', function () {
+            print_r($_GET);
+
+
+            echo "<pre>";
+            $paramString = "";
+            echo "key\t==\tvalue\n";
+            foreach ($_GET as $key => $value) {
+                $paramString = $paramString . $key . " ";
+                echo "$key";
+                if (is_array($value)) {
+                    foreach ($value as $key2 => $value2) {
+                        echo "\t==\t$value2\n\t";
+                        $paramString = $paramString . $value2 . ",";
+                    }
+                } else {
+                    echo "\t==\t$value\n";
+                    $paramString = $paramString . $value;
+                }
+                $paramString = $paramString . " ";
+            }
+            echo "</pre>";
+            echo "<pre>";
+            echo "\nparamstring == $paramString\n";
+            echo "</pre>";
+        });
+
+$app->get('/queue', function() {
+
+            $s3 = new AmazonS3(array(
+                        'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
+                        'secret' => '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'
+                    ));
+
+            $bucket = 'cloudsuite.labs';
+            $response = $s3->get_object_list($bucket);
+            $ret = "";
+            foreach ($response as $key => $value) {
+                $ret = $ret . "<div class='queued-content'>$value </div>";
+            }
+            if ($ret=="") {
+                $ret = "<div class='queued-content'>No Queued Labs.</div>";
+            }
+            echo $ret;
+        });
+
+/* SUPER IMPORTANT */
 $app->run();
-/*SUPER IMPORTANT */
+/* SUPER IMPORTANT */
 
 
 /*
- *helper functions defined below. 
+ * helper functions defined below. 
  */
 
 function ec2() {
@@ -102,6 +122,32 @@ function ec2() {
     }
 }
 
+function queue($filename) {
+
+    $s3 = new AmazonS3(array(
+                'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
+                'secret' => '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'
+            ));
+
+
+    $bucket = 'cloudsuite.labs';
+    //$filename = '1987.ajs.xml';
+    // var_dump($response);
+
+    $lab = file_get_contents($_ENV['cs']['labs_dir'] . $filename);
+
+    $response = $s3->create_object($bucket, $filename, array('body' => $lab));
+
+    //$response = $s3->delete_all_objects($bucket);
+
+    if ($response->isOK()) {
+
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 function s3() {
 
     $s3 = new AmazonS3(array(
@@ -111,17 +157,39 @@ function s3() {
 
 
     $bucket = 'cloudsuite.labs';
-    $filename = '1987.ajs.xml';
 
-    var_dump($response);
+    $response = $s3->get_object_list($bucket);
+    echo("<pre>");
+    print_r($response);
 
-    $lab = file_get_contents($_ENV['cs']['labs_dir'] . $filename);
 
-    $response = $s3->create_object($bucket, $filename, array('body' => $lab));
+    //if ($response->isOK()) {
+    $response = $s3->get_object_list($bucket);
+    //       return var_dump($response);
+    $ret = "";
+    foreach ($response as $key => $value) {
+        echo "hi!";
+        $ret = $ret . "<div class='queued-content'>$value </div>";
+    }
+    // print_r($ret);
+    echo $ret;
+    echo("</pre>");
+    // }
 
-    $response = $s3->delete_all_objects($bucket);
+    /*
+      $filename = '1987.ajs.xml';
 
-    var_dump($response->isOK());
+      var_dump($response);
+
+      $lab = file_get_contents($_ENV['cs']['labs_dir'] . $filename);
+
+      $response = $s3->create_object($bucket, $filename, array('body' => $lab));
+
+      $response = $s3->delete_all_objects($bucket);
+
+      var_dump($response->isOK());
+     * 
+     */
 }
 
 function defaulto() {

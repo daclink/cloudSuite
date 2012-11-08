@@ -44,6 +44,10 @@ $app->post('/:func', function ($func) {
                     break;
             }
         });
+        
+$app->get('/listMods/:user', function ($user) {
+    listUserMods($user);
+    });
 
 $app->post('/queue/:labName', function ($labName) {
             echo queue($labName);
@@ -88,7 +92,7 @@ $app->get('/queue', function() {
             foreach ($response as $key => $value) {
                 $ret = $ret . "<div class='queued-content'>$value </div>";
             }
-            if ($ret=="") {
+            if ($ret == "") {
                 $ret = "<div class='queued-content'>No Queued Labs.</div>";
             }
             echo $ret;
@@ -108,6 +112,7 @@ function ec2() {
                 'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
                 'secret' => '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'
             ));
+
 
 
     $instance_id = 'i-6f8d0812';
@@ -155,28 +160,27 @@ function s3() {
                 'secret' => 'MBfN3CfSOBX+AyIj8hRzBd+ZygOhFh44EEsKqENP'
             ));
 
+      $bucket = 'cloudsuite.labs';
 
-    $bucket = 'cloudsuite.labs';
-
-    $response = $s3->get_object_list($bucket);
-    echo("<pre>");
-    print_r($response);
+      $response = $s3->get_object_list($bucket);
+      echo("<pre>");
+      print_r($response);
 
 
-    //if ($response->isOK()) {
-    $response = $s3->get_object_list($bucket);
-    //       return var_dump($response);
-    $ret = "";
-    foreach ($response as $key => $value) {
-        echo "hi!";
-        $ret = $ret . "<div class='queued-content'>$value </div>";
-    }
-    // print_r($ret);
-    echo $ret;
-    echo("</pre>");
-    // }
+      //if ($response->isOK()) {
+      $response = $s3->get_object_list($bucket);
+      //       return var_dump($response);
+      $ret = "";
+      foreach ($response as $key => $value) {
+      echo "hi!";
+      $ret = $ret . "<div class='queued-content'>$value </div>";
+      }
+      // print_r($ret);
+      echo $ret;
+      echo("</pre>");
+      // }
 
-    /*
+      /*
       $filename = '1987.ajs.xml';
 
       var_dump($response);
@@ -190,6 +194,33 @@ function s3() {
       var_dump($response->isOK());
      * 
      */
+}
+
+function listUserMods($user) {
+
+    $s3 = new AmazonS3(array(
+                'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
+                'secret' => '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'
+            ));
+
+    $bucket = "cs.$user.modules.data";
+
+    if (!$s3->if_bucket_exists($bucket)) {
+        echo "No bucket found";
+    }
+
+//    $response = $s3->list_objects($bucket);
+    $response = $s3->list_objects($bucket, array('prefix' => 'modules/'));
+
+    //$resArray = $response->body->to_array();
+
+    echo "<pre>";
+
+    echo "<div> Response body</div>";
+    
+    print_r($response);
+   
+    echo "</pre>";
 }
 
 function defaulto() {

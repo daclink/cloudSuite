@@ -25,7 +25,7 @@ require 'Slim/Slim.php';
 
 $app = new Slim();
 
-$app->post('/cloudCommand/:func', function ($func) {
+$app->get('/cloudCommand/:func', function ($func) {
             switch ($func) {
                 case "ec2" :
                     ec2();
@@ -38,10 +38,10 @@ $app->post('/cloudCommand/:func', function ($func) {
                     break;
             }
         });
-        
-$app->get('/hi',function(){
-    defaulto();
-});
+
+$app->get('/hi', function() {
+            defaulto();
+        });
 
 function ec2() {
     $ec2 = new AmazonEC2(array(
@@ -69,11 +69,19 @@ function s3() {
             ));
 
 
-    $bucket = 'cloudsuite.labs';
-    $filename = '1987.ajs.xml';
+    echo "<div>in the thing</div>";
+    $bucket = 'cs.user.Drew.modules';
 
-    var_dump($response);
-
+    if ($s3->if_bucket_exists($bucket)) {
+        echo "bucket $bucket exists";
+    }
+    
+    $response = $s3->list_objects($bucket);
+    
+    
+    
+    
+/*
     $lab = file_get_contents($_ENV['cs']['labs_dir'] . $filename);
 
     $response = $s3->create_object($bucket, $filename, array('body' => $lab));
@@ -81,10 +89,12 @@ function s3() {
     $response = $s3->delete_all_objects($bucket);
 
     var_dump($response->isOK());
+ */
+ 
 }
 
-function defaulto(){
-    $foo="<html>
+function defaulto() {
+    $foo = "<html>
             <head> <title>gah</title></head>
             <body>Well sir</body>
         </html>";

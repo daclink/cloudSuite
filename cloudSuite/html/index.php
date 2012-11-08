@@ -477,7 +477,6 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         $("#edit-mod").remove();
     });
           
-          
     $("#task-bar").on('click', '#loginNameContainer', function(){
         $("#login-name").focus(); 
     });
@@ -500,12 +499,15 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         })
                         
     }
+        
         </script>
         <div id="dialog_hider">
             <div id="delModDialog"> Remove the module from the lab?</div>
             <div id="editModDialog"> Edit module</div>
         </div>
 
+        
+        
         <div id="confirmLogOut">Confirm log out.</div>
     </body>
 </html>

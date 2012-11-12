@@ -139,8 +139,7 @@ if (isset($_GET['newModule'])){
      echo $desc[0][0];
      print_r($module);
      print_r($lab);
-     echo "</pre>";*/
-     
+     echo "</pre>";*/    
 }
 
 if (isset($_GET['listLab'])){

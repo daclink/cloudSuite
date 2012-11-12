@@ -233,6 +233,24 @@ class Lab {
         return new Lab($owner, $id, $labName, $description, $xml);
     }
 
+    public static function cloudLoadLab($xmlFile, $xmlSchema = NULL) {
+        
+        if ($xmlSchema == null) {
+            $xmlSchema = $_ENV['cs']['schema_dir'] . 'lab.xsd';
+        }
+        
+        if ($xmlFile == null) {
+            throw new Exception("XML File must not be null", "1", null);
+            return false;
+        }
+        
+         if (!Utils::load_xml($xmlSchema, $xmlFile, $xml,TRUE)) {
+            throw new Exception("could not load file.", "2", null);
+            return false;
+        }
+                
+    }
+
     /**
      *
      * @param SimpleXMLElement $moduleXML 

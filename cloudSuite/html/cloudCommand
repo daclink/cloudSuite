@@ -44,10 +44,10 @@ $app->post('/:func', function ($func) {
                     break;
             }
         });
-        
+
 $app->get('/listMods/:user', function ($user) {
-    listUserMods($user);
-    });
+            listUserMods($user);
+        });
 
 $app->post('/queue/:labName', function ($labName) {
             echo queue($labName);
@@ -81,10 +81,7 @@ $app->get('/modForm/', function () {
 
 $app->get('/queue', function() {
 
-            $s3 = new AmazonS3(array(
-                        'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
-                        'secret' => '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'
-                    ));
+            $s3 = Utils::getS3Instance();
 
             $bucket = 'cloudsuite.labs';
             $response = $s3->get_object_list($bucket);
@@ -98,6 +95,18 @@ $app->get('/queue', function() {
             echo $ret;
         });
 
+//!!!
+$app->get('/labTest/:user/:lab', function($user,$lab){
+   echo "<pre>";
+        
+       echo"user : $user\n";
+       echo"lab : $lab\n";
+       readLabTest($user, $lab);
+       
+       
+   echo "</pre>";
+});
+        
 /* SUPER IMPORTANT */
 $app->run();
 /* SUPER IMPORTANT */
@@ -160,27 +169,27 @@ function s3() {
                 'secret' => 'MBfN3CfSOBX+AyIj8hRzBd+ZygOhFh44EEsKqENP'
             ));
 
-      $bucket = 'cloudsuite.labs';
+    $bucket = 'cloudsuite.labs';
 
-      $response = $s3->get_object_list($bucket);
-      echo("<pre>");
-      print_r($response);
+    $response = $s3->get_object_list($bucket);
+    echo("<pre>");
+    print_r($response);
 
 
-      //if ($response->isOK()) {
-      $response = $s3->get_object_list($bucket);
-      //       return var_dump($response);
-      $ret = "";
-      foreach ($response as $key => $value) {
-      echo "hi!";
-      $ret = $ret . "<div class='queued-content'>$value </div>";
-      }
-      // print_r($ret);
-      echo $ret;
-      echo("</pre>");
-      // }
+    //if ($response->isOK()) {
+    $response = $s3->get_object_list($bucket);
+    //       return var_dump($response);
+    $ret = "";
+    foreach ($response as $key => $value) {
+        echo "hi!";
+        $ret = $ret . "<div class='queued-content'>$value </div>";
+    }
+    // print_r($ret);
+    echo $ret;
+    echo("</pre>");
+    // }
 
-      /*
+    /*
       $filename = '1987.ajs.xml';
 
       var_dump($response);
@@ -198,10 +207,7 @@ function s3() {
 
 function listUserMods($user) {
 
-    $s3 = new AmazonS3(array(
-                'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
-                'secret' => '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'
-            ));
+    $s3 = Utils::getS3Instance();
 
     $bucket = "cs.$user.modules.data";
 
@@ -217,10 +223,37 @@ function listUserMods($user) {
     echo "<pre>";
 
     echo "<div> Response body</div>";
-    
+
     print_r($response);
-   
+
     echo "</pre>";
+}
+
+//remove this !!!
+function writeLabTest() {
+    $s3 = Utils::getS3Instance();
+}
+
+function readLabTest($user,$lab) {
+
+    $s3 = Utils::getS3Instance();
+    
+    $bucket = "cs.user.$user.labs";
+    $bucket = strtolower($bucket);
+    echo "Bucket == $bucket";
+    $response = $s3->get_object($bucket, $lab);
+
+    if (!$response->isOK()) {
+        return false;
+    }
+    echo "<h1>Response is:</h1>";
+    print_r($response);
+    $xmlFile = $response->body;
+    echo "<h1>xmlFile is:</h1>";
+    print_r($xmlFile);
+    $schema = $xmlSchema = $_ENV['cs']['schema_dir'] . 'lab.xsd';
+    echo "valid? = " . Utils::validate($schema, $xmlFile, true);
+    
 }
 
 function defaulto() {

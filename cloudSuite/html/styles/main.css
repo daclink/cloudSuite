@@ -91,7 +91,7 @@ div.collection-list {
 }
 .admin-content {
     width: 86%;
-    height: 15%;
+    height: 90%;
     /*float: right;*/
     background-color:white;
     color: #c00;
@@ -405,5 +405,9 @@ div.testContent {
 }
 #dialog_hider {
     display: none;
+}
+
+.modal_dialog {
+    display: hidden;
 }
 

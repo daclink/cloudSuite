@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<lab id="1987" labName="ajs">
+  <owner>Drew</owner>
+  <description>ajs test</description>
+  <permissions>
+    <owner>7</owner>
+    <group>4</group>
+    <everyone>4</everyone>
+  </permissions>
+  <lastRunDate>0</lastRunDate>
+  <lastRunUser>0</lastRunUser>
+  <module id="1991" moduleName="neuro">
+    <seqNumber>1</seqNumber>
+    <method/>
+    <xmlrpcString>one</xmlrpcString>
+    <filename>8.neuro.xml</filename>
+  </module>
+  <module id="8550" moduleName="ga">
+    <seqNumber>2</seqNumber>
+    <method/>
+    <xmlrpcString>one</xmlrpcString>
+    <filename>7.ga.xml</filename>
+  </module>
+</lab>

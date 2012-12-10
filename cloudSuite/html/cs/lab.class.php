@@ -17,6 +17,7 @@ class Lab {
     private $id;
     private $labname;
     private $fileName;
+    private $bucket;
     private $description;
     private $lastRunDate;
     private $lastRunUser;
@@ -92,6 +93,9 @@ class Lab {
             $this->labname = Utils::randomName();
         }
 
+        $this->bucket = "cs.user.$this->user.labs";
+        $this->bucket = strtolower($this->bucket);
+
         if ($description != NULL) {
             $this->description = $description;
         } else {
@@ -148,8 +152,15 @@ class Lab {
     }
 
     function getFileName() {
-
         return $this->fileName;
+    }
+
+    function setBucket($bucket) {
+        $this->bucket = $bucket;
+    }
+
+    function getBucket() {
+        return $this->bucket;
     }
 
     /**
@@ -234,21 +245,45 @@ class Lab {
     }
 
     public static function cloudLoadLab($xmlFile, $xmlSchema = NULL) {
-        
+
         if ($xmlSchema == null) {
             $xmlSchema = $_ENV['cs']['schema_dir'] . 'lab.xsd';
         }
-        
+
         if ($xmlFile == null) {
             throw new Exception("XML File must not be null", "1", null);
             return false;
         }
-        
-         if (!Utils::load_xml($xmlSchema, $xmlFile, $xml,TRUE)) {
+
+        if (!Utils::load_xml($xmlSchema, $xmlFile, $xml, TRUE)) {
             throw new Exception("could not load file.", "2", null);
             return false;
         }
-                
+
+        $owner = (String) $xml->owner;
+        $id = (String) $xml['id'];
+        $labName = (String) $xml['labName'];
+        $description = (String) $xml->description;
+
+        return new Lab($owner, $id, $labName, $description, $xml);
+    }
+
+    public static function cloudWriteLab($filename, $bucket) {
+
+        $s3 = Utils::getS3Instance();
+        $fileLocal = "./labs/" . $filename;
+        $file = array('fileUpload' => $fileLocal);
+
+        try {
+
+            $s3->create_bucket($bucket, AmazonS3::REGION_US_STANDARD);
+        } catch (Exception $e) {
+            //don't really care if it fails.
+        }
+
+        $response = $s3->create_object($bucket, $filename, $file);
+        print_r($response);
+        return $response->isOK();
     }
 
     /**
@@ -493,6 +528,32 @@ class Lab {
         Utils::load_xml($xmlSchema, $filename, $xml);
 
         return new Lab($xml->owner, $labID, $xml['labName'], $xml->description, $xml);
+    }
+
+    public static function cloudCHOWN($owner, $filename) {
+        $s3 = Utils::getS3Instance();
+        $bucket = "cs.user." . strtolower($owner) . ".labs";
+        
+        if ($s3->if_bucket_exists($bucket)) {
+            $response = $s3->get_object($bucket, $filename);
+
+            if (! $response->isOK()) {
+                return false;
+            }
+            
+            $lab = simplexml_load_string($response->body);
+            $lab->owner = $owner;
+            $response = $s3->create_object($bucket, $filename, array('body' => $lab->asXML()));
+            print_r($response);
+            return $response->isOK();
+
+        }
+
+        //load $filename from $owner bucket
+        //use body to create simpleXMLElement
+        //use simpleXML->lab->owner = $owner
+        //use  $response = $s3->create_object($bucket, $filename, $file);
+        //print_r($response);
     }
 
 }

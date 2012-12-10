@@ -166,8 +166,25 @@ class Utils {
         return $fname;
     }
 
-    public static function formatLab($lab) {
-        $lab = $lab->getSimpleXML();
+    /**
+     *
+     * @param Lab $lab
+     * @param XML String $lab
+     * @param boolean $source
+     * @return string 
+     * 
+     * source is a flag to determine if the XML data comes from
+     * a Lab object or a string.
+     * 
+     * Formates data for display.
+     * 
+     */
+    public static function formatLab($lab, $source=false) {
+        if($source){
+            $lab = simplexml_load_string($lab);
+        } else  {
+            $lab = $lab->getSimpleXML();
+        }
         $labname = $lab['labName'];
         $filename = Utils::fileName($lab['id'], $labname);
 
@@ -200,7 +217,6 @@ class Utils {
         } else {
             $awsCredentials = $_ENV['cs']['aws']['credntials'];
         }
-        
         return new AmazonS3($awsCredentials);
     }
 

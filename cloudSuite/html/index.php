@@ -40,6 +40,8 @@ if (isset($_GET['debug'])) {
         <script type="text/javascript" src="./theme/js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="./theme/js/jquery-ui-1.9.1.custom.min.js"></script>
         <script src="http://malsup.github.com/jquery.form.js"></script> 
+        
+        <script type="text/javascript" src="./script/jqueryPlugins/jquery.simplemodal-1.4.3.js"></script>
 
         <script type="text/javascript">
           
@@ -79,7 +81,10 @@ if (isset($_GET['debug'])) {
                     var file = id + '.' + name + '.xml';
                     // alert("id = " + id + "File = " + file);
                     $("#runLab").attr('name', file);
-                    file = './rest.php?loadLabByFileName=' + file;
+                   // file = './rest.php?loadLabByFileName=' + file;
+                    //$('#lab').load(file);
+                    file = './cloudCommand/loadLab/'+$("#task-bar").data("uname")+'/'+file
+                    console.log("file : " + file);
                     $('#lab').load(file);
                     
                 }
@@ -126,7 +131,7 @@ if (isset($_GET['debug'])) {
                 //alert("Uname = " + $("#login-name").val() + "pass = "+ $("#login-pass").val());
                 var var_uname = $("#login-name").val();
                 var var_pass = $("#login-pass").val();
-              
+                $("#task-bar").data("uname", var_uname);
                 $.ajax({
                     type: 'GET',
                     url: 'ui/login.php',
@@ -139,12 +144,13 @@ if (isset($_GET['debug'])) {
                         $('#logout').html("Log out " + var_uname +"?");
                         loginButtonClose();
                         clearTaskAlert();
-                        $('#lab').load('./rest.php?listLab=true');
+                        $('#lab').load('./cloudCommand/labList/'+var_uname);
                         $("#task-bar").data("uname", var_uname);
                         getCollections($("#task-bar").data("uname"));
                         
                     } else {
                         //alert("fail!");
+                        jQuery.removeData($("#task-bar"),"uname");
                         $('#taskBarAlert').addClass("login-item");
                         $('#taskBarAlert').html("Please try again!");
                         $('#taskBarAlert').fadeOut(1600, "swing");
@@ -214,8 +220,8 @@ if (isset($_GET['debug'])) {
                         }
                     }
                 });
-                //});
             }
+            
             function editMod(modID, labID, modName) {
                 console.log("rdit modName = " + modName + " edit modID = " + modID + " labID = " + labID);
                 $('#editModDialog').dialog({
@@ -296,6 +302,9 @@ if (isset($_GET['debug'])) {
         </div>
         <?php include('./ui/statusbar.html'); ?>
 
+        <div class="modal_dialog" id="modmodmod">
+           test test test
+        </div>
 
         <script type="text/javascript">
 <?php
@@ -324,7 +333,8 @@ if (isset($_GET['debug'])) {
 <?php
 if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>
-                var prevLab = './rest.php?loadLabByFileName=<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>';
+                //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName'] ?>';
+                var prevLab = './cloudCommand/loadLab/<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>';
                 $('#lab').load(prevLab);
                 $('#runLab').attr('name','<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>');
                 loadQueued();
@@ -364,6 +374,9 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         $("div.task-bar-item").not(buttonID).removeClass("ChiSelected");
         $(buttonID).addClass("ChiSelected");
         $(showClass).show();
+        if ($("#task-bar").data("uname")==="AJ" && showClass === "adminDisplay") {
+            $("#shareLab").show;
+        }
     }
              
     $("#task-bar").on('click','#settingsButton',function(){
@@ -378,6 +391,7 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
             
     $("#task-bar").on('click','#adminButton',function(){
         taskBarClick('div.adminDisplay','#adminButton');
+        $("#distLab").load("./cloudCommand/distLab/"+$("#task-bar").data("uname"));
     });
              
     $("#task-bar").on('click','#queuedButton',function(){
@@ -391,7 +405,8 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
             
     $("#status-bar").on('click', '#loadLab', function(){         
         //$("#loadLab").mouseup(function(){
-        $("#labListAccordian").load('./rest.php?listLab=true');
+        $("#labListAccordian").load('./cloudCommand/labList/'+ $("#task-bar").data("uname"));
+        //$("#labListAccordian").load('./rest.php?listLab=true');
         $("#labList").show();
         $("#status-bar").animate({height:"85%"},1000);
         $("#mainContainer").animate({height:"10%"},1000);
@@ -409,17 +424,23 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
              
     $("#status-bar").on('click', "#saveLab",function(){    
         //alert("woo!" + $("#labFileNameHidden").val());
-                 
+        //$("#task-bar").data("uname")
         if ($("#labFileNameHidden").val() != null ){
             var sendData = new Object();
             sendData["saveLab"] = $("#labFileNameHidden").val();
+            var file = "./cloudCommand/saveLab/"+$("#task-bar").data("uname")+"/"+$("#labFileNameHidden").val();
+            console.log("saving url == " + file);
             $.ajax({
+                method:'POST',
                 //url: "http://cloudsuite.info/rest.php?saveLab="+$("#labFileNameHidden").val()
-                url: "http://cloudsuite.info/rest.php",
-                data: sendData
+                //url: "http://cloudsuite.info/rest.php",
+                url:   file
+                //data: sendData
             }).done(function (data) {
                 console.log(data);
                 alert($("#labFileNameHidden").val() + " saved"); 
+            }).fail(function(){
+                alert("saving the lab failed. " + file);
             });
                      
         } else {
@@ -465,6 +486,11 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         });
     });
             
+      $("#status-bar").on('click', "#shareLab",function(){
+        alert("SHARE LAasdB!");
+        
+      });
+    
     
     $('#lab').on('click', '#addModForm-button', function(){ 
     
@@ -483,10 +509,13 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     $("#task-bar").on('click', '#loginPassContainer', function(){
         $("#login-pass").focus(); 
     });
+    
+    
     /*  $("body").on('click', 'input', function(){         
         console.log( $(":checked").val() + " is checked!" );
     });*/
-         
+    
+    
 
     function getCollections(uname){
     

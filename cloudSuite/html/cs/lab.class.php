@@ -533,20 +533,19 @@ class Lab {
     public static function cloudCHOWN($owner, $filename) {
         $s3 = Utils::getS3Instance();
         $bucket = "cs.user." . strtolower($owner) . ".labs";
-        
+
         if ($s3->if_bucket_exists($bucket)) {
             $response = $s3->get_object($bucket, $filename);
 
-            if (! $response->isOK()) {
+            if (!$response->isOK()) {
                 return false;
             }
-            
+
             $lab = simplexml_load_string($response->body);
             $lab->owner = $owner;
             $response = $s3->create_object($bucket, $filename, array('body' => $lab->asXML()));
             print_r($response);
             return $response->isOK();
-
         }
 
         //load $filename from $owner bucket
@@ -554,6 +553,19 @@ class Lab {
         //use simpleXML->lab->owner = $owner
         //use  $response = $s3->create_object($bucket, $filename, $file);
         //print_r($response);
+    }
+
+    public static function cloudRM($owner, $filename) {
+        $s3 = Utils::getS3Instance();
+        $bucket = "cs.user." . strtolower($owner) . ".labs";
+
+        if ($s3->if_bucket_exists($bucket)) {
+            $response = $s3->delete_object($bucket, $filename);
+            //print_r($response);
+            return $response->isOK();
+        } else {
+            return false;
+        }
     }
 
 }

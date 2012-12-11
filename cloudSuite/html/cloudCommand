@@ -133,9 +133,9 @@ $app->get('/distLab/:uname', function($uname) {
         });
 
 $app->post('/distLab', function() {
-            echo "hi there!";
-            echo "<pre";
-            print_r($_POST);
+            //echo "hi there!";
+            //echo "<pre";
+            //print_r($_POST);
 
             foreach ($_REQUEST['userDistBox'] as $user) {
                 echo "<div> $user :";
@@ -153,6 +153,13 @@ $app->post('/distLab', function() {
 $app->get('/labList/:uname', function($uname) {
             cloudLabList($uname);
         });
+        
+$app->delete('/lab/:owner/:filename', function($owner,$filename) {
+    return Lab::cloudRM($owner, $filename);
+}) ;
+
+
+
 
 /* SUPER IMPORTANT */
 $app->run();
@@ -420,7 +427,12 @@ function shareList($uname) {
     }
     echo "</fieldset>";
 
-    echo '<input id="distLabButton" type="submit" value="Distribute Forms" />';
+    echo '<input id="distLabButton" type="submit" class="chiClick csshadow" value="Distribute Labs" />';
     echo '</form>';
 }
+
+function rmLab($owner, $filname) {
+    return Lab::cloudRM($owner, $filename);
+}
+
 ?> 

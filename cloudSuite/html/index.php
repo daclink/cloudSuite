@@ -40,7 +40,7 @@ if (isset($_GET['debug'])) {
         <script type="text/javascript" src="./theme/js/jquery-1.8.2.js"></script>
         <script type="text/javascript" src="./theme/js/jquery-ui-1.9.1.custom.min.js"></script>
         <script src="http://malsup.github.com/jquery.form.js"></script> 
-        
+
         <script type="text/javascript" src="./script/jqueryPlugins/jquery.simplemodal-1.4.3.js"></script>
 
         <script type="text/javascript">
@@ -81,7 +81,7 @@ if (isset($_GET['debug'])) {
                     var file = id + '.' + name + '.xml';
                     // alert("id = " + id + "File = " + file);
                     $("#runLab").attr('name', file);
-                   // file = './rest.php?loadLabByFileName=' + file;
+                    // file = './rest.php?loadLabByFileName=' + file;
                     //$('#lab').load(file);
                     file = './cloudCommand/loadLab/'+$("#task-bar").data("uname")+'/'+file
                     console.log("file : " + file);
@@ -223,7 +223,7 @@ if (isset($_GET['debug'])) {
             }
             
             function editMod(modID, labID, modName) {
-                console.log("rdit modName = " + modName + " edit modID = " + modID + " labID = " + labID);
+                console.log("edit modName = " + modName + " edit modID = " + modID + " labID = " + labID);
                 $('#editModDialog').dialog({
                     buttons: {
                         "Ok": function() { 
@@ -235,7 +235,36 @@ if (isset($_GET['debug'])) {
                     }
                 });
             }
-             
+            
+            function delLab(labName) {
+            
+                var owner = $("#task-bar").data("uname");
+                var path = "cloudCommand/lab/"+owner+"/"+labName;
+                
+                $( "#delLabDialog" ).dialog({
+                    modal: true,
+                    title: "Deleteing " + labName + "...",
+                    width: 600,
+                    buttons: {
+                        "Delete": function() {
+                            //ajax call to cloudCommand/lab/owner/labName
+                            $(this).dialog("close");
+                            $.ajax({
+                                type: 'DELETE',
+                                url: path
+                            }).done(function( msg ){
+                                console.log(msg)
+                                alert(labName + " deleted");
+                                $('#lab').load('./cloudCommand/labList/'+owner);
+                            });
+                        },
+                        "Cancel": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            }
+            
             $(function(){
                 // Tabs
                 $('#tabs').tabs();
@@ -303,7 +332,7 @@ if (isset($_GET['debug'])) {
         <?php include('./ui/statusbar.html'); ?>
 
         <div class="modal_dialog" id="modmodmod">
-           test test test
+            test test test
         </div>
 
         <script type="text/javascript">
@@ -333,7 +362,7 @@ if (isset($_GET['debug'])) {
 <?php
 if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>
-                //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName'] ?>';
+                //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName']   ?>';
                 var prevLab = './cloudCommand/loadLab/<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>';
                 $('#lab').load(prevLab);
                 $('#runLab').attr('name','<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>');
@@ -486,12 +515,6 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         });
     });
             
-      $("#status-bar").on('click', "#shareLab",function(){
-        alert("SHARE LAasdB!");
-        
-      });
-    
-    
     $('#lab').on('click', '#addModForm-button', function(){ 
     
         var form = $('#addModForm').formSerialize();
@@ -533,10 +556,11 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         <div id="dialog_hider">
             <div id="delModDialog"> Remove the module from the lab?</div>
             <div id="editModDialog"> Edit module</div>
+            <div id="delLabDialog"> Delete Lab?</div>
         </div>
 
-        
-        
+
+
         <div id="confirmLogOut">Confirm log out.</div>
     </body>
 </html>

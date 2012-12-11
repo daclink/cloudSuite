@@ -202,10 +202,11 @@ class Utils {
             $return = $return . "<li>Module Name :" . $module['moduleName'] . "</li>";
             $return = $return . "<li>Description :" . $module->description . "</li>";
             $return = $return . "</ul>";
-            $return = $return . "<div onclick=\"delMod(" . $module['id'] . "," . $lab['id'] . ", '" . $module['moduleName'] . "')\") id=\"" . $module['id'] . "_delete\" class=\"status-bar-item labDisplay labButton\">Remove</div>";
-            $return = $return . "<div onclick=\"editMod(" . $module['id'] . "," . $lab['id'] . ", '" . $module['moduleName'] . "')\") id=\"" . $module['id'] . "_edit\" class=\"status-bar-item labDisplay labButton\">Edit</div>";
+            $return = $return . "<div onclick=\"delMod(" . $module['id'] . "," . $lab['id'] . ", '" . $module['moduleName'] . "')\" id=\"" . $module['id'] . "_delete\" class=\"status-bar-item labDisplay labButton\">Remove</div>";
+            $return = $return . "<div onclick=\"editMod(" . $module['id'] . "," . $lab['id'] . ", '" . $module['moduleName'] . "')\" id=\"" . $module['id'] . "_edit\" class=\"status-bar-item labDisplay labButton\">Edit</div>";
             $return = $return . "</div>\n";
         }
+        $return = $return . "<div onclick=\"delLab('".$filename."')\" class=\"status-bar-item labDisplay labButton\">Delete $labname</div>";
 
         return $return;
     }

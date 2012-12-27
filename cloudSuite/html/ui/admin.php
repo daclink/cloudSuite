@@ -1,32 +1,65 @@
-<?php
+<?php ?>
 
-?>
-<script>
-    jQuery.fn.reset = function () {
-  $(this).each (function() { this.reset(); });
-}
-    </script>
 <div id="adminSection">
     <div id="distLab" class="admin-content">
-        
+
     </div>
 </div>
-<script>
-$("#adminSection").on('click','#distLabButton',function(){
-            $('#labDistForm').ajaxForm(function() { 
-                alert("The selected labs have been distributed."); 
-                $("#labDistForm").reset();
-            }); 
+
+<!--script>
+
+    var shareOptions = {    target: "",
+        beforeSubmit : "",
+        success: labShareSuccess};
+    $('#labDistForm').submit(function(){
+        $(this).ajaxSubmit(shareOptions);
+        return false;
     });
+            
     
-$("#statusBar").on('click','#shareLab',function(){
-            $('#labDistForm').submit().ajaxForm(function() { 
-                alert("The selected labs have been distributed."); 
-                $("#labDistForm").reset();
-            }); 
+                
+    var options = { target: "/dist.php",
+        beforeSubmit : showRequest,
+        success: labShareSuccess};
+               
+    $('#labDistForm').submit(function() {
+        $(this).ajaxSubmit(options);
+        return false; 
     });
+       
+            
+    function showRequest(formData, jqForm, options) {
+        var queryString = $.param(formData);
+                
+        alert('About to submit: \n\n'+ queryString);
+                
+        return true;
+    }
+            
+    function showResponse(responseText, statusText, xhr, $form)  { 
+    
+        alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+            '\n\nThe output div should have already been updated with the responseText.'); 
+    
+    
+        //try out something with POST and data...
+    
+    } 
+            
+</script-->
+
+<script>
+   
+    
+
     
 </script>
-<?php
+<div id="dialog_hider">
+    <div id="delModDialog"> Remove the module from the lab?</div>
+    <div id="editModDialog"> Edit module</div>
+    <div id="delLabDialog"> Delete Lab?</div>
+</div>
 
+</script>
+<?php
 ?>

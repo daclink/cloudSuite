@@ -160,7 +160,7 @@ if (isset($_GET['debug'])) {
                 
                 $("#collections").accordion("refresh");
                 
-            }   
+            }
              
             function loginButtonOpen(uname){
           
@@ -296,7 +296,11 @@ if (isset($_GET['debug'])) {
         </script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+        <script>
+            jQuery.fn.reset = function () {
+                $(this).each (function() { this.reset(); });
+            }
+        </script>
 
     </head>
     <body>
@@ -341,6 +345,7 @@ if (isset($_GET['debug'])) {
 ?>
             
     $(document).ready(function(){
+               
         $("button").click(function(){
             $("#module").load('./rest.php?listModule=true&xmlScheme=<? echo $xmlScheme ?>&xmlFile=<? echo $xmlFile ?>');
         });
@@ -362,7 +367,7 @@ if (isset($_GET['debug'])) {
 <?php
 if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>
-                //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName']   ?>';
+                //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName']          ?>';
                 var prevLab = './cloudCommand/loadLab/<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>';
                 $('#lab').load(prevLab);
                 $('#runLab').attr('name','<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>');
@@ -515,6 +520,16 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         });
     });
             
+    function showResponse(responseText, statusText, xhr, $form)  { 
+    
+        alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+            '\n\nThe output div should have already been updated with the responseText.'); 
+    }
+    
+    function failShare(){
+        alert("fail share called");
+    }
+            
     $('#lab').on('click', '#addModForm-button', function(){ 
     
         var form = $('#addModForm').formSerialize();
@@ -532,6 +547,43 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     $("#task-bar").on('click', '#loginPassContainer', function(){
         $("#login-pass").focus(); 
     });
+    
+    $("#labDistForm").submit(function(){
+        alert("share button pressed button function");
+              
+        var options = { target: "dist.php",
+            beforeSubmit : showRequest,
+            success: labShareSuccess,
+            fail: failShare,
+            type: "POST",
+            resetForm:1 };
+        $("#labDistForm").ajaxSubmit(options);
+      //  $("#labDistForm").reset();
+        return false; 
+    });
+    
+    $("#status-bar").on("click","#shareLab", function(){
+        
+        var form = $('#labDistForm').formSerialize();
+        console.log("form stuff is " + form);
+        console.log("edit mod name " + $('#edit-mod-name').val());        
+        
+        
+        $.post("http://cloudsuite.info/cloudCommand/shareLab",
+                form,
+                function(data,status){
+                    if (status==="success") {
+                        alert("Lab(s) have been distributed");
+                        $("#labDistForm").reset();
+                    } else {
+                        alert("Lab(s) failed to distribute please try again.");
+                    }
+                    
+                }); 
+                
+                
+    });
+    
     
     
     /*  $("body").on('click', 'input', function(){         
@@ -551,7 +603,9 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         })
                         
     }
-        
+    
+    
+    
         </script>
         <div id="dialog_hider">
             <div id="delModDialog"> Remove the module from the lab?</div>

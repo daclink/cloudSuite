@@ -544,7 +544,7 @@ class Lab {
             $lab = simplexml_load_string($response->body);
             $lab->owner = $owner;
             $response = $s3->create_object($bucket, $filename, array('body' => $lab->asXML()));
-            print_r($response);
+            //print_r($response);
             return $response->isOK();
         }
 

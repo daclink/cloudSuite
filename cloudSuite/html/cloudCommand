@@ -25,6 +25,12 @@ require 'Slim/Slim.php';
 
 $app = new Slim();
 
+$app->post('/shareLab', function() {
+          echo "post Dist lab";
+          print_r($_POST);
+          shareLab();
+        });
+
 
 $app->get('/', function() {
             echo '<META HTTP-EQUIV="Refresh" Content="10; URL=http://www.cloudsuite.info">';
@@ -132,32 +138,13 @@ $app->get('/distLab/:uname', function($uname) {
             shareList($uname);
         });
 
-$app->post('/distLab', function() {
-            //echo "hi there!";
-            //echo "<pre";
-            //print_r($_POST);
-
-            foreach ($_REQUEST['userDistBox'] as $user) {
-                echo "<div> $user :";
-
-                foreach ($_REQUEST['labDist'] as $lab) {
-                    echo "<div> $lab </div>";
-                }
-                echo "</div>";
-            }
-
-
-            echo "</pre>";
-        });
-
 $app->get('/labList/:uname', function($uname) {
             cloudLabList($uname);
         });
-        
-$app->delete('/lab/:owner/:filename', function($owner,$filename) {
-    return Lab::cloudRM($owner, $filename);
-}) ;
 
+$app->delete('/lab/:owner/:filename', function($owner, $filename) {
+            return Lab::cloudRM($owner, $filename);
+        });
 
 
 
@@ -341,11 +328,44 @@ function loadLab($uname, $lab) {
     $bucket = "cs.user." . strtolower($user) . ".labs";
 }
 
+function shareTest() {
+    print_r($_POST);
+}
+
+function shareLab() {
+    $s3 = Utils::getS3Instance();
+
+    $source = array('bucket' => '',
+        'filename' => '');
+    $dest = $source;
+
+    if (!isset($_POST['uname'])) {
+        return false;
+    }
+    
+    $source['bucket'] = 'cs.user.' . strtolower($_POST['uname']) . '.labs';
+
+    foreach ($_POST['labDist'] as $lab) {
+        
+        $source['filename'] = $lab;
+        $dest['filename'] = $lab;
+        foreach ($_POST['userDistBox'] as $user) {
+            $dest['bucket'] = 'cs.user.' . strtolower($user) . '.labs';
+            $response = $s3->copy_object($source, $dest);
+            //print_r($response);
+            echo Lab::cloudCHOWN($user, $lab);
+        
+        }
+    }
+}
+
 function defaulto() {
-    echo "<html>
-            <head> <title>gah</title></head>
-            <body>Well sir</body>
-        </html>";
+    echo "post :";
+    print_r($_POST);
+    echo "\n<b/>";
+    echo "get :";
+    print_r($_GET);
+    echo "\n<b/>";
 }
 
 function cloudLabList($uname) {
@@ -380,10 +400,10 @@ function cloudLabList($uname) {
 function shareList($uname) {
     $s3 = Utils::getS3Instance();
     if (strtolower($uname) != 'aj') {
-        echo "things!";
+
         return;
     }
-    echo '<form id="labDistForm" action="./dist.php" method="post">';
+    echo '<form id="labDistForm"method="post">';
     echo "<input id='uname' type='hidden' value='$uname' name='uname' />";
 
     $bucket = "cs.user";
@@ -427,12 +447,13 @@ function shareList($uname) {
     }
     echo "</fieldset>";
 
-    echo '<input id="distLabButton" type="submit" class="chiClick csshadow" value="Distribute Labs" />';
+    //echo '<input id="distLabButton" type="submit" class="chiClick csshadow" value="Distribute Labs" />';
+    //echo '<button id="shareLabButton" >Distribute Labs</button>';
+
     echo '</form>';
 }
 
 function rmLab($owner, $filname) {
     return Lab::cloudRM($owner, $filename);
 }
-
 ?> 

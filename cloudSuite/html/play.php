@@ -16,7 +16,7 @@ if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php')) {
  */
 
 /* %******************************************************************************************% */
-session_start();
+/*session_start();
 //$_SESSION['cs']['lab'] = 'foo';
 if (isset($_SESSION['cs']['username'])) {
     $_ENV['cs']['username'] = $_SESSION['cs']['username'];
@@ -43,6 +43,8 @@ if ($s3->if_bucket_exists($bucket) ) {
     print_r($response);
 echo "</pre>";  
 }
-
+*/
+echo "<div>Hi</div>";
+print_r($_REQUEST);
 
 ?>

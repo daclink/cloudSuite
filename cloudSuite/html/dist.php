@@ -40,13 +40,11 @@ $source['bucket'] = 'cs.user.'.strtolower($_POST['uname']).'.labs';
 echo "<pre>";
 print_r($_POST);
 
-
-
-foreach ($_REQUEST['labDist'] as $lab) {
+foreach ($_POST['labDist'] as $lab) {
     echo "<div> $lab : ";
 $source['filename'] = $lab;
 $dest['filename'] = $lab;
-    foreach ($_REQUEST['userDistBox'] as $user) {
+    foreach ($_POST['userDistBox'] as $user) {
      $dest['bucket'] =  'cs.user.'.strtolower($user).'.labs';
      $response = $s3->copy_object($source, $dest);
      //print_r($response);

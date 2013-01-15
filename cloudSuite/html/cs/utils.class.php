@@ -5,6 +5,8 @@
  *
  * @author Drew A. Clinkenbeard
  */
+include_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'aws' . DIRECTORY_SEPARATOR . 'sdk-1.5.15' . DIRECTORY_SEPARATOR . 'sdk.class.php';
+
 class Utils {
 
     public static function genID() {
@@ -180,9 +182,9 @@ class Utils {
      * 
      */
     public static function formatLab($lab, $source=false) {
-        if($source){
+        if ($source) {
             $lab = simplexml_load_string($lab);
-        } else  {
+        } else {
             $lab = $lab->getSimpleXML();
         }
         $labname = $lab['labName'];
@@ -206,7 +208,7 @@ class Utils {
             $return = $return . "<div onclick=\"editMod(" . $module['id'] . "," . $lab['id'] . ", '" . $module['moduleName'] . "')\" id=\"" . $module['id'] . "_edit\" class=\"status-bar-item labDisplay labButton\">Edit</div>";
             $return = $return . "</div>\n";
         }
-        $return = $return . "<div onclick=\"delLab('".$filename."')\" class=\"status-bar-item labDisplay labButton\">Delete $labname</div>";
+        $return = $return . "<div onclick=\"delLab('" . $filename . "')\" class=\"status-bar-item labDisplay labButton\">Delete $labname</div>";
 
         return $return;
     }
@@ -222,6 +224,7 @@ class Utils {
     }
 
     public static function getEC2Instance() {
+
         if (isset($_SESSION['cs']['aws']['credntials'])) {
             $awsCredentials = $_SESSION['cs']['aws']['credntials'];
         } else {
@@ -229,6 +232,46 @@ class Utils {
         }
 
         return new AmazonEC2($awsCredentials);
+    }
+
+    public static function getServerStatus($uname) {
+        $ec2 = Utils::getEC2Instance();
+
+        if ($uname != "AJ") {
+            return;
+        }
+        echo "<h2>Server Status</h2>";
+        //16 == running
+        //80 == stopped
+        $response = $ec2->describe_instances();
+        echo "<div>Server Status for : " . $response->body->reservationSet->item->instancesSet->item->imageId . "</div>";
+        echo "<div>Instance Type : " . $response->body->reservationSet->item->instancesSet->item->instanceType . "</div>";
+        $startTime = date('Y M d H:i:s', strtotime($response->body->reservationSet->item->instancesSet->item->launchTime));
+        echo "<div>Launch Time : $startTime </div>";
+
+        //echo "<pre>";
+        //print_r($response);
+        //echo "</pre>";
+        $code = $response->body->reservationSet->item->instancesSet->item->instanceState->code;
+        $code = intval($code);
+        $name = $response->body->reservationSet->item->instancesSet->item->instanceState->name;
+        echo "<div id='serverCode' name='$code'> Status : $name </div>";
+        echo "<div id='statusDiv'></div>";
+        if ($code == 80) {
+            $loop = false;
+            echo "<div id='startServer' class='module adminDisplay chiClick cssshadow'>Start</div>";
+        }  elseif ($code == 16) {
+            $loop = false;
+            echo "<div id='stopServer' class='module adminDisplay chiClick cssshadow'>Stop</div>";
+        } else {
+            echo "<div id='refreshServer' class='module adminDisplay chiClick cssshadow'>Refresh</div>";
+        } 
+
+
+        // echo "<pre>";
+        //print_r($response->body->reservationSet->item->instancesSet->item->instanceState);
+        //print_r($response->body->reservationSet);
+        // echo "</pre>";
     }
 
 }

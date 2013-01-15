@@ -37,7 +37,7 @@ $app->get('/', function() {
             echo '<div> <a href="http://www.cloudsuite.info">Click here if you are not redirected in 10 seconds</a></div>';
         });
 
-$app->post('/:func', function ($func) {
+$app->post('/testFunc/:func', function ($func) {
             switch ($func) {
                 case "ec2" :
                     ec2();
@@ -138,10 +138,25 @@ $app->get('/distLab/:uname', function($uname) {
             shareList($uname);
         });
 
+$app->get('/server/:uname', function($uname){
+    
+    echo Utils::getServerStatus($uname);
+    
+    
+});
+        
 $app->get('/labList/:uname', function($uname) {
             cloudLabList($uname);
         });
 
+$app->put('/startServer/:uname/:instance_id',function($uname, $instance_id){
+            startServer($uname, $instance_id);
+});
+
+$app->put('/stopServer/:uname/:instance_id',function($uname, $instance_id){
+            stopServer($uname, $instance_id);
+});
+        
 $app->delete('/lab/:owner/:filename', function($owner, $filename) {
             return Lab::cloudRM($owner, $filename);
         });
@@ -162,7 +177,6 @@ function ec2() {
                 'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
                 'secret' => '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'
             ));
-
 
 
     $instance_id = 'i-6f8d0812';
@@ -399,10 +413,12 @@ function cloudLabList($uname) {
 
 function shareList($uname) {
     $s3 = Utils::getS3Instance();
+    
     if (strtolower($uname) != 'aj') {
 
         return;
     }
+    echo "<h2>Distribute Labs </h2>";
     echo '<form id="labDistForm"method="post">';
     echo "<input id='uname' type='hidden' value='$uname' name='uname' />";
 
@@ -456,4 +472,25 @@ function shareList($uname) {
 function rmLab($owner, $filname) {
     return Lab::cloudRM($owner, $filename);
 }
+
+function startServer($uname, $instance_id= 'i-6f8d0812') {
+     $instance_id = 'i-6f8d0812';
+
+    $ec2 = Utils::getEC2Instance();
+     
+    $response = $ec2->start_instances($instance_id);
+    
+    Utils::getServerStatus($uname);
+}
+
+function stopServer($uname, $instance_id= 'i-6f8d0812') {
+     
+    $ec2 = Utils::getEC2Instance();
+     
+    $response = $ec2->stop_instances($instance_id);
+    
+    
+    //Utils::getServerStatus($uname);
+}
+
 ?> 

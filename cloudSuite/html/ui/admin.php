@@ -1,6 +1,11 @@
 <?php ?>
 
 <div id="adminSection">
+    
+    <div id="serverStat" class="admin-content">
+        
+    </div>
+    
     <div id="distLab" class="admin-content">
 
     </div>

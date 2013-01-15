@@ -367,7 +367,7 @@ if (isset($_GET['debug'])) {
 <?php
 if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>
-                //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName']          ?>';
+                //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName']              ?>';
                 var prevLab = './cloudCommand/loadLab/<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>';
                 $('#lab').load(prevLab);
                 $('#runLab').attr('name','<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>');
@@ -425,6 +425,7 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
             
     $("#task-bar").on('click','#adminButton',function(){
         taskBarClick('div.adminDisplay','#adminButton');
+        $("#serverStat").load("./cloudCommand/server/"+$("#task-bar").data("uname"));
         $("#distLab").load("./cloudCommand/distLab/"+$("#task-bar").data("uname"));
     });
              
@@ -558,7 +559,7 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
             type: "POST",
             resetForm:1 };
         $("#labDistForm").ajaxSubmit(options);
-      //  $("#labDistForm").reset();
+        //  $("#labDistForm").reset();
         return false; 
     });
     
@@ -570,20 +571,74 @@ if (isset($_SESSION['cs'][$uname]['labFileName'])) {
         
         
         $.post("http://cloudsuite.info/cloudCommand/shareLab",
-                form,
-                function(data,status){
-                    if (status==="success") {
-                        alert("Lab(s) have been distributed");
-                        $("#labDistForm").reset();
-                    } else {
-                        alert("Lab(s) failed to distribute please try again.");
-                    }
+        form,
+        function(data,status){
+            if (status==="success") {
+                alert("Lab(s) have been distributed");
+                $("#labDistForm").reset();
+            } else {
+                alert("Lab(s) failed to distribute please try again.");
+            }
                     
-                }); 
+        }); 
                 
                 
     });
     
+    function statusMessage(){
+        
+        var loop = true;
+        while(loop) {
+            console.log("looping...");
+            if($("#serverCode").name == "80" || $("#serverCode").name == "16") {
+                $("#serverCode").html("woo");
+                $("#serverStat").load("./cloudCommand/server/"+$("#task-bar").data("uname"));
+                loop = false;
+            } else {
+                $("#serverCode").html("wait for it...");
+                $("#serverStat").load("./cloudCommand/server/"+$("#task-bar").data("uname"));
+            }
+        }
+     
+    }
+    
+    $("#serverStat").on('click', '#startServer', function(){
+        $.ajax({
+            url : "cloudCommand/startServer/"+$("#task-bar").data("uname")+"/i-6f8d0812",
+            type: "put"
+        }).done(function(){
+            $("#serverStat").load("./cloudCommand/server/"+$("#task-bar").data("uname"));
+                
+         
+        });
+    });
+    
+    $("#serverStat").on('click', '#stopServer', function(){
+        
+        $.ajax({
+            url : "cloudCommand/stopServer/"+$("#task-bar").data("uname")+"/i-6f8d0812",
+            type: "put"
+        }).done(function(){
+            $("#serverStat").load("./cloudCommand/server/"+$("#task-bar").data("uname"));
+                
+         
+        });
+        
+    });
+ 
+    
+    $("#serverStat").on('click', '#refreshServer', function(){
+    
+    //    $("#statusDiv").html("Refreshing ...");
+       /*
+       if (codeNum === 64) {
+            alert('woo! 64');
+        }else {
+            alert("boo");
+        }*/
+        //alert("codeVal is " + codeVal +" Code num is " + codeNum);  
+        $("#serverStat").load("./cloudCommand/server/"+$("#task-bar").data("uname"));
+    });
     
     
     /*  $("body").on('click', 'input', function(){         

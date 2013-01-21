@@ -70,12 +70,25 @@ class User {
             
             $_SESSION['cs']['username'] = $uname;
             $_ENV['cs']['username'] = $uname;
-            setcookie('cs_uname',$uname);
+            setcookie("cookie[cs_uname]",$uname);
             return 1;
            // return array ($id => $name);
         }
         
         return false;
+    }
+    
+    
+    public static function checkSession(){
+        if (isset($_SESSION['cs']['username'])) {
+            return $_SESSION['cs']['username'];
+        }
+        
+        if (isset($_COOKIE['cs_uname'])){
+            return $_COOKIE['cs_uname'];
+        }
+        
+        else return false;
     }
     
     public static function logout () {

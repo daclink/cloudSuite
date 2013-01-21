@@ -118,6 +118,7 @@ xmlns:cs="http://cloudsuite.info"-->
                 <xsd:element ref="methodName" />
                 <xsd:element ref="createdBy" />
                 <xsd:element ref="dateCreated" />
+                <xsd:element ref="data" minOccurs="0"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
             <xsd:attribute ref="name" use="required"/>

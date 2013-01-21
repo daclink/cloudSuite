@@ -161,6 +161,9 @@ $app->delete('/lab/:owner/:filename', function($owner, $filename) {
             return Lab::cloudRM($owner, $filename);
         });
 
+$app->get('/labLister/:uname', function($uname){
+    Lab::cloudListLabs($uname);
+});
 
 
 /* SUPER IMPORTANT */

@@ -17,16 +17,32 @@ if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php')) {
 /* %******************************************************************************************% */
 session_start();
 //$_SESSION['cs']['lab'] = 'foo';
+
+include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
+
+if (User::checkSession()) {
+    $uname = User::checkSession();
+}
+
 if (isset($_SESSION['cs']['username'])) {
     $_ENV['cs']['username'] = $_SESSION['cs']['username'];
     $uname = $_SESSION['cs']['username'];
+    
+} elseif(isset($_COOKIE['cs_uname'])) {
+    $uname = $_COOKIE['cs_username'];
+    $_SESSION['cs']['username'] = $uname;
+}else{
+    setcookie("cs_username");
 }
-include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
 
 if (isset($_GET['debug'])) {
 
     $_ENV['cs']['debug'] = $_GET['debug'];
 }
+
+    //Utils::showStuff($uname,"User name");
+    //Utils::showStuff($_COOKIE, "Cookie");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -140,6 +156,7 @@ if (isset($_GET['debug'])) {
                   
                     if (msg == "1") {
                         $('#username').html(var_uname);
+                        $('#username').attr("name",var_uname);
                         $('#username').attr('onclick',"loginButtonOpen('"+var_uname+"')");
                         $('#logout').html("Log out " + var_uname +"?");
                         loginButtonClose();
@@ -363,21 +380,26 @@ if (isset($_GET['debug'])) {
         $("#labList").hide();
         $("div.logged-in-item").hide();
         taskBarClick('div.labDisplay','#labButton');
-                 
+      /*           
 <?php
 if (isset($_SESSION['cs'][$uname]['labFileName'])) {
     ?>
+            alert('lab name..')
                 //var prevLab = './rest.php?loadLabByFileName=<?php //echo $_SESSION['cs'][$uname]['labFileName']              ?>';
-                var prevLab = './cloudCommand/loadLab/<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>';
+                var prevLab = './cloudCommand/loadLab/<?php echo $_SESSION['cs'][$uname]['labFileName']; ?>';
                 $('#lab').load(prevLab);
-                $('#runLab').attr('name','<?php echo $_SESSION['cs'][$uname]['labFileName'] ?>');
+                $('#runLab').attr('name','<?php echo $_SESSION['cs'][$uname]['labFileName']; ?>');
                 loadQueued();
 <?php } elseif (isset($_SESSION['cs']['username'])) { ?>
-            $('#lab').load('./rest.php?listLab=true');
+            alert('no lab name..');
+            alert('name is :  <?php echo $_SESSION['cs']['username']; ?>');
+            $('#lab').load('./rest.php?listLab=true&uname=<?php echo $_SESSION['cs']['username']; ?>');
             loadQueued();
 <?php } else { ?>
+    alert('Default..')
             $('#lab').load('./ui/defaultLabDisplay.php');
 <?php } ?>
+    */
     });
             
     $("div.modList").live('click', function() {

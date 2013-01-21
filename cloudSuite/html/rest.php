@@ -142,11 +142,13 @@ if (isset($_GET['newModule'])){
      echo "</pre>";*/    
 }
 
-if (isset($_GET['listLab'])){
+if (isset($_GET['listLab']) && isset($_GET['uname'])){
     //echo $_GET['listLab'];
-    $labs =  Utils::returnFiles($_ENV['cs']['labs_dir']);
-    if(isset($_SESSION['cs']['username'])){
-        $uname = $_SESSION['cs']['username'];
+    
+    $uname = $_GET['uname'];
+    $labs = Lab::cloudListLabs($uname);
+    if(count($labs)>0){
+       
         natcasesort($labs);
         foreach ($labs as $lab) {
             $labFile = Lab::loadLab($_ENV['cs']['labs_dir'] . $lab);

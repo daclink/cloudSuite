@@ -286,6 +286,13 @@ class Lab {
         return $response->isOK();
     }
 
+  public static function cloudListLabs($uname) {
+      $s3 = Utils::getS3Instance();
+      
+      $bucket = "cs.user." . strtolower($uname) . ".labs";
+      return $s3->get_object_list($bucket);
+  }
+    
     /**
      *
      * @param SimpleXMLElement $moduleXML 

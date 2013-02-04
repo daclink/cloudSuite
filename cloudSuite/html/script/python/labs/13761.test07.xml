@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<lab id="13761" labName="test07">
+  <owner>Drew</owner>
+  <description>labTest</description>
+  <permissions>
+    <owner>7</owner>
+    <group>4</group>
+    <everyone>4</everyone>
+  </permissions>
+  <lastRunDate>0</lastRunDate>
+  <lastRunUser>0</lastRunUser>
+  <module id="13800" moduleName="hash_crack">
+    <seqNumber>1</seqNumber>
+    <method>hashCrack</method>
+    <xmlrpcString>-i shadow --dictionaries english, </xmlrpcString>
+    <filename>232.hash_crack.xml</filename>
+    <description>A method for cracking hashes</description>
+  </module>
+  <module id="13971" moduleName="ga">
+    <seqNumber>3</seqNumber>
+    <method/>
+    <xmlrpcString>crossover -single, </xmlrpcString>
+    <filename>7.ga.xml</filename>
+    <description>Use a Genetic Algorithm to optimize data</description>
+  </module>
+  <module id="14424" moduleName="ga">
+    <seqNumber>3</seqNumber>
+    <method/>
+    <xmlrpcString/>
+    <filename>7.ga.xml</filename>
+    <description>Use a Genetic Algorithm to optimize data</description>
+  </module>
+</lab>

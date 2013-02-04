@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<lab id="10429" labName="CloudSuite_lab_001">
+  <owner>AJ</owner>
+  <description>A lab for demos and screen shots.</description>
+  <permissions>
+    <owner>7</owner>
+    <group>4</group>
+    <everyone>4</everyone>
+  </permissions>
+  <lastRunDate>0</lastRunDate>
+  <lastRunUser>0</lastRunUser>
+  <module id="12935" moduleName="ga">
+    <seqNumber>1</seqNumber>
+    <method/>
+    <xmlrpcString>one</xmlrpcString>
+    <filename>7.ga.xml</filename>
+  </module>
+  <module id="12938" moduleName="graphs">
+    <seqNumber>2</seqNumber>
+    <method>rsaEncryptor</method>
+    <xmlrpcString>one</xmlrpcString>
+    <filename>11.graphs.xml</filename>
+  </module>
+  <module id="12944" moduleName="hash_crack">
+    <seqNumber>4</seqNumber>
+    <method>hashCrack</method>
+    <xmlrpcString>one</xmlrpcString>
+    <filename>232.hash_crack.xml</filename>
+  </module>
+  <module id="12949" moduleName="graphs">
+    <seqNumber>4</seqNumber>
+    <method>rsaEncryptor</method>
+    <xmlrpcString>one</xmlrpcString>
+    <filename>11.graphs.xml</filename>
+  </module>
+</lab>

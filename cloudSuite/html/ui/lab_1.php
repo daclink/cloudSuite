@@ -81,7 +81,7 @@ if (isset($_SESSION['cs']['username']) || isset($_GET['uname'])) {
     if (!$s3->if_bucket_exists($bucket)) {
         $s3->create_bucket($bucket, AmazonS3::REGION_US_E1);
     }
-
+ 
     $response = $s3->get_object_list($bucket);
 
     echo "<div class='collection-list'>";

@@ -47,7 +47,7 @@
         <group>4</group>
         <groupname></groupname>
     </permissions>
-    <methodName>ga</methodName>
+    <methodName>ga.py</methodName>
     <createdBy>Drew</createdBy>
     <dateCreated>20120505</dateCreated>
 

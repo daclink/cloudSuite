@@ -42,6 +42,7 @@ xmlns:cs="http://cloudsuite.info"-->
     <xsd:element name="dateCreated" type="xsd:string"/>
     <xsd:element name="legend" type="xsd:string" />
     <xsd:element name="selected" type="xsd:string" />
+    <xsd:element name="data" type="xsd:string" />
     
     <!-- define attributes-->
     <xsd:attribute name="name" type="xsd:string" />

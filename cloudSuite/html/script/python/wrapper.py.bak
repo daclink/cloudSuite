@@ -2,16 +2,35 @@
 from elementtree.ElementTree import Element, SubElement, dump, ElementTree
 from elementtree.ElementTree import Comment
 from ElementTree_pretty import prettify
-import indent 
 
 class Wrapper:
-    
-    #def modMaker(self):           
-    def __init__(self, mod_id=0,mod_name=""):
-        self.mod_id=mod_id
-        self.mod_name=mod_name
-        self.mod = Element("module", id=self.mod_id, name=self.mod_name) 
-        module = Element("module", id=self.mod_id, name=self.mod_name)
+
+    def __init__(self):
+
+    def indent(elem, level=0):
+        i = "\n" + level*"  "
+        if len(elem):
+            if not elem.text or not elem.text.strip():
+                elem.text = i + "  "
+            if not elem.tail or not elem.tail.strip():
+                elem.tail = i
+            for elem in elem:
+                indent(elem, level+1)
+            if not elem.tail or not elem.tail.strip():
+                elem.tail = i
+        else:
+            if level and (not elem.tail or not elem.tail.strip()):
+                elem.tail = i
+
+    def setID (self,mod_id):
+        self.mod_id = mod_id
+    def setName (self,mod_name):
+        self.mod_name = mod_name
+    def setData (self, mod_data):
+        self.mod_data = mod_data
+
+    def createModule (self):
+        module = Element("module", id="file",name="thing")
 
         moduleType  = SubElement(module, "moduleType").text = "data"
         description = SubElement(module, "description")
@@ -44,10 +63,6 @@ class Wrapper:
         createdBy   = SubElement(module, "createdBy")
         dateCreated = SubElement(module, "dateCreated")
         data        = SubElement(module, "data")
-
-        self.mod = module
-        print "end of line"
-
         '''
         window = Element("window")
 
@@ -61,27 +76,8 @@ class Wrapper:
         #indent(window)
         #dump(window)
         '''
-    @staticmethod
-    def indent(elem, level=0):
-        i = "\n" + level*" "
-        if len(elem):
-            if not elem.text or not elem.text.strip():
-                elem.text = i + " "
-            if not elem.tail or not elem.tail.strip():
-                elem.tail = i
-            for elem in elem:
-                indent(elem, level+1)
-            if not elem.tail or not elem.tail.strip():
-                elem.tail = i
-        else:
-            if level and (not elem.tail or not elem.tail.strip()):
-                elem.tail = i
-
-    def dump_mod(self):
-        self.indent(self.mod)
-        dump(self.mod)
-
-    #@staticmethod
-    def writeMod(self):
-        ElementTree(self.module).write("testMod.xml", xml_declaration=True)
+    def writeModule(self):
+        indent(module)
+        dump(module)
+        ElementTree(module).write("testMod.xml", xml_declaration=True)
 

@@ -35,7 +35,8 @@
         <group>4</group>
         <groupname>awesome</groupname>
     </permissions>
-    <methodName>grapher</methodName>
+    <methodName>grapher.py</methodName>
     <createdBy>Drew</createdBy>
     <dateCreated>20120505</dateCreated>
+    <data/>
 </module>

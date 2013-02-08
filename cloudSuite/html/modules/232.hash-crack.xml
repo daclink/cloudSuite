@@ -71,7 +71,7 @@
         <group>4</group>
         <groupname>awesome</groupname>
     </permissions>
-    <methodName>hashCrack</methodName>
+    <methodName>hashCrack.py</methodName>
     <createdBy>drew</createdBy>
     <dateCreated>20120416</dateCreated>
 

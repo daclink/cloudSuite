@@ -3,6 +3,7 @@ from elementtree.ElementTree import Element, SubElement, dump, ElementTree, pars
 from elementtree.ElementTree import Comment
 from ElementTree_pretty import prettify
 from optparse import OptionParser as OP
+from subprocess import check_output
 
 #use BOTO to copy files
 

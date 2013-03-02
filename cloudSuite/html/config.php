@@ -12,6 +12,8 @@
  $_ENV['cs']['module_dir'] = $__ROOT . 'modules'.DIRECTORY_SEPARATOR;
  $_ENV['cs']['css'] = $__ROOT . 'script' .DIRECTORY_SEPARATOR;
  
+ $_ENV['cs']['datawarehouse'] = 'cloudsuite.data.warehouse';
+ 
  $_ENV['cs']['groupFile'] = 'cloudsuite.info/group'.DIRECTORY_SEPARATOR ."group.xml";
  
 //Clearance level required to delete

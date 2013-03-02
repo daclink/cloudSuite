@@ -8,46 +8,45 @@ from boto.s3.key import Key
 from cs_error import *
 import boto, sys, time, os
 
-logfile = os.environ['HOME'] + '/cs_log/module.log'
-logfile = open(logfile,'a')
+logdir = os.environ['HOME'] + '/cs_log/module.log'
+logfile = open(logdir,'a')
 
 error = False
 cause = ""
 
 def indent(elem, level=0):
-    i = "\n" + level*" "
-    if len(elem):
-        if not elem.text or not elem.text.strip():
-            elem.text = i + " "
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-        for elem in elem:
-            indent(elem, level+1)
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-    else:
-        if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = i
+	i = "\n" + level*" "
+	if len(elem):
+		if not elem.text or not elem.text.strip():
+			elem.text = i + " "
+		if not elem.tail or not elem.tail.strip():
+			elem.tail = i
+		for elem in elem:
+			indent(elem, level+1)
+		if not elem.tail or not elem.tail.strip():
+			elem.tail = i
+	else:
+		if level and (not elem.tail or not elem.tail.strip()):
+			elem.tail = i
 
 parser = OP()
 '''
 #These options are necessary for ALL modules.
 '''
 parser.add_option("-u", "--username", dest="username",
-                        help="the user who will own the file")
+						help="the user who will own the file")
 parser.add_option("-m", "--modname", dest="mod_name",
-                        help="The name for the module")
+						help="The name for the module")
 parser.add_option("--not_unique)", dest="not_unique", action="store_true",
-                        help="the name of the originating lab.")
+						help="the name of the originating lab.")
 parser.add_option("--labname", dest="labname",
-                        help="the name of the originating lab.")
+						help="the name of the originating lab.")
 '''
 # Modify these options as necessary for the module
-parser.add_option("--crossover", dest="crossover",
-                        help="Type of crossover to use")
 '''
-parser.add_option("--", dest="",
-                        help="")
+parser.add_option("--crossover", dest="crossover",
+						help="Type of crossover to use")
+
 (options, args) = parser.parse_args()
 
 if (not options.username == None):
@@ -58,30 +57,26 @@ else:
     cause = cause + "No username supplied\n"
 
 if (not options.mod_name == None):
-    mod_name = options.mod_name
+	mod_name = options.mod_name
 else:
-    cause = cause + "No Module name supplied\n"
-    error = True
+	cause = cause + "No Module name supplied\n"
+	error = True
 
+print "before labname"
 
 if (not options.labname == None):
+    print "labname is not none"
     labname = options.labname
 else:
     cause = cause + "No labname supplied\n"
     error = True
-'''
-An example of how to check for input
+    print "labname IS none"
+
 if (not options.crossover == None):
-    crossover = options.crossover
+	crossover = options.crossover
 else:
-    cause = cause + "No crossover specified\n"
-    error = True
-'''
-if (not options. == None):
-     = options.
-else:
-    cause = cause + "No  specified\n"
-    error = True
+	cause = cause + "No crossover specified\n"
+	error = True
 
 if (not error):
     executable ="ga/ga.exe -c "+crossover
@@ -89,7 +84,7 @@ if (not error):
         output = check_output(executable ,shell=True)
     except:
         error = True
-        cause = "\""+executable +"\" exited with status code "
+        cause = "\n There was a problem running :\n"+executable
 
 mod_data = "Command called:\n"
 
@@ -186,6 +181,7 @@ logfile.write("data == " + data + "\n")
 logfile.close()
 
 try:
+    logfile = open(logdir,'a')
     logfile.write("bucket == " + bucket +"\n")
     logfile.write("filename == " + filename +"\n")
     logfile.write("bucket = cloudsuite.data.warehouse"+"\n")

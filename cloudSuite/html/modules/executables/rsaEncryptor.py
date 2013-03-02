@@ -8,8 +8,8 @@ from boto.s3.key import Key
 from cs_error import *
 import boto, sys, time, os
 
-logfile = os.environ['HOME'] + '/cs_log/module.log'
-logfile = open(logfile,'a')
+logdir = os.environ['HOME'] + '/cs_log/module.log'
+logfile = open(logdir,'a')
 
 error = False
 cause = ""
@@ -43,11 +43,18 @@ parser.add_option("--labname", dest="labname",
                         help="the name of the originating lab.")
 '''
 # Modify these options as necessary for the module
-parser.add_option("--crossover", dest="crossover",
-                        help="Type of crossover to use")
 '''
-parser.add_option("--", dest="",
-                        help="")
+parser.add_option("--EnDe", dest="ende",
+                        help="encrypt or decrypt")
+parser.add_option("--in", dest="infile",
+                        help="the file to encrypt/decrypt")
+parser.add_option("--out", dest="outfile",
+                        help="the name of the output file")
+parser.add_option("--inkey", dest="inkey",
+                        help="The key to use when encrypting")
+parser.add_option("--pubin", dest="pubin",
+                        help="the public key used for decryption")
+
 (options, args) = parser.parse_args()
 
 if (not options.username == None):
@@ -69,27 +76,45 @@ if (not options.labname == None):
 else:
     cause = cause + "No labname supplied\n"
     error = True
-'''
-An example of how to check for input
-if (not options.crossover == None):
-    crossover = options.crossover
+#Custom input checking
+
+if (not options.ende == None):
+     ende = options.ende
 else:
-    cause = cause + "No crossover specified\n"
+    cause = cause + "Encrypt or Decrypt not specified\n"
     error = True
 '''
-if (not options. == None):
-     = options.
+if (not options.infile == None):
+     infile = options.infile
 else:
-    cause = cause + "No  specified\n"
+    cause = cause + "No input file specified\n"
     error = True
 
+if (not options.outfile == None):
+     outfile = options.outfile
+else:
+    cause = cause + "No output file specified\n"
+    error = True
+
+if (not options.inkey == None):
+     inkey = options.inkey
+else:
+    cause = cause + "No encryption key specified\n"
+    error = True
+
+if (not options.pubin == None):
+    pubin = options.pubin
+else:
+    cause = cause + "No public key supplied\n"
+    error = True
+'''
 if (not error):
-    executable ="ga/ga.exe -c "+crossover
+    executable ="rsa/rsa.exe"
     try:
         output = check_output(executable ,shell=True)
     except:
         error = True
-        cause = "\""+executable +"\" exited with status code "
+        cause = "\""+executable +"\" exited with status code " + output
 
 mod_data = "Command called:\n"
 
@@ -186,6 +211,7 @@ logfile.write("data == " + data + "\n")
 logfile.close()
 
 try:
+    logfile = open(logdir,'a')
     logfile.write("bucket == " + bucket +"\n")
     logfile.write("filename == " + filename +"\n")
     logfile.write("bucket = cloudsuite.data.warehouse"+"\n")

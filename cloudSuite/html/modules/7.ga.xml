@@ -20,8 +20,8 @@
         <legend>Crossover</legend>
         <element id="8">
             <type>radio</type>
-            <name>crossover[]</name>
-            <value>-single</value>
+            <name>--crossover</name>
+            <value>single</value>
             <description>Choose a single crossover point randomly</description>
             <input></input>
             <output></output>
@@ -31,8 +31,8 @@
         </element>
         <element id="9">
             <type>radio</type>
-            <name>crossover[]</name>
-            <value>-double</value>
+            <name>--crossover</name>
+            <value>double</value>
             <description>Choose two crossover points randomly</description>
             <input></input>
             <output></output>
@@ -47,7 +47,7 @@
         <group>4</group>
         <groupname></groupname>
     </permissions>
-    <methodName>ga</methodName>
+    <methodName>ga.py</methodName>
     <createdBy>Drew</createdBy>
     <dateCreated>20120505</dateCreated>
 

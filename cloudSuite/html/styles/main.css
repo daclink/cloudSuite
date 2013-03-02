@@ -102,6 +102,15 @@ div.collection-list {
     margin-left: 6%;
     padding-left: 1%;
 }
+#startServer {
+    width :25%;
+}
+#stopServer {
+    width :25%;
+}
+#refreshServer {
+    width :25%;
+}
 #distLab {
     width: 86%;
     height: 65%;

@@ -19,7 +19,7 @@
         <legend>Hash File</legend>
         <element id="234">
             <type>text</type>
-            <name>-i</name>
+            <name>--infile</name>
             <value></value>
             <description>The file to crack</description>
             <input>text file</input>
@@ -71,7 +71,7 @@
         <group>4</group>
         <groupname>awesome</groupname>
     </permissions>
-    <methodName>hashCrack</methodName>
+    <methodName>hashCrack.py</methodName>
     <createdBy>drew</createdBy>
     <dateCreated>20120416</dateCreated>
 

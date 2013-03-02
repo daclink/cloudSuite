@@ -42,6 +42,8 @@ xmlns:cs="http://cloudsuite.info"-->
     <xsd:element name="dateCreated" type="xsd:string"/>
     <xsd:element name="legend" type="xsd:string" />
     <xsd:element name="selected" type="xsd:string" />
+    <xsd:element name="data" type="xsd:string" />
+    <xsd:element name="lab" type="xsd:string" />
     
     <!-- define attributes-->
     <xsd:attribute name="name" type="xsd:string" />
@@ -119,6 +121,7 @@ xmlns:cs="http://cloudsuite.info"-->
                 <xsd:element ref="createdBy" />
                 <xsd:element ref="dateCreated" />
                 <xsd:element ref="data" minOccurs="0"/>
+                <xsd:element ref="lab" minOccurs="0"/>
             </xsd:sequence>
             <xsd:attribute ref="id" use="required"/>
             <xsd:attribute ref="name" use="required"/>

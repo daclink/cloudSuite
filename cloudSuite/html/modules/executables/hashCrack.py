@@ -8,8 +8,8 @@ from boto.s3.key import Key
 from cs_error import *
 import boto, sys, time, os
 
-logfile = os.environ['HOME'] + '/cs_log/module.log'
-logfile = open(logfile,'a')
+logdir = os.environ['HOME'] + '/cs_log/module.log'
+logfile = open(logdir,'a')
 
 error = False
 cause = ""
@@ -46,8 +46,13 @@ parser.add_option("--labname", dest="labname",
 parser.add_option("--crossover", dest="crossover",
                         help="Type of crossover to use")
 '''
-parser.add_option("--", dest="",
-                        help="")
+parser.add_option("--infile", dest="infile",
+                        help="The file to be cracked")
+
+parser.add_option("--dictionaries", dest="dictionaries",
+                        help="The file to be cracked")
+
+
 (options, args) = parser.parse_args()
 
 if (not options.username == None):
@@ -77,19 +82,26 @@ else:
     cause = cause + "No crossover specified\n"
     error = True
 '''
-if (not options. == None):
-     = options.
+
+if (not options.infile == None):
+     infile = options.infile
 else:
-    cause = cause + "No  specified\n"
+    cause = cause + "No input file specified\n"
+    error = True
+    
+if (not options.dictionaries == None):
+     dictionaries = options.dictionaries
+else:
+    cause = cause + "No dictionary files specified\n"
     error = True
 
 if (not error):
-    executable ="ga/ga.exe -c "+crossover
+    executable ="hash_crack/hash_crack.exe"
     try:
         output = check_output(executable ,shell=True)
     except:
         error = True
-        cause = "\""+executable +"\" exited with status code "
+        cause = "There was a problem running\""+executable+"\"" 
 
 mod_data = "Command called:\n"
 
@@ -186,6 +198,7 @@ logfile.write("data == " + data + "\n")
 logfile.close()
 
 try:
+    logfile = open(logdir,'a')
     logfile.write("bucket == " + bucket +"\n")
     logfile.write("filename == " + filename +"\n")
     logfile.write("bucket = cloudsuite.data.warehouse"+"\n")

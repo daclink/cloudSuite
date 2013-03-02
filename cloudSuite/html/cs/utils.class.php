@@ -57,23 +57,30 @@ class Utils {
     public static function validate($schema, $xmlFile = NULL, $isString=FALSE) {
 //PROPER ERROR AND RETURN
         //Utils::showStuff($xmlFile, 'UTILS XML FILE');
-        Utils::showStuff($schema, 'UTILS SCHEMA');
+        //Utils::showStuff($schema, 'UTILS SCHEMA');
 
         $doc = new DOMDocument();
-
+       
         try {
             if ($isString) {
                 $doc->loadXML($xmlFile);
             } else {
                 $doc->load($xmlFile);
             }
-            if ($doc->schemaValidate($schema)) {
-                return true;
-            } else {
-                return false;
-            }
         } catch (Exception $e) {
             throw new Exception("Could not load $xmlFile", $e->getCode(), $e->getPrevious());
+            return false;
+        }
+       
+        try {
+            if ($doc->schemaValidate($schema)) {
+               return true;
+            } else {
+               return false;
+            }
+        } catch (Exception $e) {
+            echo "Neither";
+            throw new Exception("Could not validate $xmlFile", $e->getCode(), $e->getPrevious());
             return false;
         }
     }
@@ -87,11 +94,15 @@ class Utils {
      */
     public static function load_xml($xmlSchema, $xmlFile, &$xml, $isString=False) {
         if (!Utils::validate($xmlSchema, $xmlFile, $isString)) {
-
             return false;
         }
-        $xml = simplexml_load_file($xmlFile);
-        return true;
+        if($isString){
+            $xml = simplexml_load_String($xmlFile);
+            return true;
+        } else {
+            $xml = simplexml_load_file($xmlFile);
+            return true;
+        }
     }
 
     /**
@@ -222,7 +233,7 @@ class Utils {
         }
         return new AmazonS3($awsCredentials);
     }
-
+    
     public static function getEC2Instance() {
 
         if (isset($_SESSION['cs']['aws']['credntials'])) {
@@ -248,6 +259,8 @@ class Utils {
         echo "<div>Instance Type : " . $response->body->reservationSet->item->instancesSet->item->instanceType . "</div>";
         $startTime = date('Y M d H:i:s', strtotime($response->body->reservationSet->item->instancesSet->item->launchTime));
         echo "<div>Launch Time : $startTime </div>";
+        
+        
 
         //echo "<pre>";
         //print_r($response);
@@ -255,17 +268,21 @@ class Utils {
         $code = $response->body->reservationSet->item->instancesSet->item->instanceState->code;
         $code = intval($code);
         $name = $response->body->reservationSet->item->instancesSet->item->instanceState->name;
+        $dnsname = $response->body->reservationSet->item->instancesSet->item->dnsName;
+        echo "<div id='dnsName'>DNS Name : $dnsname</div>";
+        
+        
         echo "<div id='serverCode' name='$code'> Status : $name </div>";
         echo "<div id='statusDiv'></div>";
         if ($code == 80) {
             $loop = false;
             echo "<div id='startServer' class='module adminDisplay chiClick cssshadow'>Start</div>";
-        }  elseif ($code == 16) {
+        } elseif ($code == 16) {
             $loop = false;
             echo "<div id='stopServer' class='module adminDisplay chiClick cssshadow'>Stop</div>";
         } else {
             echo "<div id='refreshServer' class='module adminDisplay chiClick cssshadow'>Refresh</div>";
-        } 
+        }
 
 
         // echo "<pre>";

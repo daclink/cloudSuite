@@ -81,27 +81,37 @@ if (isset($_SESSION['cs']['username']) || isset($_GET['uname'])) {
     if (!$s3->if_bucket_exists($bucket)) {
         $s3->create_bucket($bucket, AmazonS3::REGION_US_E1);
     }
- 
+
     $response = $s3->get_object_list($bucket);
 
-    echo "<div class='collection-list'>";
-    echo "<h2> $uname's Modules</h2>";
-    echo "<div class='module-list'>"; //div 2
-    //echo $desc[0];
-    echo "Modules that have been created by $uname";
-    echo "<div class='coll-mods'>"; //div3
-    foreach($response as $key => $value) {
-        
-        $module = new SimpleXMLElement($s3->get_object($bucket, $value)->body);
-        $id = $module['id'];
-        //full path to the module.
-        $xmlFile = $_ENV['cs']['module_dir'] . $value;
-                echo "<div id=\"" . $key . "_link\" class=\"chiClick csshadow module\" onclick=\"getModToAdd('$xmlFile')\">" . $module['name'] . " </div>";
-        
+    if ($response) {
+
+        echo "<div class='collection-list'>";
+        echo "<h2> $uname's data</h2>";
+        echo "<div class='module-list'>"; //div 2
+        //echo $desc[0];
+      //  echo "Data created by $uname";
+        echo "<div class='coll-mods'>"; //div3
+        foreach ($response as $key => $value) {
+
+            $module = new SimpleXMLElement($s3->get_object($bucket, $value)->body);
+            $id = $module['id'];
+            //full path to the module.
+            $xmlFile = $_ENV['cs']['module_dir'] . $value;
+            echo "<div id=\"" . $key . "_link\" ";
+            echo " class=\"chiClick csshadow module\" ";
+            echo " onclick=\"getCloudMod('$bucket','$value')\">";
+            echo $module->lab;
+            echo " -> ";
+            echo $module['name'];
+            echo "<br>";
+            echo "generated on : $module->dateCreated";
+            echo "</div>";
+        }
+
+        echo "</div>"; //div3 coll-mods
+        echo "</div>"; //div2 module-list
+        echo "</div>"; //div 1 collection-list
     }
- 
-    echo "</div>"; //div3 coll-mods
-    echo "</div>"; //div2 module-list
-    echo "</div>"; //div 1 collection-list
 }
 ?>

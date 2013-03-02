@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module id="26319" name="neuro">
+ <moduleType>data</moduleType>
+ <description>Data from running end2end5.neuro on Mon Feb 18 00:34:35 2013</description>
+ <systemRequirement>
+  <product />
+  <version />
+ </systemRequirement>
+ <fieldset>
+  <legend />
+  <element>
+   <type />
+   <name />
+   <value />
+   <description />
+   <input />
+   <output />
+  </element>
+ </fieldset>
+ <permissions clearance="">
+  <owner>7</owner>
+  <everyone />
+  <group />
+  <groupname />
+ </permissions>
+ <methodName>neuro.py</methodName>
+ <createdBy>drew</createdBy>
+ <dateCreated>Mon Feb 18 00:34:35 2013</dateCreated>
+ <data>goals.txt</data>
+ <lab>end2end5</lab>
+</module>

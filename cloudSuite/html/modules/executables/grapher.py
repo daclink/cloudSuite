@@ -8,8 +8,8 @@ from boto.s3.key import Key
 from cs_error import *
 import boto, sys, time, os
 
-logfile = os.environ['HOME'] + '/cs_log/module.log'
-logfile = open(logfile,'a')
+logdir = os.environ['HOME'] + '/cs_log/module.log'
+logfile = open(logdir,'a')
 
 error = False
 cause = ""
@@ -43,11 +43,10 @@ parser.add_option("--labname", dest="labname",
                         help="the name of the originating lab.")
 '''
 # Modify these options as necessary for the module
-parser.add_option("--crossover", dest="crossover",
-                        help="Type of crossover to use")
 '''
-parser.add_option("--", dest="",
-                        help="")
+parser.add_option("--in", dest="infile",
+                        help="The CSV file to graph")
+
 (options, args) = parser.parse_args()
 
 if (not options.username == None):
@@ -63,33 +62,25 @@ else:
     cause = cause + "No Module name supplied\n"
     error = True
 
-
 if (not options.labname == None):
     labname = options.labname
 else:
     cause = cause + "No labname supplied\n"
     error = True
-'''
-An example of how to check for input
-if (not options.crossover == None):
-    crossover = options.crossover
+
+if (not options.infile == None):
+    infile = options.infile
 else:
-    cause = cause + "No crossover specified\n"
-    error = True
-'''
-if (not options. == None):
-     = options.
-else:
-    cause = cause + "No  specified\n"
+    cause = cause + "No input file specified\n"
     error = True
 
 if (not error):
-    executable ="ga/ga.exe -c "+crossover
+    executable ="grapher/grapher.exe --input="+infile
     try:
         output = check_output(executable ,shell=True)
     except:
         error = True
-        cause = "\""+executable +"\" exited with status code "
+        cause = "\""+executable +"\" exited with status code " + output
 
 mod_data = "Command called:\n"
 
@@ -186,6 +177,7 @@ logfile.write("data == " + data + "\n")
 logfile.close()
 
 try:
+    logfile = open(logdir,'a')
     logfile.write("bucket == " + bucket +"\n")
     logfile.write("filename == " + filename +"\n")
     logfile.write("bucket = cloudsuite.data.warehouse"+"\n")

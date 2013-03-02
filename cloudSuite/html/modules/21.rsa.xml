@@ -19,7 +19,7 @@
         <legend>Encrypt or Decrypt</legend>
         <element id="300">
             <type>radio</type>
-            <name>--EnDe[]</name>
+            <name>--EnDe</name>
             <value>encrypt</value>
             <description>Encrypt file using RSA with provided key.</description>
             <input></input>
@@ -30,7 +30,7 @@
         </element>
         <element id="301">
             <type>radio</type>
-            <name>--EnDe[]</name>
+            <name>--EnDe</name>
             <value>decrypt</value>
             <description>Decrypt a file using RSA with provided key.</description>
             <input></input>
@@ -44,7 +44,7 @@
         <legend>Files</legend>
         <element id="302">
             <type>text</type>
-            <name>-in</name>
+            <name>--in</name>
             <value></value>
             <description>File to encrypt/decrypt</description>
             <input>TextFile</input>
@@ -55,7 +55,7 @@
         </element>
         <element id="305">
             <type>text</type>
-            <name>-out</name>
+            <name>--out</name>
             <value></value>
             <description>Name of output file</description>
             <input>TextFile</input>
@@ -66,7 +66,7 @@
         </element>
         <element id="303">
             <type>text</type>
-            <name>-inkey</name>
+            <name>--inkey</name>
             <value></value>
             <description>Key used to encrypt/decrypt</description>
             <input>KeyFile</input>
@@ -77,7 +77,7 @@
         </element>
         <element id="304">
             <type>text</type>
-            <name>-pubin</name>
+            <name>--pubin</name>
             <value></value>
             <description>Public key used to encrypt/decrypt</description>
             <input>KeyFile</input>

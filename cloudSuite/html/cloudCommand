@@ -19,7 +19,7 @@ if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php')) {
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cs' . DIRECTORY_SEPARATOR . 'cloudsuite.class.php';
 
 include_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'aws' . DIRECTORY_SEPARATOR . 'sdk-1.5.15' . DIRECTORY_SEPARATOR . 'sdk.class.php';
-$_ENV['cs']['debug'] = TRUE;
+$_ENV['cs']['debug'] = FALSE;
 
 require 'Slim/Slim.php';
 
@@ -148,6 +148,16 @@ $app->get('/server/:uname', function($uname){
 $app->get('/labList/:uname', function($uname) {
             cloudLabList($uname);
         });
+       
+$app->get('/cloudMod/:bucket/:key/:labname', function($bucket,$key,$labname){
+    
+    //echo "<div>bucket == $bucket</div>\n";
+   // echo "<div>key == $key</div>\n";
+   // echo "<div>labname == $labname</div>";
+    
+    Module::loadDataModule($bucket, $key, $labname);
+    
+});
 
 $app->put('/startServer/:uname/:instance_id',function($uname, $instance_id){
             startServer($uname, $instance_id);
@@ -160,6 +170,14 @@ $app->put('/stopServer/:uname/:instance_id',function($uname, $instance_id){
 $app->delete('/lab/:owner/:filename', function($owner, $filename) {
             return Lab::cloudRM($owner, $filename);
         });
+        
+$app->delete('/datamod/:filename/:bucket', function($filename, $bucket){
+   
+    //$bucket = $_ENV['cs']['datawarehouse'];
+    $bucket = strtolower($bucket);
+     return Module::delDataMod($filename, $bucket);
+    
+});
 
 $app->get('/labLister/:uname', function($uname){
     Lab::cloudListLabs($uname);
@@ -398,13 +416,13 @@ function cloudLabList($uname) {
 
         $data = $s3->get_object($bucket, $lab)->body;
         $xml = simplexml_load_string($data);
-        // print_r($xml);
         $owner = $xml->owner;
 
         if ($owner == $uname) {
             $parts = explode(".", $lab);
 
             $desc = "Labname : " . $xml['labName'] . " <br/> ";
+            $desc = $desc . "Owner : " . $owner . " <br/> ";
             $desc = $desc . "Description : " . (String) $xml->description . "<br/>";
             $desc = $desc . "ID : " . $parts[0];
 

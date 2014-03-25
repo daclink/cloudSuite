@@ -23,10 +23,7 @@
  
  date_default_timezone_set('America/Los_Angeles');
  
- $_ENV['cs']['aws']['credntials'] = array(
-                        'key' => 'AKIAI4HYP3G5GQ2CG7MQ',
-                        'secret' => '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'
-                    );
+ $_ENV['cs']['aws']['credntials'] = array();
  //$_ENV['cs']['aws']['region'] = 
  
 ?>
